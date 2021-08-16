@@ -1,0 +1,55 @@
+{
+  "name": "what_should_we_eat",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android:dev": "ENVFILE=.env react-native run-android --appIdSuffix \"debug\"",
+    "android:build": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ && rm -rf ./android/app/src/main/res/drawable-*/ && rm -rf ./android/app/src/main/res/raw/",
+    "android:release": "export ENVFILE=.env.production && cd android && ./gradlew assembleRelease && cd ..",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "react": "17.0.1",
+    "react-native": "0.64.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/runtime": "^7.15.3",
+    "@react-native-community/eslint-config": "^3.0.0",
+    "babel-jest": "^27.0.6",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.24.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "jest": "^27.0.6",
+    "metro-react-native-babel-preset": "^0.66.2",
+    "react-test-renderer": "17.0.1"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": [
+      "airbnb",
+      "prettier"
+    ],
+    "rules": {
+      "react/prefer-stateless-function": 0,
+      "react/jsx-filename-extension": [
+        0
+      ],
+      "react/jsx-one-expression-per-line": 0,
+      "react/prop-types": 0,
+      "import/extensions": "off"
+    },
+    "env": {
+      "browser": true
+    }
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
