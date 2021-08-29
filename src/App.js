@@ -90,9 +90,9 @@ const App: () => Node = () => {
 
   return (
     <>
-      <NavigationContainer>
+      <NavigationContainer theme={{ colors: '#ffffff' }}>
         <SafeAreaView style={styles.statusBar}>
-          <StatusBar backgroundColor="#000000" barStyle="light-content" />
+          <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
         </SafeAreaView>
         {skipSignIn ? (
           <MainFlow />
@@ -106,7 +106,7 @@ const App: () => Node = () => {
 
 const styles = StyleSheet.create({
   statusBar: {
-    backgroundColor: '#000000',
+    backgroundColor: '#ffffff',
   },
 });
 
