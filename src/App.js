@@ -6,25 +6,25 @@
  * @flow strict-local
  */
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import type { Node } from 'react';
 import {
-  SafeAreaView, StatusBar, StyleSheet,
+  StatusBar,
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { screens } from './constants/screens';
-import BottomNavigationBar from './_components/BottomNavigationBar';
+import BottomNavigationBar from './_components/BottomNavigator';
 import { themes } from './constants/theme';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
-const getStackScreens = (flow) => {
-  const flowScreens = Object.values(screens).filter(({ flows }) => flows.includes(flow));
-  return flowScreens.map((screen) => (
+const getStackScreens = () => {
+  const screenList = Object.values(screens);
+  return screenList.map((screen) => (
     <Stack.Screen
       key={screen.name}
       name={screen.name}
@@ -34,7 +34,7 @@ const getStackScreens = (flow) => {
   ));
 };
 
-const BottomTabScreens = () => (
+const BottomNavigation = () => (
   <BottomTab.Navigator
     initialRouteName={screens.HOME.name}
     tabBar={(props) => <BottomNavigationBar {...props} />}
@@ -46,68 +46,37 @@ const BottomTabScreens = () => (
           name={name}
           key={name}
           component={component}
-          options={options}
+          options={{ ...options, headerShown: false }}
         />
       ))}
   </BottomTab.Navigator>
 );
 
-const AuthFlow = () => (
-  <Stack.Navigator
-    initialRouteName={screens.SIGN_IN.name}
-    screenOptions={themes.navScreenOptions}
-  >
-    {getStackScreens('AUTH')}
-  </Stack.Navigator>
-);
-
-const MainFlow = () => (
+const HomeNavigation = () => (
   <Stack.Navigator
     initialRouteName="MAIN_HOME"
     screenOptions={themes.navScreenOptions}
   >
-    {getStackScreens('MAIN')}
+    {getStackScreens()}
     <Stack.Screen
       name="MAIN_HOME"
-      component={BottomTabScreens}
+      component={BottomNavigation}
       options={{ headerShown: false }}
     />
   </Stack.Navigator>
 );
 
-const App: () => Node = () => {
-  const [skipSignIn, setSkipSignIn] = useState(true);
+const App: () => Node = () => (
+  <>
+    <NavigationContainer theme={{ colors: '#ffffff' }}>
+      <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
+      <HomeNavigation />
+    </NavigationContainer>
+  </>
+);
 
-  useEffect(async () => {
-    const isSkipSignIn = await AsyncStorage.getItem('skipSignIn');
-    console.log(`isSkipSignIn : ${isSkipSignIn}`);
-    if (isSkipSignIn === 'skip') {
-      setSkipSignIn(true);
-    } else {
-      setSkipSignIn(false);
-    }
-  }, []);
-
-  return (
-    <>
-      <NavigationContainer theme={{ colors: '#ffffff' }}>
-        <SafeAreaView style={styles.statusBar}>
-          <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
-        </SafeAreaView>
-        {skipSignIn ? (
-          <MainFlow />
-        ) : (
-          <AuthFlow />
-        )}
-      </NavigationContainer>
-    </>
-  );
-};
-
-const styles = StyleSheet.create({
-  statusBar: {
-    backgroundColor: '#ffffff',
-  },
-});
-
-export default App;
+export default () => (
+  <SafeAreaProvider>
+    <App />
+  </SafeAreaProvider>
+);

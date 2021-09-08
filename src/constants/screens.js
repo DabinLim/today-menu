@@ -1,7 +1,10 @@
-import HomeScreen from '../screen/Home/HomeScreen';
-import MyPageScreen from '../screen/Mypage/MyPageScreen';
-import SignInScreen from '../screen/SignIn/SignInScreen';
-import SignUpScreen from '../screen/SignUp/SignUpScreen';
+import HomeScreen from '../screens/Home/HomeScreen';
+import MyPageScreen from '../screens/Mypage/MyPageScreen';
+import SignInScreen from '../screens/SignIn/SignInScreen';
+import SignUpScreen from '../screens/SignUp/SignUpScreen';
+import LocalFoodScreen from '../screens/LocalFood/LocalFoodScreen';
+import RandomFoodScreen from '../screens/RandomFood/RandomFoodScreen';
+import FoodWorldCupScreen from '../screens/FoodWorldCup/FoodWorldCupScreen';
 
 export const screens = {
   SIGN_IN: {
@@ -26,6 +29,24 @@ export const screens = {
     name: 'MyPage',
     component: MyPageScreen,
     options: MyPageScreen.navigationOptions,
+    flows: ['BOTTOM_NAVI'],
+  },
+  LOCAL_FOOD: {
+    name: 'LocalFood',
+    component: LocalFoodScreen,
+    options: LocalFoodScreen.navigationOptions,
+    flows: ['BOTTOM_NAVI'],
+  },
+  RANDOM_FOOD: {
+    name: 'RandomFood',
+    component: RandomFoodScreen,
+    options: RandomFoodScreen.navigationOptions,
+    flows: ['BOTTOM_NAVI'],
+  },
+  FOOD_WORLD_CUP: {
+    name: 'FoodWorldCup',
+    component: FoodWorldCupScreen,
+    options: FoodWorldCupScreen.navigationOptions,
     flows: ['BOTTOM_NAVI'],
   },
 };

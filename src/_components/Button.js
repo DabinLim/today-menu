@@ -65,8 +65,6 @@ const Button = ({
   const textStyleByType = setTextStyleByType(type, disabled);
   const btnDisabled = clickable ? false : disabled;
 
-  console.log(containerStyleByType);
-
   return (
     <TouchableOpacity
       style={[styles.button, containerStyleByType, containerStyle]}

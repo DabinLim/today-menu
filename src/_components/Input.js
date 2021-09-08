@@ -7,10 +7,12 @@ const Input = ({
 }) => (
   <>
     <TextInput
+      lab
       placeholder={placeholder}
       textContentType={textContentType}
       style={[styles.input, inputStyle]}
       onChangeText={onChangeText}
+      secureTextEntry={textContentType === 'password'}
     />
   </>
 );

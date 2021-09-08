@@ -12,6 +12,7 @@ module.exports = {
     'no-use-before-define': ['error', { functions: false, classes: false, variables: false }],
     'react/jsx-props-no-spreading': ['off'],
     'import/prefer-default-export': ['off'],
+    'import/no-cycle': ['off'],
   },
   extends: ['airbnb'],
 };

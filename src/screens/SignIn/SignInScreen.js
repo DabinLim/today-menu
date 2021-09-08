@@ -9,6 +9,8 @@ import { screens } from '../../constants/screens';
 
 // eslint-disable-next-line react/prop-types
 const SignInScreen = ({ navigation: { navigate } }) => {
+  // const isFocused = useIsFocused();
+
   const onHandleSkipSignIn = () => {
 
   };
@@ -22,7 +24,7 @@ const SignInScreen = ({ navigation: { navigate } }) => {
       <Button
         type="gray"
         onSubmit={onHandleSkipSignIn}
-        title="로그인 없이 시작하기"
+        title="로그인 생략하기"
         containerStyle={{ marginTop: 32 }}
       />
       <View style={styles.noAccount}>
