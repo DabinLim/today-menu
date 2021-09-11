@@ -20,7 +20,7 @@ const SignUpScreen = ({ navigation: { navigate } }) => (
       </Text>
       <Button
         type="underline"
-        onSubmit={() => { navigate(screens.SIGN_IN.name); }}
+        onPress={() => { navigate(screens.SIGN_IN.name); }}
         title="로그인"
         containerStyle={{ marginLeft: 8 }}
       />

@@ -59,7 +59,7 @@ const setTextStyleByType = (type, disabled) => {
 };
 
 const Button = ({
-  onSubmit, title, containerStyle, textStyle, type, disabled, clickable,
+  onPress, title, containerStyle, textStyle, type, disabled, clickable,
 }) => {
   const containerStyleByType = setContainerStyleByType(type, disabled);
   const textStyleByType = setTextStyleByType(type, disabled);
@@ -69,7 +69,7 @@ const Button = ({
     <TouchableOpacity
       style={[styles.button, containerStyleByType, containerStyle]}
       disabled={btnDisabled}
-      onPress={onSubmit}
+      onPress={onPress}
     >
       <Text style={[styles.text, textStyleByType, textStyle]}>
         {title}
@@ -86,7 +86,7 @@ Button.defaultProps = {
 };
 
 Button.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  onPress: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   containerStyle: ViewPropTypes.style,
   textStyle: ViewPropTypes.style,

@@ -17,16 +17,16 @@ const Input = ({
   </>
 );
 
+Input.defaultProps = {
+  inputStyle: {},
+  textContentType: 'none',
+};
+
 Input.propTypes = {
   onChangeText: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired,
   textContentType: PropTypes.string,
   inputStyle: ViewPropTypes.style,
-};
-
-Input.defaultProps = {
-  inputStyle: {},
-  textContentType: 'none',
 };
 
 const styles = StyleSheet.create({

@@ -31,7 +31,7 @@ export const myAxios = async (method, url, requestBody, queryParams, headers) =>
   return response;
 };
 
-export const handleImmer = (state, payload) => {
+export const myImmer = (state, payload) => {
   const newState = { ...state };
   if (payload) {
     Object.entries(payload).forEach(([key, value]) => {
@@ -47,5 +47,5 @@ export const handleError = (e) => {
   const status = get(e, 'response.status');
   const errorData = get(e, 'response.data');
 
-  return console.error(`status : ${status}, errorData: ${JSON.stringify(errorData)}`);
+  return console.log(`>>>>>>>>>> ERROR : status : ${status}, errorData: ${JSON.stringify(errorData)}`);
 };

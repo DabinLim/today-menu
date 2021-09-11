@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Input from '../../../_components/Input';
 import Button from '../../../_components/Button';
 import { validateEmail, validateName, validatePwd } from '../../../utils/validate';
-import { requestSignUp } from '../../../recoil/auth/authApis';
+import { Context as AuthContext } from '../../../context/auth/AuthContext';
 
 const SignUpForm = () => {
+  const {
+    signUpAction,
+  } = useContext(AuthContext);
+
   const [email, setEmail] = useState('');
   const [nickname, setNickname] = useState('');
   const [pwd, setPwd] = useState('');
@@ -18,9 +22,12 @@ const SignUpForm = () => {
     } if (!validateName(nickname)) {
       alert('닉네임은 2~8글자의 한글 또는 영문자로 설정해주세요.');
       return;
+    } if (pwd !== pwdCheck) {
+      alert('비밀번호가 일치하지 않습니다.');
     }
-    const { data, error } = await requestSignUp(email, pwd, nickname);
-    console.log(data, error);
+    signUpAction(email, pwd, nickname, (error) => {
+      alert(error);
+    });
   };
 
   return (
@@ -48,7 +55,7 @@ const SignUpForm = () => {
       />
       <Button
         type="dark"
-        onSubmit={onSubmit}
+        onPress={onSubmit}
         title="회원가입"
         containerStyle={{ marginTop: 48 }}
       />

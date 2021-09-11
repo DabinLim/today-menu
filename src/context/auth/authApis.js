@@ -16,7 +16,7 @@ export const requestSignUp = async (email, password, name) => {
 
     const data = get(response, 'data');
     console.log(`data : ${data}`);
-    return { data };
+    return { user: data };
   } catch (e) {
     handleError(e);
     return { error: e };

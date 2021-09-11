@@ -5,19 +5,20 @@ import SignUpScreen from '../screens/SignUp/SignUpScreen';
 import LocalFoodScreen from '../screens/LocalFood/LocalFoodScreen';
 import RandomFoodScreen from '../screens/RandomFood/RandomFoodScreen';
 import FoodWorldCupScreen from '../screens/FoodWorldCup/FoodWorldCupScreen';
+import SortByCravingScreen from '../screens/Home/SortByCravingScreen';
 
 export const screens = {
   SIGN_IN: {
     name: 'SignIn',
     component: SignInScreen,
     options: SignInScreen.navigationOptions,
-    flows: ['AUTH'],
+    flows: ['MAIN'],
   },
   SIGN_UP: {
     name: 'SignUp',
     component: SignUpScreen,
     options: SignUpScreen.navigationOptions,
-    flows: ['AUTH'],
+    flows: ['MAIN'],
   },
   HOME: {
     name: 'Home',
@@ -48,5 +49,11 @@ export const screens = {
     component: FoodWorldCupScreen,
     options: FoodWorldCupScreen.navigationOptions,
     flows: ['BOTTOM_NAVI'],
+  },
+  SORT_BY_CRAVING: {
+    name: 'SortByCraving',
+    component: SortByCravingScreen,
+    options: SortByCravingScreen.navigationOptions,
+    flows: ['MAIN'],
   },
 };

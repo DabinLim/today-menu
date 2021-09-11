@@ -35,7 +35,7 @@ const SignInForm = () => {
       <View style={styles.findUserInfoButton}>
         <Button
           type="text"
-          onSubmit={onHandleFindEmail}
+          onPress={onHandleFindEmail}
           title="아이디 찾기"
         />
         <Text style={{ color: '#839191' }}>
@@ -43,13 +43,13 @@ const SignInForm = () => {
         </Text>
         <Button
           type="text"
-          onSubmit={onHandleFindPassword}
+          onPress={onHandleFindPassword}
           title="비밀번호 찾기"
         />
       </View>
       <Button
         type="dark"
-        onSubmit={onSubmit}
+        onPress={onSubmit}
         title="로그인"
         containerStyle={{ marginTop: 32 }}
       />
