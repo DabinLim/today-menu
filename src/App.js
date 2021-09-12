@@ -18,7 +18,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { screens } from './constants/screens';
 import BottomNavigationBar from './_components/BottomNavigator';
 import { themes } from './constants/theme';
-import { Provider as AuthProvider } from './context/auth/AuthContext';
+import { Provider as AuthProvider } from './context/auth/authContext';
+import { Provider as FoodProvider } from './context/food/foodContext';
+import { Provider as PopUpProvider } from './context/popup/popUpContext';
+import Alert from './_components/Alert';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -72,6 +75,7 @@ const App: () => Node = () => (
     <NavigationContainer theme={themes.navContainer}>
       <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
       <HomeNavigation />
+      <Alert />
     </NavigationContainer>
   </>
 );
@@ -79,7 +83,11 @@ const App: () => Node = () => (
 export default () => (
   <SafeAreaProvider>
     <AuthProvider>
-      <App />
+      <FoodProvider>
+        <PopUpProvider>
+          <App />
+        </PopUpProvider>
+      </FoodProvider>
     </AuthProvider>
   </SafeAreaProvider>
 );

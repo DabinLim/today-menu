@@ -2,18 +2,18 @@ import React from 'react';
 import {
   View, StyleSheet, Text, Image,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import { images } from '../../constants/assets';
 import SignUpForm from './component/SignUpForm';
 import Button from '../../_components/Button';
 import { screens } from '../../constants/screens';
 
-// eslint-disable-next-line react/prop-types
 const SignUpScreen = ({ navigation: { navigate } }) => (
   <View style={styles.container}>
     <View style={styles.imageBox}>
       <Image source={images.LOGO_IMAGE} style={{ width: 200, height: 150 }} />
     </View>
-    <SignUpForm />
+    <SignUpForm navigate={navigate} />
     <View style={styles.noAccount}>
       <Text style={{ fontSize: 13, color: '#839191' }}>
         이미 아이디가 있다면?
@@ -27,6 +27,12 @@ const SignUpScreen = ({ navigation: { navigate } }) => (
     </View>
   </View>
 );
+
+SignUpScreen.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 SignUpScreen.navigationOptions = {
   headerShown: false,
