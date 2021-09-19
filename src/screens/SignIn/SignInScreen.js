@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   View, StyleSheet, Image, Text, SafeAreaView,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import SignInForm from './component/SignInForm';
 import { images } from '../../constants/assets';
-import Button from '../../_components/Button';
+import Button from '../../components/Button';
 import { screens } from '../../constants/screens';
+import { Context as AuthContext } from '../../context/auth/authContext';
 
 const SignInScreen = ({ navigation: { navigate } }) => {
-  const onHandleSkipSignIn = () => {
-    navigate(screens.HOME.name);
+  const {
+    setSkipSignIn,
+  } = useContext(AuthContext);
+  const onHandleSkipSignIn = async () => {
+    await AsyncStorage.setItem('skipSignIn', 'skip');
+    setSkipSignIn();
   };
 
   return (

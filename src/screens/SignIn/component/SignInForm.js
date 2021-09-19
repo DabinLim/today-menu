@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Input from '../../../_components/Input';
-import Button from '../../../_components/Button';
+import Input from '../../../components/Input';
+import Button from '../../../components/Button';
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');

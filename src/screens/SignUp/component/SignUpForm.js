@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
-import Input from '../../../_components/Input';
-import Button from '../../../_components/Button';
+import Input from '../../../components/Input';
+import Button from '../../../components/Button';
 import { validateEmail, validateName, validatePwd } from '../../../utils/validate';
 import { Context as AuthContext } from '../../../context/auth/authContext';
 import { Context as PopUpContext } from '../../../context/popup/popUpContext';

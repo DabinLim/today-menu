@@ -3,7 +3,7 @@ import {
   Image,
   SafeAreaView, StyleSheet, Text, View,
 } from 'react-native';
-import Button from '../../_components/Button';
+import Button from '../../components/Button';
 import { Context as FoodContext } from '../../context/food/foodContext';
 import { images } from '../../constants/assets';
 

@@ -1,6 +1,26 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import createDataContext from '../../utils/createDataContext';
 import authReducer from './authReducer';
 import { requestSignUp } from './authApis';
+
+const setSkipSignIn = (dispatch) => async () => {
+  const skipSignIn = await AsyncStorage.getItem('skipSignIn');
+  if (skipSignIn) {
+    dispatch({
+      type: 'skip_sign_in',
+      payload: {
+        skipSignIn: true,
+      },
+    });
+  } else {
+    dispatch({
+      type: 'skip_sign_in',
+      payload: {
+        skipSignIn: false,
+      },
+    });
+  }
+};
 
 const signUpAction = (dispatch) => async (email, password, name, callback) => {
   dispatch({
@@ -41,9 +61,11 @@ const signInAction = (dispatch) => (email, password) => {
 export const { Context, Provider } = createDataContext(
   authReducer,
   {
+    setSkipSignIn,
     signUpAction,
     signInAction,
   }, {
     user: {},
+    skipSignIn: false,
   },
 );

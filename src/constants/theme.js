@@ -1,13 +1,16 @@
 import React from 'react';
 import { Image, Platform, View } from 'react-native';
 import { DefaultTheme } from '@react-navigation/native';
+import { CardStyleInterpolators } from '@react-navigation/stack';
 import { images } from './assets';
 
 export const themes = {
   navContainer: {
     ...DefaultTheme,
     dark: false,
-    colors: '#ffffff',
+    colors: {
+      background: '#ffffff',
+    },
   },
   navScreenOptions: {
     headerStyle: {
@@ -33,5 +36,8 @@ export const themes = {
         />
       </View>
     ),
+    gestureEnabled: true,
+    gestureDirection: 'horizontal',
+    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
   },
 };

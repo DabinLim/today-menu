@@ -5,7 +5,7 @@ import {
 import PropTypes from 'prop-types';
 import { screens } from '../../constants/screens';
 import { images } from '../../constants/assets';
-import Button from '../../_components/Button';
+import Button from '../../components/Button';
 
 const HomeScreen = ({ navigation: { navigate } }) => {
   const goToQuestion = () => {

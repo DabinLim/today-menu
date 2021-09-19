@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import {
   SafeAreaView, StyleSheet, View,
 } from 'react-native';
-import Button from '../../_components/Button';
+import Button from '../../components/Button';
 import { Context as FoodContext } from '../../context/food/foodContext';
 import { images } from '../../constants/assets';
 import SelectedFoodView from './component/SelectedFoodView';

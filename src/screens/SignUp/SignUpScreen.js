@@ -5,7 +5,7 @@ import {
 import PropTypes from 'prop-types';
 import { images } from '../../constants/assets';
 import SignUpForm from './component/SignUpForm';
-import Button from '../../_components/Button';
+import Button from '../../components/Button';
 import { screens } from '../../constants/screens';
 
 const SignUpScreen = ({ navigation: { navigate } }) => (

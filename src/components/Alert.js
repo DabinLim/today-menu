@@ -9,18 +9,15 @@ const Alert = () => {
     state: {
       alertVisible,
       alertMessage,
-      alertBackPress,
       onConfirm,
       onCancel,
     },
-    dismissAlert,
   } = useContext(PopUpContext);
-  console.log(`alertBackPress: ${alertBackPress}`);
   return (
     <Modal
       isVisible={alertVisible}
       backdropOpacity={0.3}
-      onBackdropPress={!alertBackPress ? dismissAlert : alertBackPress}
+      onBackdropPress={() => {}}
     >
       <View style={styles.container}>
         <View style={styles.textContainer}>

@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, SafeAreaView,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { screens } from '../../constants/screens';
+import { Context as AuthContext } from '../../context/auth/authContext';
 
 const MyPageScreen = ({ navigation: { navigate } }) => {
-  const goToSignIn = () => {
-    navigate(screens.SIGN_IN.name);
+  const {
+    setSkipSignIn,
+  } = useContext(AuthContext);
+  const goToSignIn = async () => {
+    await AsyncStorage.removeItem('skipSignIn');
+    setSkipSignIn();
   };
 
   return (
