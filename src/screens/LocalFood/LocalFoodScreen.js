@@ -1,5 +1,6 @@
 import React from 'react';
 import { SafeAreaView, Text } from 'react-native';
+import MapView from './component/MapView';
 
 const LocalFoodScreen = () => {
   let temp;
@@ -9,6 +10,7 @@ const LocalFoodScreen = () => {
       <Text>
         여기는 지역맛집화면 입니다.
       </Text>
+      <MapView />
     </SafeAreaView>
   );
 };

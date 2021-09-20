@@ -64,12 +64,12 @@ const AfterStartView = ({ setIsSelectedDone, startWorldCup, setSelectedItem }) =
     }
     // 방금 선택지가 마지막 선택지였고 다음 토너먼트도 없다면 최종 선택
     if (worldCupFoodList.length === 2 && nextList.length < 2) {
-      setIsSelectedDone(true);
       if (selected === 'top') {
         setSelectedItem(worldCupFoodList[0]);
       } else {
         setSelectedItem(worldCupFoodList[1]);
       }
+      setIsSelectedDone(true);
     }
   };
 
