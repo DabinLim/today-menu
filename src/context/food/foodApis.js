@@ -1,17 +1,14 @@
 import { get } from 'lodash';
 import { myAxios, handleError } from '../utils';
-import { randomFoodData } from "../mockData";
 
 export const requestRandomFoodList = async () => {
   try {
-    // const response = await myAxios(
-    //   'GET',
-    //   '',
-    // );
+    const response = await myAxios(
+      'GET',
+      '/api/food',
+    );
 
-    // const data = get(response, 'data');
-
-    const data = randomFoodData;
+    const data = get(response, 'data');
 
     return { randomFoodList: data };
   } catch (e) {

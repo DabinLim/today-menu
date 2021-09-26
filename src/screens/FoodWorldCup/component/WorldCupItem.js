@@ -9,7 +9,7 @@ const WorldCupItem = ({ item }) => (
     {item && (
       <>
         <Image
-          source={{ uri: item.image }}
+          source={{ uri: item.imageUrl }}
           style={{ width: 200, height: 150 }}
         />
         <Text style={{ fontSize: 24, marginVertical: 20 }}>

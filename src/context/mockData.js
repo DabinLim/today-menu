@@ -2,7 +2,7 @@ export const randomFoodData = [
   {
     id: 1,
     name: '치킨',
-    image: 'https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2174430_20210203113535665.png',
+    image: 'https://eatwhatoodimage.s3.ap-northeast-2.amazonaws.com/beennoodle.jpg',
   },
   {
     id: 2,
@@ -12,12 +12,12 @@ export const randomFoodData = [
   {
     id: 3,
     name: '뼈해장국',
-    image: 'https://lh3.googleusercontent.com/proxy/F6waQaP7JGi44tu0jvqLPKcvGJUmNJWwxW4IuZrqQQeLAWW1dvyOGmGSdVhjJQBZywDvbGI7MqvLAYCdmXhSBWNSueIpG_BE2iomp6zFmkwlPL_49hqZICFwYL_8lCFPgVqPm7npH9TJ5l3wCtdrxwbhNvIGloDBFinonnRpHdYoeJ_0ouH99A',
+    image: 'https://eatwhatoodimage.s3.ap-northeast-2.amazonaws.com/beennoodle.jpg',
   },
   {
     id: 4,
     name: '마라탕',
-    image: 'https://lh3.googleusercontent.com/proxy/-2YY24srkfgq3v1-cWpW8xoAdnUL7mYHrzQbZDBbgv7TPyqOH2DE7pYbWD6tWoDcmW9bcuUOWTVCoCQUVk0dlXEMGDKl6O6mpyj2fYkiLefWtF6PGLI4TA0GHTQkRyXYFiUysjvQzr0',
+    image: 'https://eatwhatoodimage.s3.ap-northeast-2.amazonaws.com/beennoodle.jpg',
   },
   {
     id: 5,

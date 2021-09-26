@@ -11,7 +11,7 @@ const RandomFoodScreen = () => {
   const [randomFood, setRandomFood] = useState({
     id: null,
     name: '',
-    image: images.LOGO_IMAGE,
+    imageUrl: images.LOGO_IMAGE,
   });
   const isSelected = randomFood.id;
 
@@ -30,7 +30,6 @@ const RandomFoodScreen = () => {
     const randomNumber = pickRandomFood(0, randomFoodList?.length - 1);
     const selectedRandomFood = randomFoodList[randomNumber];
     setRandomFood(selectedRandomFood);
-    getRandomFoodList();
   };
 
   const goToFindRestaurant = () => {

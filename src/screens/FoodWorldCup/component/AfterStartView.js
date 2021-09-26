@@ -31,6 +31,11 @@ const AfterStartView = ({ setIsSelectedDone, startWorldCup, setSelectedItem }) =
   // worldCupFoodList 초기화 및 불변성 관리
   useEffect(() => {
     const list = [...randomFoodList];
+    if (list.length > 32) {
+      while (list.length > 32) {
+        list.splice(0, 1);
+      }
+    }
     setWorldCupFoodList(list);
   }, [startWorldCup, randomFoodList]);
 
@@ -40,6 +45,8 @@ const AfterStartView = ({ setIsSelectedDone, startWorldCup, setSelectedItem }) =
       setBottomItem(worldCupFoodList[worldCupFoodList.length - 1]);
     }
   }, [worldCupFoodList]);
+
+  console.log(JSON.stringify(worldCupFoodList));
 
   const selectItem = (selected) => {
     if (selected === 'top') {
@@ -75,7 +82,7 @@ const AfterStartView = ({ setIsSelectedDone, startWorldCup, setSelectedItem }) =
 
   return (
     <ScrollView contentContainerStyle={styles.container} style={{ width: '100%' }}>
-      <Text style={{fontSize: 16}}>
+      <Text style={{ fontSize: 16 }}>
         {grade === 2
           ? '결승전 !!'
           : `${(nextList.length + 1) * 2} / ${grade}강`}

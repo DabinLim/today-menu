@@ -5,8 +5,7 @@ import {
 import { get } from 'lodash';
 
 const SelectedFoodView = ({ randomFood, isSelected }) => {
-  const image = get(randomFood, 'image');
-  console.log(`image: ${image}`);
+  const image = get(randomFood, 'imageUrl');
   const name = get(randomFood, 'name');
   return (
     <View style={styles.container}>
