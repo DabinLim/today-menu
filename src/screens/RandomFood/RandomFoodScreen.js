@@ -13,7 +13,7 @@ const RandomFoodScreen = () => {
     name: '',
     imageUrl: images.LOGO_IMAGE,
   });
-  const isSelected = randomFood.id;
+  const isSelected = randomFood?.id;
 
   const {
     state: {

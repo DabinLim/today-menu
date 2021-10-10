@@ -7,9 +7,6 @@ const LocalFoodScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Text>
-        여기는 지역맛집화면 입니다.
-      </Text>
       <MapView />
     </SafeAreaView>
   );

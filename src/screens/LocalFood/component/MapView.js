@@ -4,23 +4,18 @@ import {
   FlatList, StyleSheet, Text, View,
 } from 'react-native';
 import { get } from 'lodash';
+import { fetchCurrentLocation } from '../../../utils/location';
 
 const MapView = () => {
   const [placeData, setPlaceData] = useState([]);
-  const [location, setLocation] = useState({
-    latitude: 37.27869377902859,
-    longitude: 127.05759316285203,
-  });
-
-  const latitude = get(location, 'latitude');
-  const longitude = get(location, 'longitude');
   let webviewRef = useRef();
 
   const handleSetRef = (ref) => {
     webviewRef = ref;
   };
 
-  const handleEndLoading = () => {
+  const handleEndLoading = async () => {
+    const { latitude, longitude } = await fetchCurrentLocation();
     webviewRef.postMessage(JSON.stringify({
       type: 'Location',
       // 영통구

@@ -5,7 +5,7 @@ export const requestRandomFoodList = async () => {
   try {
     const response = await myAxios(
       'GET',
-      '/api/food',
+      '/api/foods',
     );
 
     const data = get(response, 'data');
