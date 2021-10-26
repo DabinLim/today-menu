@@ -13,6 +13,7 @@ module.exports = {
     'react/jsx-props-no-spreading': ['off'],
     'import/prefer-default-export': ['off'],
     'import/no-cycle': ['off'],
+    'react/prop-types': ['off'],
     camelcase: ['off'],
   },
   extends: ['airbnb'],

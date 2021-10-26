@@ -7,6 +7,11 @@ export default (state, action) => {
         randomFoodList: action.payload.randomFoodList,
         randomFoodLoading: action.payload.loading,
       });
+    case 'fetch_food_world_cup_list':
+      return myImmer(state, {
+        foodWorldCupList: action.payload.foodWorldCupList,
+        foodWorldCupListLoading: action.payload.loading,
+      });
     default:
       return state;
   }

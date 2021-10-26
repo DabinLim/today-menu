@@ -5,38 +5,50 @@ import {
 import { useFocusEffect } from '@react-navigation/native';
 import BeforeStartView from './component/BeforeStartView';
 import AfterStartView from './component/AfterStartView';
+import WinnerFoodView from './component/WinnerFoodView';
 
-const FoodWorldCupScreen = () => {
+const FoodWorldCupScreen = ({ navigation: { navigate } }) => {
   const [startWorldCup, setStartWorldCup] = useState(false);
   const [isSelectedDone, setIsSelectedDone] = useState(false);
   const [selectedItem, setSelectedItem] = useState();
+  const [grade, setGrade] = useState(32);
 
   // 화면 이동 시 월드컵 다시 시작
   useFocusEffect(
     useCallback(() => () => {
-      setStartWorldCup(false);
-      setIsSelectedDone(false);
-      setSelectedItem();
+      resetWorldCup();
     }, []),
   );
+
+  const resetWorldCup = () => {
+    setStartWorldCup(false);
+    setIsSelectedDone(false);
+    setSelectedItem();
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
         {/* eslint-disable-next-line no-nested-ternary */}
         {isSelectedDone ? (
-          <Text>
-            {selectedItem?.name}
-          </Text>
+          <WinnerFoodView
+            food={selectedItem}
+            navigate={navigate}
+            resetWorldCup={resetWorldCup}
+          />
         ) : (
           startWorldCup ? (
             <AfterStartView
               startWorldCup={startWorldCup}
               setIsSelectedDone={setIsSelectedDone}
               setSelectedItem={setSelectedItem}
+              defaultGrade={grade}
             />
           ) : (
-            <BeforeStartView setStartWorldCup={setStartWorldCup} />
+            <BeforeStartView
+              setStartWorldCup={setStartWorldCup}
+              setGrade={setGrade}
+            />
           )
         )}
       </View>

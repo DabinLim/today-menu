@@ -6,8 +6,9 @@ import Button from '../../components/Button';
 import { Context as FoodContext } from '../../context/food/foodContext';
 import { images } from '../../constants/assets';
 import SelectedFoodView from './component/SelectedFoodView';
+import { screens } from '../../constants/screens';
 
-const RandomFoodScreen = () => {
+const RandomFoodScreen = ({ navigation: { navigate } }) => {
   const [randomFood, setRandomFood] = useState({
     id: null,
     name: '',
@@ -33,7 +34,7 @@ const RandomFoodScreen = () => {
   };
 
   const goToFindRestaurant = () => {
-    alert('준비중입니다.');
+    navigate(screens.FOOD_MAP_SCREEN.name, { keyword: randomFood.name });
   };
 
   const pickRandomFood = (min, max) => Math.round(Math.random() * (max - min) + min);

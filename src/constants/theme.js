@@ -16,6 +16,8 @@ export const themes = {
     headerStyle: {
       borderBottomWidth: 1,
       borderBottomColor: '#EFEFEF',
+      elevation: 0, // remove shadow on Android
+      shadowOpacity: 0, // remove shadow on iOS
     },
     headerTitleStyle: {
       fontSize: 16,

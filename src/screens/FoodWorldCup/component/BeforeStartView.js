@@ -1,17 +1,32 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
+import DropDownPicker from 'react-native-dropdown-picker';
 import { Context as FoodContext } from '../../../context/food/foodContext';
 import { images } from '../../../constants/assets';
 import Button from '../../../components/Button';
 
-const BeforeStartView = ({ setStartWorldCup }) => {
+const BeforeStartView = ({ setStartWorldCup, setGrade }) => {
   const {
-    getRandomFoodList,
+    getWorldCupFoodList,
   } = useContext(FoodContext);
 
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(0);
+  const [items, setItems] = useState([
+    { label: '라운드를 선택하세요.', value: 0 },
+    { label: '8강', value: 8 },
+    { label: '16강', value: 16 },
+    { label: '32강', value: 32 },
+    { label: '64강', value: 64 },
+  ]);
+
   const startFoodWorldCup = () => {
-    getRandomFoodList();
+    if (value === 0) {
+      alert('라운드를 선택하세요');
+      return;
+    }
+    getWorldCupFoodList(value);
     setStartWorldCup(true);
   };
   return (
@@ -23,6 +38,17 @@ const BeforeStartView = ({ setStartWorldCup }) => {
           style={{ width: 300, height: 200 }}
         />
       </View>
+      <DropDownPicker
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        setValue={setValue}
+        setItems={setItems}
+        onChangeValue={() => {
+          setGrade(value);
+        }}
+      />
       <Button
         onPress={startFoodWorldCup}
         title="음식 월드컵 시작하기"

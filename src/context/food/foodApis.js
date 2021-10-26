@@ -16,3 +16,19 @@ export const requestRandomFoodList = async () => {
     return { error: e };
   }
 };
+
+export const requestWorldCupFoodList = async (round) => {
+  try {
+    const response = await myAxios(
+      'GET',
+      `/api/foods/world-cup/${round}`,
+    );
+
+    const data = get(response, 'data');
+
+    return { foodWorldCupList: data };
+  } catch (e) {
+    handleError(e);
+    return { error: e };
+  }
+};

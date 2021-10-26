@@ -11,17 +11,18 @@ import { Context as FoodContext } from '../../../context/food/foodContext';
 import WorldCupItem from './WorldCupItem';
 import Button from '../../../components/Button';
 
-const AfterStartView = ({ setIsSelectedDone, startWorldCup, setSelectedItem }) => {
+const AfterStartView = ({ setIsSelectedDone, startWorldCup, setSelectedItem, defaultGrade }) => {
   const {
     state: {
-      randomFoodList,
+      foodWorldCupList,
     },
   } = useContext(FoodContext);
   const [worldCupFoodList, setWorldCupFoodList] = useState([]);
   const [topItem, setTopItem] = useState();
   const [bottomItem, setBottomItem] = useState();
   const [nextList, setNextList] = useState([]);
-  const [grade, setGrade] = useState(32);
+  const [grade, setGrade] = useState(defaultGrade);
+  console.log(defaultGrade);
 
   // nextList 초기화
   useFocusEffect(useCallback(() => {
@@ -30,14 +31,14 @@ const AfterStartView = ({ setIsSelectedDone, startWorldCup, setSelectedItem }) =
 
   // worldCupFoodList 초기화 및 불변성 관리
   useEffect(() => {
-    const list = [...randomFoodList];
-    if (list.length > 32) {
-      while (list.length > 32) {
+    const list = [...foodWorldCupList];
+    if (list.length > grade) {
+      while (list.length > grade) {
         list.splice(0, 1);
       }
     }
     setWorldCupFoodList(list);
-  }, [startWorldCup, randomFoodList]);
+  }, [startWorldCup, foodWorldCupList]);
 
   useEffect(() => {
     if (worldCupFoodList.length > 1) {
@@ -45,8 +46,6 @@ const AfterStartView = ({ setIsSelectedDone, startWorldCup, setSelectedItem }) =
       setBottomItem(worldCupFoodList[worldCupFoodList.length - 1]);
     }
   }, [worldCupFoodList]);
-
-  console.log(JSON.stringify(worldCupFoodList));
 
   const selectItem = (selected) => {
     if (selected === 'top') {

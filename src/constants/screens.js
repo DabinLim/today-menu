@@ -6,6 +6,7 @@ import LocalFoodScreen from '../screens/LocalFood/LocalFoodScreen';
 import RandomFoodScreen from '../screens/RandomFood/RandomFoodScreen';
 import FoodWorldCupScreen from '../screens/FoodWorldCup/FoodWorldCupScreen';
 import SortByCravingScreen from '../screens/Home/SortByCravingScreen';
+import FoodMapScreen from '../screens/RandomFood/component/FoodMapScreen';
 
 export const screens = {
   SIGN_IN: {
@@ -54,6 +55,12 @@ export const screens = {
     name: 'SortByCraving',
     component: SortByCravingScreen,
     options: SortByCravingScreen.navigationOptions,
+    flow: ['MAIN'],
+  },
+  FOOD_MAP_SCREEN: {
+    name: 'FoodMap',
+    component: FoodMapScreen,
+    options: FoodMapScreen.navigationOptions,
     flow: ['MAIN'],
   },
 };
