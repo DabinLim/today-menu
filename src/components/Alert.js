@@ -18,6 +18,8 @@ const Alert = () => {
       isVisible={alertVisible}
       backdropOpacity={0.3}
       onBackdropPress={() => {}}
+      animationInTiming={0.1}
+      animationOutTiming={0.1}
     >
       <View style={styles.container}>
         <View style={styles.textContainer}>

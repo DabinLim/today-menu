@@ -1,6 +1,6 @@
 import createDataContext from '../../utils/createDataContext';
 import foodReducer from './foodReducer';
-import { requestRandomFoodList, requestWorldCupFoodList } from "./foodApis";
+import { requestRandomFoodList, requestWorldCupFoodList } from './foodApis';
 
 const getRandomFoodList = (dispatch) => async (callback) => {
   dispatch({

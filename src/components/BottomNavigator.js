@@ -1,15 +1,64 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
-  View, StyleSheet, TouchableOpacity, SafeAreaView, Image,
+  View, StyleSheet, TouchableOpacity, SafeAreaView, Image, Text,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { screens } from '../constants/screens';
 import { images } from '../constants/assets';
+import { Context as AuthContext } from '../context/auth/authContext';
+import { Context as PopUpContext } from '../context/popup/popUpContext';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const BottomNavigator = ({ navigation: { navigate } }) => {
+  const {
+    setSkipSignIn,
+    state: {
+      skipSignIn,
+    },
+  } = useContext(AuthContext);
+  const {
+    showAlert,
+    dismissAlert,
+  } = useContext(PopUpContext);
   const [selectedMenu, setSelectedMenu] = useState('Home');
+  console.log(skipSignIn);
+
+  const handleNavigate = (screen) => {
+    switch (screen) {
+      case 'Home':
+        navigate(screens.HOME.name);
+        break;
+      case 'LocalFood':
+        navigate(screens.LOCAL_FOOD.name);
+        break;
+      case 'RandomFood':
+        navigate(screens.RANDOM_FOOD.name);
+        break;
+      case 'FoodWorldCup':
+        navigate(screens.FOOD_WORLD_CUP.name);
+        break;
+      case 'MyPage':
+        if (skipSignIn) {
+          showAlert({
+            message: '로그인이 필요합니다.',
+            onConfirm: async () => {
+              await AsyncStorage.removeItem('skipSignIn');
+              setSkipSignIn(false);
+              dismissAlert();
+            },
+            onCancel: dismissAlert,
+          });
+        } else {
+          navigate(screens.MY_PAGE.name);
+        }
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <SafeAreaView>
@@ -17,7 +66,7 @@ const BottomNavigator = ({ navigation: { navigate } }) => {
         <TouchableOpacity
           style={styles.bottomNavi}
           onPress={() => {
-            navigate(screens.HOME.name);
+            handleNavigate('Home');
             setSelectedMenu('Home');
           }}
         >
@@ -26,11 +75,12 @@ const BottomNavigator = ({ navigation: { navigate } }) => {
           ) : (
             <Ionicons name="restaurant-outline" size={30} />
           )}
+          <Text style={styles.naviText}>선택장애</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.bottomNavi}
           onPress={() => {
-            navigate(screens.LOCAL_FOOD.name);
+            handleNavigate('LocalFood');
             setSelectedMenu('LocalFood');
           }}
         >
@@ -39,24 +89,26 @@ const BottomNavigator = ({ navigation: { navigate } }) => {
           ) : (
             <Ionicons name="location-outline" size={30} />
           )}
+          <Text style={styles.naviText}>지역맛집</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.bottomNavi}
           onPress={() => {
-            navigate(screens.RANDOM_FOOD.name);
+            handleNavigate('RandomFood');
             setSelectedMenu('RandomFood');
           }}
         >
           {selectedMenu === 'RandomFood' ? (
-            <AntDesign name="questioncircle" size={26} />
+            <MaterialCommunityIcons name="slot-machine" size={30} />
           ) : (
-            <AntDesign name="questioncircleo" size={26} />
+            <MaterialCommunityIcons name="slot-machine-outline" size={30} />
           )}
+          <Text style={styles.naviText}>랜덤뽑기</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.bottomNavi}
           onPress={() => {
-            navigate(screens.FOOD_WORLD_CUP.name);
+            handleNavigate('FoodWorldCup');
             setSelectedMenu('FoodWorldCup');
           }}
         >
@@ -65,11 +117,12 @@ const BottomNavigator = ({ navigation: { navigate } }) => {
           ) : (
             <Image source={images.WORLD_CUP_OUTLINED} style={{ width: 30, height: 30 }} />
           )}
+          <Text style={styles.naviText}>월드컵</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.bottomNavi}
           onPress={() => {
-            navigate(screens.MY_PAGE.name);
+            handleNavigate('MyPage');
             setSelectedMenu('MyPage');
           }}
         >
@@ -78,6 +131,7 @@ const BottomNavigator = ({ navigation: { navigate } }) => {
           ) : (
             <Ionicons name="person-outline" size={30} />
           )}
+          <Text style={styles.naviText}>내정보</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -97,15 +151,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 56,
     borderTopWidth: 1,
-    borderTopColor: '#000000',
+    borderTopColor: '#d2d2d2',
     paddingHorizontal: 20,
   },
   bottomNavi: {
-    width: 30,
-    height: 30,
+    width: 40,
+    height: 40,
     borderColor: '#000000',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  naviText: {
+    fontSize: 10,
+    marginTop: 4,
+    color: '#839191',
   },
 });
 
