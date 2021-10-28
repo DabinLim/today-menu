@@ -23,6 +23,7 @@ export default {
         });
       }
     } catch (e) {
+      // todo 에러핸들링
       console.error(e);
     }
   },
@@ -87,6 +88,24 @@ export default {
     } catch (e) {
       const error = handleError(e);
       callback(null, error);
+    }
+  },
+  checkSession: (dispatch) => async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if (token) {
+        // todo 세션 체크 api 연동
+        dispatch({
+          type: 'sign_in',
+          payload: {
+            user: true,
+            token,
+          },
+        });
+      }
+    } catch (e) {
+      // todo 에러핸들링
+      console.error(e);
     }
   },
 };
