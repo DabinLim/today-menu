@@ -1,24 +1,29 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
+import { Context as AuthContext } from '../../../context/auth/authContext';
+import { Context as PopUpContext } from '../../../context/popup/popUpContext';
 
 const SignInForm = () => {
+  const {
+    signInAction,
+  } = useContext(AuthContext);
+  const { showAlert, dismissAlert } = useContext(PopUpContext);
+
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
 
-  console.log(email, pwd);
-
   const onSubmit = () => {
+    signInAction(email, pwd, (user, error) => {
+      if (error) {
+        showAlert({
+          message: error.message,
+          onConfirm: dismissAlert,
+        });
+      }
 
-  };
-
-  const onHandleFindEmail = () => {
-
-  };
-
-  const onHandleFindPassword = () => {
-
+    });
   };
 
   return (
@@ -32,21 +37,6 @@ const SignInForm = () => {
         placeholder="Password"
         textContentType="password"
       />
-      <View style={styles.findUserInfoButton}>
-        <Button
-          type="text"
-          onPress={onHandleFindEmail}
-          title="아이디 찾기"
-        />
-        <Text style={{ color: '#839191' }}>
-          {'  |  '}
-        </Text>
-        <Button
-          type="text"
-          onPress={onHandleFindPassword}
-          title="비밀번호 찾기"
-        />
-      </View>
       <Button
         type="dark"
         onPress={onSubmit}
@@ -60,11 +50,6 @@ const SignInForm = () => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 50,
-  },
-  findUserInfoButton: {
-    marginTop: 14,
-    flexDirection: 'row',
-    alignItems: 'center',
   },
 });
 

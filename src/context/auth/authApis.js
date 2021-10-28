@@ -1,37 +1,32 @@
 import { get } from 'lodash';
-import { myAxios, handleError } from '../utils';
+import { myAxios } from '../utils';
 
 export const requestSignUp = async (email, password, name) => {
-  try {
-    const response = await myAxios(
-      'POST',
-      '/api/member/signup',
-      {
-        email,
-        password,
-        name,
-        memberRole: 'USER',
-      },
-    );
+  const response = await myAxios(
+    'POST',
+    '/api/member/signup',
+    {
+      email,
+      password,
+      name,
+      memberRole: 'USER',
+    },
+  );
 
-    const data = get(response, 'data');
-    console.log(`data : ${data}`);
-    return { user: data };
-  } catch (e) {
-    handleError(e);
-    return { error: e };
-  }
+  const data = get(response, 'data');
+  console.log(`data : ${data}`);
+  return { user: data };
 };
 
-export const requestMembers = async () => {
-  try {
-    const response = await myAxios(
-      'GET',
-      '/api/member',
-    );
-    return response;
-  } catch (e) {
-    console.error(e);
-    return e;
-  }
+export const requestSignIn = async (email, password) => {
+  const response = await myAxios(
+    'POST',
+    '/api/member/login',
+    {
+      email,
+      password,
+    },
+  );
+  const data = get(response, 'data');
+  return { user: data };
 };

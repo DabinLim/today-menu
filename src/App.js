@@ -22,7 +22,10 @@ import { AuthNavigation, MainNavigation } from './components/StackNavigation';
 
 const App: () => Node = () => {
   const {
-    state: { skipSignIn },
+    state: {
+      skipSignIn,
+      user,
+    },
     setSkipSignIn,
   } = useContext(AuthContext);
 
@@ -33,7 +36,7 @@ const App: () => Node = () => {
   return (
     <NavigationContainer theme={themes.navContainer}>
       <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
-      {skipSignIn ? (
+      {skipSignIn || user ? (
         <MainNavigation />
       ) : (
         <AuthNavigation />

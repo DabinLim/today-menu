@@ -18,7 +18,10 @@ const SignUpForm = ({ navigate }) => {
   const [nickname, setNickname] = useState();
   const [pwd, setPwd] = useState();
   const [pwdCheck, setPwdCheck] = useState();
-  const validate = !validateEmail(email) || !validateName(nickname) || !validatePwd(pwd) || pwd !== pwdCheck;
+  const validate = !validateEmail(email)
+    || !validateName(nickname)
+    || !validatePwd(pwd)
+    || pwd !== pwdCheck;
 
   const onSubmit = async () => {
     signUpAction(email, pwd, nickname, (user, error) => {
@@ -34,11 +37,6 @@ const SignUpForm = ({ navigate }) => {
             navigate(screens.SIGN_IN.name);
             dismissAlert();
           },
-          backPress: () => {
-            navigate(screens.SIGN_IN.name);
-            dismissAlert();
-          },
-          onCancel: dismissAlert,
         });
       }
     });

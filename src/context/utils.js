@@ -45,7 +45,12 @@ export const myImmer = (state, payload) => {
 
 export const handleError = (e) => {
   const status = get(e, 'response.status');
-  const errorData = get(e, 'response.data');
+  const rows = get(e, 'response.data.rows');
+  const errorMessage = rows?.length > 0 ? rows[0].msg : e.message;
 
-  return console.log(`>>>>>>>>>> ERROR : status : ${status}, errorData: ${JSON.stringify(errorData)}`);
+  return {
+    message: errorMessage,
+    data: e,
+    status,
+  };
 };

@@ -19,6 +19,10 @@ const SignInScreen = ({ navigation: { navigate } }) => {
     setSkipSignIn();
   };
 
+  const onHandleFindPassword = () => {
+
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -40,6 +44,17 @@ const SignInScreen = ({ navigation: { navigate } }) => {
             type="underline"
             onPress={() => { navigate(screens.SIGN_UP.name); }}
             title="회원가입"
+            containerStyle={{ marginLeft: 8 }}
+          />
+        </View>
+        <View style={styles.findPassword}>
+          <Text style={{ fontSize: 13, color: '#839191' }}>
+            또는
+          </Text>
+          <Button
+            type="underline"
+            onPress={onHandleFindPassword}
+            title="비밀번호 찾기"
             containerStyle={{ marginLeft: 8 }}
           />
         </View>
@@ -70,6 +85,12 @@ const styles = StyleSheet.create({
   },
   noAccount: {
     marginTop: 24,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  findPassword: {
+    marginTop: 8,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
