@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
@@ -18,34 +18,9 @@ const SignUpForm = ({ navigate }) => {
   const [nickname, setNickname] = useState();
   const [pwd, setPwd] = useState();
   const [pwdCheck, setPwdCheck] = useState();
+  const validate = !validateEmail(email) || !validateName(nickname) || !validatePwd(pwd) || pwd !== pwdCheck;
 
   const onSubmit = async () => {
-    if (!email || !nickname || !pwd || !pwdCheck) {
-      showAlert({
-        message: '공란이 있습니다. 빈칸을 채워주세요.',
-        onConfirm: dismissAlert,
-      });
-      return;
-    }
-    if (!validateEmail(email) || !validatePwd(pwd)) {
-      showAlert({
-        message: '이메일 또는 비밀번호 형식이 올바르지 않습니다.',
-        onConfirm: dismissAlert,
-      });
-      return;
-    } if (!validateName(nickname)) {
-      showAlert({
-        message: '닉네임은 2~8글자의 한글 또는 영문자로 설정해주세요.',
-        onConfirm: dismissAlert,
-      });
-      return;
-    } if (pwd !== pwdCheck) {
-      showAlert({
-        message: '비밀번호가 일치하지 않습니다.',
-        onConfirm: dismissAlert,
-      });
-      return;
-    }
     signUpAction(email, pwd, nickname, (user, error) => {
       if (error) {
         showAlert({
@@ -74,29 +49,44 @@ const SignUpForm = ({ navigate }) => {
       <Input
         onChangeText={(e) => { setEmail(e); }}
         placeholder="Email"
+        keyboardType="email-address"
       />
+      {/* todo 비밀번호 찾기에 사용되므로 정확한 이메일을 입력해주세요. 이메일은 분실시 찾을 수 없습니다. */}
+      {email && !validateEmail(email) ? (
+        <Text style={styles.warn}>이메일 형식이 올바르지 않습니다.</Text>
+      ) : <View style={styles.empty} />}
       <Input
         onChangeText={(e) => { setNickname(e); }}
         placeholder="Nickname"
-        inputStyle={{ marginTop: 24 }}
+        inputStyle={styles.input}
       />
+      {nickname && !validateName(nickname) ? (
+        <Text style={styles.warn}>닉네임은 2~8글자의 한글 또는 영문자로 설정해주세요.</Text>
+      ) : <View style={styles.empty} />}
       <Input
         onChangeText={(e) => { setPwd(e); }}
         placeholder="Password"
         textContentType="password"
-        inputStyle={{ marginTop: 24 }}
+        inputStyle={styles.input}
       />
+      {pwd && !validatePwd(pwd) ? (
+        <Text style={styles.warn}>비밀번호는 8~16글자의 영문, 숫자, 특수문자를 포함하여 설정해주세요.</Text>
+      ) : <View style={styles.empty} />}
       <Input
         onChangeText={(e) => { setPwdCheck(e); }}
         placeholder="PasswordCheck"
         textContentType="password"
-        inputStyle={{ marginTop: 24 }}
+        inputStyle={styles.input}
       />
+      {pwdCheck && pwd !== pwdCheck ? (
+        <Text style={styles.warn}>비밀번호가 일치하지 않습니다.</Text>
+      ) : <View style={styles.empty} />}
       <Button
         type="dark"
         onPress={onSubmit}
         title="회원가입"
-        containerStyle={{ marginTop: 48 }}
+        containerStyle={{ marginTop: 36 }}
+        disabled={validate}
       />
     </View>
   );
@@ -114,6 +104,22 @@ const styles = StyleSheet.create({
     marginTop: 14,
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  input: {
+    marginTop: 8,
+  },
+  warn: {
+    fontSize: 10,
+    lineHeight: 10,
+    marginTop: 8,
+    color: '#eb1e1e',
+  },
+  empty: {
+    height: 10,
+    marginTop: 8,
+  },
+  emailNotice: {
+    fontSize: 14,
   },
 });
 

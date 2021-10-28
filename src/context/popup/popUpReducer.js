@@ -16,7 +16,7 @@ export default (state, action) => {
         alertMessage: '',
         alertBackPress: false,
         onConfirm: () => {},
-        onCancel: () => {},
+        onCancel: null,
       });
     default:
       return state;

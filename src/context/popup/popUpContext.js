@@ -32,6 +32,6 @@ export const { Context, Provider } = createDataContext(
     alertMessage: '',
     alertBackPress: null,
     onConfirm: () => {},
-    onCancel: () => {},
+    onCancel: null,
   },
 );

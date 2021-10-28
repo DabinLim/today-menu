@@ -1,7 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {
+  useContext, useEffect, useState, useCallback,
+} from 'react';
 import {
   SafeAreaView, StyleSheet, View,
 } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import Button from '../../components/Button';
 import { Context as FoodContext } from '../../context/food/foodContext';
 import { images } from '../../constants/assets';
@@ -26,6 +29,16 @@ const RandomFoodScreen = ({ navigation: { navigate } }) => {
   useEffect(() => {
     getRandomFoodList();
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      setRandomFood({
+        id: null,
+        name: '',
+        imageUrl: images.LOGO_IMAGE,
+      });
+    }, []),
+  );
 
   const getFoodList = () => {
     const randomNumber = pickRandomFood(0, randomFoodList?.length - 1);

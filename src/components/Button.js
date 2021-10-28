@@ -8,7 +8,7 @@ const setContainerStyleByType = (type, disabled) => {
   switch (type) {
     case 'dark':
       return {
-        backgroundColor: disabled ? '#F5F5F5' : '#20C3AF',
+        backgroundColor: disabled ? '#F5F5F5' : '#ffa033',
       };
     case 'gray':
       return {

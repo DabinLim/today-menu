@@ -1,6 +1,6 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
-  SafeAreaView, StyleSheet, Text, View,
+  SafeAreaView, StyleSheet, View,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import BeforeStartView from './component/BeforeStartView';
@@ -15,7 +15,7 @@ const FoodWorldCupScreen = ({ navigation: { navigate } }) => {
 
   // 화면 이동 시 월드컵 다시 시작
   useFocusEffect(
-    useCallback(() => () => {
+    useCallback(() => {
       resetWorldCup();
     }, []),
   );

@@ -9,6 +9,6 @@ export const validateName = (name) => {
 };
 
 export const validateEmail = (email) => {
-  const reg = /^[0-9a-zA-Z]([-_.0-9a-zA-Z])*@[0-9a-zA-Z]([-_.0-9a-zA-Z])*.([a-zA-Z]{2,3}$)*/;
+  const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   return reg.test(email);
 };

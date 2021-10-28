@@ -3,6 +3,7 @@ import { Image, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Context as FoodContext } from '../../../context/food/foodContext';
+import { Context as PopUpContext } from '../../../context/popup/popUpContext';
 import { images } from '../../../constants/assets';
 import Button from '../../../components/Button';
 
@@ -10,6 +11,10 @@ const BeforeStartView = ({ setStartWorldCup, setGrade }) => {
   const {
     getWorldCupFoodList,
   } = useContext(FoodContext);
+  const {
+    showAlert,
+    dismissAlert,
+  } = useContext(PopUpContext);
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(0);
@@ -23,7 +28,10 @@ const BeforeStartView = ({ setStartWorldCup, setGrade }) => {
 
   const startFoodWorldCup = () => {
     if (value === 0) {
-      alert('라운드를 선택하세요');
+      showAlert({
+        message: '라운드를 선택하세요.',
+        onConfirm: dismissAlert,
+      });
       return;
     }
     getWorldCupFoodList(value);
