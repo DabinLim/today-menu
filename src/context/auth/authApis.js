@@ -30,3 +30,13 @@ export const requestSignIn = async (email, password) => {
   const data = get(response, 'data');
   return { user: data };
 };
+
+export const requestCheckSession = async () => {
+  const response = await myAxios(
+    'GET',
+    '/api/member/me',
+  );
+
+  const data = get(response, 'data');
+  return { user: data };
+};

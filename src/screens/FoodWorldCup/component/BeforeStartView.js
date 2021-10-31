@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { Context as FoodContext } from '../../../context/food/foodContext';
 import { Context as PopUpContext } from '../../../context/popup/popUpContext';
 import { images } from '../../../constants/assets';
 import Button from '../../../components/Button';
+import DropDown from '../../../components/DropDown';
 
 const BeforeStartView = ({ setStartWorldCup, setGrade }) => {
   const {
@@ -46,7 +46,7 @@ const BeforeStartView = ({ setStartWorldCup, setGrade }) => {
           style={{ width: 300, height: 200 }}
         />
       </View>
-      <DropDownPicker
+      <DropDown
         open={open}
         value={value}
         items={items}

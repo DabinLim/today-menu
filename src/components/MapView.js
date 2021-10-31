@@ -1,19 +1,38 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import WebView from 'react-native-webview';
 import {
   FlatList, Linking, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { get } from 'lodash';
 import { fetchCurrentLocation } from '../utils/location';
 
-const MapView = ({ keyword }) => {
+const MapView = ({ keyword, location }) => {
   const [placeData, setPlaceData] = useState([]);
   const [mapSize, setMapSize] = useState(0.5);
   const [listSize, setListSize] = useState(0.5);
   const [icon, setIcon] = useState('up');
   const [loading, setLoading] = useState(true);
   let webviewRef = useRef();
-  console.log(placeData.length);
+
+  useEffect(() => {
+    const latitude = get(location, 'latitude');
+    const longitude = get(location, 'longitude');
+    const locateName = get(location, 'keyword');
+    webviewRef.postMessage(JSON.stringify({
+      type: 'Location',
+      data: {
+        latitude,
+        longitude,
+      },
+    }));
+    webviewRef.postMessage(JSON.stringify({
+      type: 'Keyword',
+      data: {
+        keyword: locateName ? `${locateName}` : '맛집',
+      },
+    }));
+  }, [location]);
 
   const handleSetRef = (ref) => {
     webviewRef = ref;
@@ -80,7 +99,7 @@ const MapView = ({ keyword }) => {
           <Text style={styles.info}>
             {'tel : '}
             <Text>
-              {phone}
+              {phone ? phone : '-'}
             </Text>
           </Text>
           <Text style={styles.info}>

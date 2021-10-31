@@ -58,6 +58,9 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 
+#config
+.env
+
 #keys
 
 whateat_keys/
