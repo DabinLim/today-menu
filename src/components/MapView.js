@@ -99,7 +99,7 @@ const MapView = ({ keyword, location }) => {
           <Text style={styles.info}>
             {'tel : '}
             <Text>
-              {phone ? phone : '-'}
+              {phone || '-'}
             </Text>
           </Text>
           <Text style={styles.info}>

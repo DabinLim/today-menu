@@ -1,13 +1,34 @@
-import React from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import {
+  SafeAreaView,
+} from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import BeforeStartQuestView from './components/BeforeStartQuestView';
+import { images } from '../../constants/assets';
+import AfterStartQuestView from './components/AfterStartQuestView';
 
 const SortByCravingScreen = () => {
-  let temp;
+  const [scenarioIdx, setScenarioIdx] = useState();
+  const [isStart, setIsStart] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      setIsStart(false);
+    }, []),
+  );
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Text>
-        뭐가 땡기는지 골라봐
-      </Text>
+      {isStart ? (
+        <AfterStartQuestView
+          scenarioIdx={scenarioIdx}
+        />
+      ) : (
+        <BeforeStartQuestView
+          setScenarioIdx={setScenarioIdx}
+          setIsStart={setIsStart}
+        />
+      )}
     </SafeAreaView>
   );
 };
