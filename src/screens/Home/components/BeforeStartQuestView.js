@@ -4,14 +4,17 @@ import DropDown from '../../../components/DropDown';
 import { getFirstQuestion } from '../utils';
 import Button from "../../../components/Button";
 
-const BeforeStartQuestView = ({ setScenarioIdx, setIsStart }) => {
+const BeforeStartQuestView = ({ setScenarioIdx, setIsStart, setAnswerList, answerList }) => {
   const [open, setOpen] = useState(true);
   const [value, setValue] = useState();
   const [items, setItems] = useState(getFirstQuestion);
 
   const startQuest = () => {
-    setScenarioIdx(value);
+    const newList = answerList;
+    newList.push(items[value].key);
+    setAnswerList(newList);
     setIsStart(true);
+    setScenarioIdx(value);
   };
 
   return (

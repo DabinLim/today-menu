@@ -6,7 +6,7 @@ import LocalFoodScreen from '../screens/LocalFood/LocalFoodScreen';
 import RandomFoodScreen from '../screens/RandomFood/RandomFoodScreen';
 import FoodWorldCupScreen from '../screens/FoodWorldCup/FoodWorldCupScreen';
 import SortByCravingScreen from '../screens/Home/SortByCravingScreen';
-import FoodMapScreen from '../screens/RandomFood/component/FoodMapScreen';
+import FoodMapScreen from '../components/FoodMapScreen';
 
 export const screens = {
   SIGN_IN: {

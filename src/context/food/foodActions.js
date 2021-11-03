@@ -1,4 +1,4 @@
-import { requestRandomFoodList, requestWorldCupFoodList } from './foodApis';
+import { requestRandomFoodList, requestSelectedFood, requestWorldCupFoodList } from './foodApis';
 import { handleError } from '../utils';
 
 export default {
@@ -11,11 +11,7 @@ export default {
         },
       });
 
-      const { randomFoodList, error } = await requestRandomFoodList();
-
-      if (error && callback) {
-        callback(error);
-      }
+      const { randomFoodList } = await requestRandomFoodList();
 
       dispatch({
         type: 'random_food_list',
@@ -25,6 +21,12 @@ export default {
         },
       });
     } catch (e) {
+      dispatch({
+        type: 'random_food_list',
+        payload: {
+          loading: false,
+        },
+      });
       const error = handleError(e);
       callback(error);
     }
@@ -38,11 +40,7 @@ export default {
         },
       });
 
-      const { foodWorldCupList, error } = await requestWorldCupFoodList(round);
-
-      if (error && callback) {
-        callback(error);
-      }
+      const { foodWorldCupList } = await requestWorldCupFoodList(round);
 
       dispatch({
         type: 'fetch_food_world_cup_list',
@@ -52,6 +50,41 @@ export default {
         },
       });
     } catch (e) {
+      dispatch({
+        type: 'fetch_food_world_cup_list',
+        payload: {
+          loading: false,
+        },
+      });
+      const error = handleError(e);
+      callback(error);
+    }
+  },
+  getSelectedFood: (dispatch) => async (answers, callback) => {
+    try {
+      dispatch({
+        type: 'fetch_selected_food',
+        payload: {
+          loading: true,
+        },
+      });
+
+      const { selectedFood } = await requestSelectedFood(answers);
+
+      dispatch({
+        type: 'fetch_selected_food',
+        payload: {
+          selectedFood,
+          loading: false,
+        },
+      });
+    } catch (e) {
+      dispatch({
+        type: 'fetch_selected_food',
+        payload: {
+          loading: false,
+        },
+      });
       const error = handleError(e);
       callback(error);
     }

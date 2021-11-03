@@ -8,7 +8,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import Button from '../../components/Button';
 import { Context as FoodContext } from '../../context/food/foodContext';
 import { images } from '../../constants/assets';
-import SelectedFoodView from './component/SelectedFoodView';
+import SelectedFoodView from '../../components/SelectedFoodView';
 import { screens } from '../../constants/screens';
 
 const RandomFoodScreen = ({ navigation: { navigate } }) => {

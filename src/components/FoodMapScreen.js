@@ -3,8 +3,8 @@ import {
   Image, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import { get } from 'lodash';
-import MapView from '../../../components/MapView';
-import { images } from '../../../constants/assets';
+import MapView from './MapView';
+import { images } from '../constants/assets';
 
 const FoodMapScreen = ({ navigation, route }) => {
   const keyword = get(route, 'params.keyword');

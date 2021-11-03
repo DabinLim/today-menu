@@ -22,3 +22,16 @@ export const requestWorldCupFoodList = async (round) => {
 
   return { foodWorldCupList: data };
 };
+
+export const requestSelectedFood = async (answers) => {
+  const response = await myAxios(
+    'GET',
+    '/api/foods/select',
+    undefined,
+    answers,
+  );
+
+  const data = get(response, 'data');
+
+  return { selectedFood: data };
+};

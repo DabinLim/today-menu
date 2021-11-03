@@ -126,6 +126,7 @@ export const questionList = [
 ];
 
 export const getFirstQuestion = questionList.map((v, idx) => ({
-  label: v.depth1.question,
+  label: v.depth1.question.text,
   value: idx,
+  key: v.depth1.question.key,
 }));

@@ -26,7 +26,6 @@ export const myAxios = async (method, url, requestBody, queryParams, headers) =>
   const response = await axios(options);
   if (response) {
     console.log(`>>>>>>>>>> Response **${method}** ${axios.defaults.baseURL}${url}`);
-    console.log(`response : ${JSON.stringify(response)}`);
   }
   return response;
 };

@@ -11,5 +11,7 @@ export const { Context, Provider } = createDataContext(
     randomFoodLoading: false,
     foodWorldCupList: [],
     foodWorldCupListLoading: false,
+    selectedFood: undefined,
+    selectedFoodLoading: false,
   },
 );

@@ -12,6 +12,11 @@ export default (state, action) => {
         foodWorldCupList: action.payload.foodWorldCupList,
         foodWorldCupListLoading: action.payload.loading,
       });
+    case 'fetch_selected_food':
+      return myImmer(state, {
+        selectedFood: action.payload.selectedFood,
+        selectedFoodLoading: action.payload.loading,
+      });
     default:
       return state;
   }
