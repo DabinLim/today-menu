@@ -5,6 +5,7 @@ import {
   SafeAreaView, StyleSheet, View,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import { get } from 'lodash';
 import BeforeStartQuestView from './components/BeforeStartQuestView';
 import AfterStartQuestView from './components/AfterStartQuestView';
 import SelectedFoodView from '../../components/SelectedFoodView';
@@ -16,9 +17,9 @@ import { screens } from '../../constants/screens';
 const SortByCravingScreen = ({ navigation: { navigate } }) => {
   const {
     state: {
-      selectedFood,
+      selectedFoodByType,
     },
-    getSelectedFood,
+    getFoodByType,
   } = useContext(FoodContext);
   const {
     showAlert,
@@ -30,6 +31,8 @@ const SortByCravingScreen = ({ navigation: { navigate } }) => {
   const [isDone, setIsDone] = useState(false);
   const [answerList, setAnswerList] = useState([]);
   const [negativeList, setNegativeList] = useState([]);
+
+  const selectedFoodName = get(selectedFoodByType, 'name');
 
   useFocusEffect(
     useCallback(() => {
@@ -49,8 +52,7 @@ const SortByCravingScreen = ({ navigation: { navigate } }) => {
       negativeList.forEach((v) => {
         answers[v] = false;
       });
-      console.log(negativeList);
-      getSelectedFood(answers, (error) => {
+      getFoodByType(answers, (error) => {
         if (error) {
           showAlert({
             message: error.message,
@@ -69,7 +71,7 @@ const SortByCravingScreen = ({ navigation: { navigate } }) => {
   };
 
   const goToFindRestaurant = () => {
-    navigate(screens.FOOD_MAP_SCREEN.name, { keyword: selectedFood?.name });
+    navigate(screens.FOOD_MAP_SCREEN.name, { keyword: selectedFoodName });
   };
 
   return (
@@ -78,14 +80,13 @@ const SortByCravingScreen = ({ navigation: { navigate } }) => {
       {isDone ? (
         <View style={styles.selectedContainer}>
           <SelectedFoodView
-            randomFood={selectedFood}
+            selectedFood={selectedFoodByType}
             isSelected
           />
           <View style={{ width: '100%' }}>
             <Button
               onPress={goToFindRestaurant}
-              title={`${selectedFood
-                ?.name} 맛집 찾기`}
+              title={`${selectedFoodName} 맛집 찾기`}
               type="dark"
             />
             <Button

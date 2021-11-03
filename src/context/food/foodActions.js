@@ -1,4 +1,9 @@
-import { requestRandomFoodList, requestSelectedFood, requestWorldCupFoodList } from './foodApis';
+import {
+  requestRandomFood,
+  requestRandomFoodList,
+  requestSelectedFoodByType,
+  requestWorldCupFoodList,
+} from './foodApis';
 import { handleError } from '../utils';
 
 export default {
@@ -23,6 +28,35 @@ export default {
     } catch (e) {
       dispatch({
         type: 'random_food_list',
+        payload: {
+          loading: false,
+        },
+      });
+      const error = handleError(e);
+      callback(error);
+    }
+  },
+  getRandomFood: (dispatch) => async (callback) => {
+    try {
+      dispatch({
+        type: 'fetch_random_food',
+        payload: {
+          loading: true,
+        },
+      });
+
+      const { randomFood } = await requestRandomFood();
+
+      dispatch({
+        type: 'fetch_random_food',
+        payload: {
+          randomFood,
+          loading: false,
+        },
+      });
+    } catch (e) {
+      dispatch({
+        type: 'fetch_random_food',
         payload: {
           loading: false,
         },
@@ -60,27 +94,27 @@ export default {
       callback(error);
     }
   },
-  getSelectedFood: (dispatch) => async (answers, callback) => {
+  getFoodByType: (dispatch) => async (answers, callback) => {
     try {
       dispatch({
-        type: 'fetch_selected_food',
+        type: 'fetch_selected_food_by_type',
         payload: {
           loading: true,
         },
       });
 
-      const { selectedFood } = await requestSelectedFood(answers);
+      const { selectedFoodByType } = await requestSelectedFoodByType(answers);
 
       dispatch({
-        type: 'fetch_selected_food',
+        type: 'fetch_selected_food_by_type',
         payload: {
-          selectedFood,
+          selectedFoodByType,
           loading: false,
         },
       });
     } catch (e) {
       dispatch({
-        type: 'fetch_selected_food',
+        type: 'fetch_selected_food_by_type',
         payload: {
           loading: false,
         },

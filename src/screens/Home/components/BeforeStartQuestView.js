@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View } from 'react-native';
 import DropDown from '../../../components/DropDown';
 import { getFirstQuestion } from '../utils';
-import Button from "../../../components/Button";
+import Button from '../../../components/Button';
 
-const BeforeStartQuestView = ({ setScenarioIdx, setIsStart, setAnswerList, answerList }) => {
+const BeforeStartQuestView = ({
+  setScenarioIdx, setIsStart, setAnswerList, answerList,
+}) => {
   const [open, setOpen] = useState(true);
   const [value, setValue] = useState();
   const [items, setItems] = useState(getFirstQuestion);

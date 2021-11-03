@@ -4,9 +4,9 @@ import {
 } from 'react-native';
 import { get } from 'lodash';
 
-const SelectedFoodView = ({ randomFood, isSelected }) => {
-  const image = get(randomFood, 'imageUrl');
-  const name = get(randomFood, 'name');
+const SelectedFoodView = ({ selectedFood, isSelected }) => {
+  const image = get(selectedFood, 'imageUrl');
+  const name = get(selectedFood, 'name');
   return (
     <View style={styles.container}>
       {isSelected ? (

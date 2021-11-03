@@ -12,6 +12,17 @@ export const requestRandomFoodList = async () => {
   return { randomFoodList: data };
 };
 
+export const requestRandomFood = async () => {
+  const response = await myAxios(
+    'GET',
+    '/api/foods/random',
+  );
+
+  const data = get(response, 'data');
+
+  return { randomFood: data };
+};
+
 export const requestWorldCupFoodList = async (round) => {
   const response = await myAxios(
     'GET',
@@ -23,7 +34,7 @@ export const requestWorldCupFoodList = async (round) => {
   return { foodWorldCupList: data };
 };
 
-export const requestSelectedFood = async (answers) => {
+export const requestSelectedFoodByType = async (answers) => {
   const response = await myAxios(
     'GET',
     '/api/foods/select',
@@ -33,5 +44,5 @@ export const requestSelectedFood = async (answers) => {
 
   const data = get(response, 'data');
 
-  return { selectedFood: data };
+  return { selectedFoodByType: data };
 };

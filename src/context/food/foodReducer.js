@@ -5,17 +5,22 @@ export default (state, action) => {
     case 'random_food_list':
       return myImmer(state, {
         randomFoodList: action.payload.randomFoodList,
-        randomFoodLoading: action.payload.loading,
+        randomFoodListLoading: action.payload.loading,
       });
     case 'fetch_food_world_cup_list':
       return myImmer(state, {
         foodWorldCupList: action.payload.foodWorldCupList,
         foodWorldCupListLoading: action.payload.loading,
       });
-    case 'fetch_selected_food':
+    case 'fetch_selected_food_by_type':
       return myImmer(state, {
-        selectedFood: action.payload.selectedFood,
-        selectedFoodLoading: action.payload.loading,
+        selectedFoodByType: action.payload.selectedFoodByType,
+        selectedFoodByTypeLoading: action.payload.loading,
+      });
+    case 'fetch_random_food':
+      return myImmer(state, {
+        randomFood: action.payload.randomFood,
+        randomFoodLoading: action.payload.loading,
       });
     default:
       return state;

@@ -8,10 +8,12 @@ export const { Context, Provider } = createDataContext(
     ...foodActions,
   }, {
     randomFoodList: [],
-    randomFoodLoading: false,
+    randomFoodListLoading: false,
     foodWorldCupList: [],
     foodWorldCupListLoading: false,
-    selectedFood: undefined,
-    selectedFoodLoading: false,
+    selectedFoodByType: undefined,
+    selectedFoodByTypeLoading: false,
+    randomFood: undefined,
+    randomFoodLoading: false,
   },
 );
