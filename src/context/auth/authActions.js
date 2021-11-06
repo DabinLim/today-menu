@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { get } from 'lodash';
-import { requestSignIn, requestSignUp } from './authApis';
+import { requestCheckSession, requestSignIn, requestSignUp } from './authApis';
 import { handleError } from '../utils';
 
 export default {
@@ -67,7 +67,7 @@ export default {
 
       let token;
       if (user) {
-        token = get(user, 'accessToken');
+        token = get(user, 'token');
         if (token) {
           await AsyncStorage.setItem('token', token);
         }
@@ -93,13 +93,15 @@ export default {
   checkSession: (dispatch) => async () => {
     try {
       const token = await AsyncStorage.getItem('token');
+      console.log(token);
       if (token) {
-        // todo 세션 체크 api 연동
+        const { user } = await requestCheckSession();
         dispatch({
           type: 'sign_in',
           payload: {
-            user: true,
+            user,
             token,
+            loading: false,
           },
         });
       }

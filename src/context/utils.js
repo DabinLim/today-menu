@@ -1,9 +1,14 @@
 import { get } from 'lodash';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 axios.defaults.baseURL = 'http://13.124.219.165:8080';
 
 export const myAxios = async (method, url, requestBody, queryParams, headers) => {
+  const token = await AsyncStorage.getItem('token');
+  if (token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  };
   const options = {
     method,
     url,

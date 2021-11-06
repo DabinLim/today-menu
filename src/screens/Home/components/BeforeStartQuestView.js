@@ -1,17 +1,26 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import DropDown from '../../../components/DropDown';
 import { getFirstQuestion } from '../utils';
 import Button from '../../../components/Button';
+import { Context as PopUpContext } from '../../../context/popup/popUpContext';
 
 const BeforeStartQuestView = ({
   setScenarioIdx, setIsStart, setAnswerList, answerList,
 }) => {
+  const { showAlert, dismissAlert } = useContext(PopUpContext);
   const [open, setOpen] = useState(true);
   const [value, setValue] = useState();
   const [items, setItems] = useState(getFirstQuestion);
 
   const startQuest = () => {
+    if (!value) {
+      showAlert({
+        message: '찾으시는 목록을 골라주세요.',
+        onConfirm: dismissAlert,
+      });
+      return;
+    }
     const newList = answerList;
     newList.push(items[value].key);
     setAnswerList(newList);

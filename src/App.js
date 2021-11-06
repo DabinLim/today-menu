@@ -27,10 +27,12 @@ const App: () => Node = () => {
       user,
     },
     setSkipSignIn,
+    checkSession,
   } = useContext(AuthContext);
 
   useEffect(() => {
     setSkipSignIn();
+    checkSession();
   }, []);
 
   return (
