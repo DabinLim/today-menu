@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import WebView from 'react-native-webview';
 import {
   FlatList, Linking, StyleSheet, Text, TouchableOpacity, View,
@@ -6,14 +8,19 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { get } from 'lodash';
 import { fetchCurrentLocation } from '../utils/location';
+import { Context as FoodContext } from '../context/food/foodContext';
 
 const MapView = ({ keyword, location }) => {
+  const { addBookmark } = useContext(FoodContext);
+
   const [placeData, setPlaceData] = useState([]);
   const [mapSize, setMapSize] = useState(0.5);
   const [listSize, setListSize] = useState(0.5);
   const [icon, setIcon] = useState('up');
   const [loading, setLoading] = useState(true);
   let webviewRef = useRef();
+
+  console.log(JSON.stringify(placeData));
 
   useEffect(() => {
     const latitude = get(location, 'latitude');

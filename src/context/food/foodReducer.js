@@ -22,6 +22,9 @@ export default (state, action) => {
         randomFood: action.payload.randomFood,
         randomFoodLoading: action.payload.loading,
       });
+    case 'add_bookmark':
+      // todo : 북마크 후 상태관리
+      return console.log(action.payload.bookmarkedRestaurant);
     default:
       return state;
   }

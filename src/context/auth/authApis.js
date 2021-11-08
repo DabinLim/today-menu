@@ -40,3 +40,39 @@ export const requestCheckSession = async () => {
   const data = get(response, 'data');
   return { user: data };
 };
+
+export const requestAddRestaurant = async (restaurant) => {
+  const response = await myAxios(
+    'POST',
+    '/api/bookMark',
+  );
+
+  const data = get(response, 'data');
+  return { bookmarkedRestaurant: data };
+};
+
+export const requestModifyUserName = async (userName) => {
+  const response = await myAxios(
+    'PATCH',
+    '/api/member/name',
+    {
+      name: userName,
+    },
+  );
+
+  const data = get(response, 'data');
+  return { user: data };
+};
+
+export const requestModifyPassword = async (pwd) => {
+  const response = await myAxios(
+    'PATCH',
+    '/api/member/password',
+    {
+      password: pwd,
+    },
+  );
+
+  const data = get(response, 'data');
+  return { user: data };
+};

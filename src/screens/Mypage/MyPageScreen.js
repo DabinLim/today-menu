@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { Context as AuthContext } from '../../context/auth/authContext';
 import { myPageList } from './utils';
+import Button from '../../components/Button';
+import MyPageList from './components/MyPageList';
 
 const MyPageScreen = ({ navigation: { navigate } }) => {
   const {
@@ -21,34 +23,25 @@ const MyPageScreen = ({ navigation: { navigate } }) => {
 
   };
 
-  const navigateTo = (title) => {
-
-  };
-
-  const renderMyPageList = ({ item: { title } }) => (
-    <View>
-      <Text>
-        {title}
-      </Text>
-    </View>
-  );
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Text style={styles.userName}>
-          {userName}
-          <Text style={styles.title}>
-            님 안녕하세요
+        <View>
+          <Text style={styles.userName}>
+            {userName}
+            <Text style={styles.title}>
+              님 안녕하세요
+            </Text>
           </Text>
-        </Text>
-        <View style={styles.listContainer}>
-          <FlatList
-            keyExtractor={(item) => item.title}
-            data={myPageList}
-            renderItem={renderMyPageList}
-          />
         </View>
+        <MyPageList navigate={navigate} />
+      </View>
+      <View style={styles.btnWrap}>
+        <Button
+          onPress={handleSignOut}
+          title="로그아웃"
+          type="dark"
+        />
       </View>
     </SafeAreaView>
   );
@@ -64,6 +57,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     paddingVertical: 20,
+    flex: 1,
   },
   userName: {
     fontSize: 36,
@@ -74,8 +68,9 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     marginTop: 20,
   },
-  listContainer: {
-    marginTop: 40,
+  btnWrap: {
+    marginBottom: 20,
+    paddingHorizontal: 20,
   },
 });
 

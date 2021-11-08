@@ -1,6 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { get } from 'lodash';
-import { requestCheckSession, requestSignIn, requestSignUp } from './authApis';
+import {
+  requestAddRestaurant, requestCheckSession, requestModifyUserName, requestSignIn, requestSignUp,
+} from './authApis';
 import { handleError } from '../utils';
 
 export default {
@@ -69,6 +71,7 @@ export default {
       if (user) {
         token = get(user, 'token');
         if (token) {
+          console.log(token);
           await AsyncStorage.setItem('token', token);
         }
       }
@@ -108,6 +111,85 @@ export default {
     } catch (e) {
       // todo 에러핸들링
       console.error(e);
+    }
+  },
+  addBookMark: (dispatch) => async (restaurant, callback) => {
+    try {
+      dispatch({
+        type: 'add_bookmark',
+        payload: {
+          loading: true,
+        },
+      });
+
+      const { bookmarkedRestaurant } = await requestAddRestaurant();
+
+      dispatch({
+        type: 'add_bookmark',
+        payload: {
+          loading: false,
+          bookmarkedRestaurant,
+        },
+      });
+    } catch (e) {
+      dispatch({
+        type: 'add_bookmark',
+        payload: {
+          loading: false,
+        },
+      });
+      const error = handleError(e);
+      callback(null, error);
+    }
+  },
+  modifyUserName: (dispatch) => async (userName, callback) => {
+    try {
+      dispatch({
+        type: 'modify_user_name',
+        payload: {
+          loading: true,
+        },
+      });
+
+      const { user } = await requestModifyUserName(userName);
+
+      if (user) {
+        dispatch({
+          type: 'modify_user_name',
+          payload: {
+            loading: false,
+            userName,
+          },
+        });
+      }
+    } catch (e) {
+      dispatch({
+        type: 'modify_user_name',
+        payload: {
+          loading: false,
+        },
+      });
+      const error = handleError(e);
+      callback(error);
+    }
+  },
+  modifyUserPassword: (dispatch) => async (pwd, callback) => {
+    try {
+      dispatch({
+        type: 'modify_user_info',
+        payload: {
+          loading: true,
+        },
+      });
+    } catch (e) {
+      dispatch({
+        type: 'modify_user_info',
+        payload: {
+          loading: false,
+        },
+      });
+      const error = handleError(e);
+      callback(error);
     }
   },
 };

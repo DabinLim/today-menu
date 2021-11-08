@@ -16,6 +16,13 @@ export default (state, action) => {
       return myImmer(state, {
         skipSignIn: action.payload.skipSignIn,
       });
+    case 'modify_user_name':
+      // eslint-disable-next-line no-case-declarations
+      const { user } = state;
+      user.name = action.payload.userName;
+      return myImmer(state, {
+        user,
+      });
     default:
       return state;
   }

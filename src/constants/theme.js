@@ -16,6 +16,7 @@ export const themes = {
     headerStyle: {
       borderBottomWidth: 1,
       borderBottomColor: '#EFEFEF',
+      backgroundColor: '#ffffff',
       elevation: 0, // remove shadow on Android
       shadowOpacity: 0, // remove shadow on iOS
     },
@@ -26,6 +27,7 @@ export const themes = {
       color: '#000000',
     },
     headerTitleAlign: 'center',
+    headerBackfaceVisible: false,
     headerBackTitleVisible: false,
     headerBackImage: () => (
       <View style={{ marginStart: Platform.OS === 'android' ? 9 : 20 }}>
