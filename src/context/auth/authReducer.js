@@ -1,10 +1,10 @@
 import { myImmer } from '../utils';
 
 export default (state, action) => {
+  const { user } = state;
   switch (action.type) {
     case 'sign_up':
       return myImmer(state, {
-        user: action.payload.user,
         loading: action.payload.loading,
       });
     case 'sign_in':
@@ -17,11 +17,20 @@ export default (state, action) => {
         skipSignIn: action.payload.skipSignIn,
       });
     case 'modify_user_name':
-      // eslint-disable-next-line no-case-declarations
-      const { user } = state;
       user.name = action.payload.userName;
       return myImmer(state, {
         user,
+        modifyUserNameLoading: action.payload.loading,
+      });
+    case 'modify_user_password':
+      return myImmer(state, {
+        modifyUserPassword: action.payload.loading,
+      });
+    case 'delete_account':
+      console.log(action.payload.user);
+      return myImmer(state, {
+        user: action.payload.user === undefined ? user : action.payload.user,
+        deleteAccountLoading: action.payload.loading,
       });
     default:
       return state;

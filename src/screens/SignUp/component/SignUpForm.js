@@ -11,6 +11,7 @@ import { screens } from '../../../constants/screens';
 const SignUpForm = ({ navigate }) => {
   const {
     signUpAction,
+    signInAction,
   } = useContext(AuthContext);
   const { showAlert, dismissAlert } = useContext(PopUpContext);
 
@@ -34,9 +35,20 @@ const SignUpForm = ({ navigate }) => {
         showAlert({
           message: '회원가입이 완료되었습니다.',
           onConfirm: () => {
-            navigate(screens.SIGN_IN.name);
+            handleSignIn();
             dismissAlert();
           },
+        });
+      }
+    });
+  };
+
+  const handleSignIn = () => {
+    signInAction(email, pwd, (user, error) => {
+      if (error) {
+        showAlert({
+          message: error.message,
+          onConfirm: dismissAlert,
         });
       }
     });

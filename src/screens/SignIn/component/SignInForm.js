@@ -22,7 +22,6 @@ const SignInForm = () => {
           onConfirm: dismissAlert,
         });
       }
-
     });
   };
 

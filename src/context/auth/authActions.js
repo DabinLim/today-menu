@@ -1,12 +1,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { get } from 'lodash';
+import axios from 'axios';
 import {
-  requestAddRestaurant, requestCheckSession, requestModifyUserName, requestSignIn, requestSignUp,
+  requestAddRestaurant,
+  requestCheckSession,
+  requestDeleteAccount,
+  requestModifyPassword,
+  requestModifyUserName,
+  requestSignIn,
+  requestSignUp,
 } from './authApis';
 import { handleError } from '../utils';
 
 export default {
-  setSkipSignIn: (dispatch) => async () => {
+  setSkipSignIn: (dispatch) => async (callback) => {
     try {
       const skipSignIn = await AsyncStorage.getItem('skipSignIn');
       if (skipSignIn) {
@@ -25,8 +32,8 @@ export default {
         });
       }
     } catch (e) {
-      // todo 에러핸들링
-      console.error(e);
+      const error = handleError(e);
+      callback(error);
     }
   },
   signUpAction: (dispatch) => async (email, password, name, callback) => {
@@ -47,7 +54,6 @@ export default {
       dispatch({
         type: 'sign_up',
         payload: {
-          user,
           loading: false,
         },
       });
@@ -72,7 +78,7 @@ export default {
         token = get(user, 'token');
         if (token) {
           console.log(token);
-          await AsyncStorage.setItem('token', token);
+          await AsyncStorage.setItem('eat_what_token', token);
         }
       }
 
@@ -93,9 +99,9 @@ export default {
       callback(null, error);
     }
   },
-  checkSession: (dispatch) => async () => {
+  checkSession: (dispatch) => async (callback) => {
     try {
-      const token = await AsyncStorage.getItem('token');
+      const token = await AsyncStorage.getItem('eat_what_token');
       console.log(token);
       if (token) {
         const { user } = await requestCheckSession();
@@ -109,8 +115,8 @@ export default {
         });
       }
     } catch (e) {
-      // todo 에러핸들링
-      console.error(e);
+      const error = handleError(e);
+      callback(error);
     }
   },
   addBookMark: (dispatch) => async (restaurant, callback) => {
@@ -176,14 +182,61 @@ export default {
   modifyUserPassword: (dispatch) => async (pwd, callback) => {
     try {
       dispatch({
-        type: 'modify_user_info',
+        type: 'modify_user_password',
         payload: {
           loading: true,
         },
       });
+
+      const { data } = await requestModifyPassword(pwd);
+
+      dispatch({
+        type: 'modify_user_password',
+        payload: {
+          loading: false,
+        },
+      });
+
+      callback(data, null);
     } catch (e) {
       dispatch({
-        type: 'modify_user_info',
+        type: 'modify_user_password',
+        payload: {
+          loading: false,
+        },
+      });
+      const error = handleError(e);
+      callback(null, error);
+    }
+  },
+  deleteAccount: (dispatch) => async (callback) => {
+    try {
+      dispatch({
+        type: 'delete_account',
+        payload: {
+          loading: true,
+        },
+      });
+
+      const { data } = await requestDeleteAccount();
+
+      console.log(data);
+
+      await AsyncStorage.removeItem('eat_what_token');
+      axios.defaults.headers.common.Authorization = undefined;
+
+      dispatch({
+        type: 'delete_account',
+        payload: {
+          loading: false,
+          user: null,
+        },
+      });
+
+      callback(data, null);
+    } catch (e) {
+      dispatch({
+        type: 'delete_account',
         payload: {
           loading: false,
         },

@@ -11,5 +11,8 @@ export const { Context, Provider } = createDataContext(
     skipSignIn: false,
     signUpLoading: false,
     signInLoading: false,
+    modifyUserNameLoading: false,
+    modifyUserPasswordLoading: false,
+    deleteAccountLoading: false,
   },
 );

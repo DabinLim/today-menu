@@ -9,13 +9,14 @@ const UserInfoScreen = ({ navigation }) => {
     state: {
       user,
     },
+    deleteAccount,
   } = useContext(AuthContext);
   const {
     showAlert,
     dismissAlert,
   } = useContext(PopUpContext);
 
-  const navigateTo = (action) => {
+  const handleUserAction = (action) => {
     switch (action) {
       case 'modify_name':
         console.log(action);
@@ -26,12 +27,33 @@ const UserInfoScreen = ({ navigation }) => {
       case 'delete_account':
         showAlert({
           message: '정말 회원탈퇴 하시겠습니까?\n회원정보는 복구 할 수 없습니다.',
-          onConfirm: dismissAlert,
+          onConfirm: () => {
+            handleDeleteAccount();
+            dismissAlert();
+          },
+          onCancel: dismissAlert,
         });
         break;
       default:
         break;
     }
+  };
+
+  const handleDeleteAccount = () => {
+    deleteAccount((response, error) => {
+      if (response) {
+        showAlert({
+          message: '회원탈퇴가 완료 되었습니다.이용해주셔서 감사합니다.',
+          onConfirm: dismissAlert,
+        });
+      }
+      if (error) {
+        showAlert({
+          message: error.message,
+          onConfirm: dismissAlert,
+        });
+      }
+    });
   };
 
   return (
@@ -53,7 +75,7 @@ const UserInfoScreen = ({ navigation }) => {
             </Text>
           </View>
           <Button
-            onPress={navigateTo}
+            onPress={() => handleUserAction('modify_name')}
             title="수정"
             type="dark"
             containerStyle={styles.modifyBtn}
@@ -62,12 +84,12 @@ const UserInfoScreen = ({ navigation }) => {
       </View>
       <View style={styles.btnWrap}>
         <Button
-          onPress={navigateTo}
+          onPress={() => handleUserAction('modify_password')}
           title="비밀번호 변경"
           type="dark"
         />
         <Button
-          onPress={navigateTo}
+          onPress={() => handleUserAction('delete_account')}
           title="회원탈퇴"
           type="gray"
           containerStyle={{ marginTop: 20 }}

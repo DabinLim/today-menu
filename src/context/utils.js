@@ -5,10 +5,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 axios.defaults.baseURL = 'http://13.124.219.165:8080';
 
 export const myAxios = async (method, url, requestBody, queryParams, headers) => {
-  const token = await AsyncStorage.getItem('token');
+  const token = await AsyncStorage.getItem('eat_what_token');
   if (token) {
+    console.log('yes token');
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-  };
+  }
   const options = {
     method,
     url,
@@ -16,6 +17,7 @@ export const myAxios = async (method, url, requestBody, queryParams, headers) =>
     params: queryParams,
     headers,
   };
+  console.log(`axios token : ${JSON.stringify(axios.defaults.headers.common.Authorization)}`);
 
   console.log(`>>>>>>>>>> Request **${method}** ${axios.defaults.baseURL}${url}`);
   if (requestBody) {

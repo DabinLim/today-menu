@@ -74,5 +74,15 @@ export const requestModifyPassword = async (pwd) => {
   );
 
   const data = get(response, 'data');
-  return { user: data };
+  return { data };
+};
+
+export const requestDeleteAccount = async () => {
+  const response = await myAxios(
+    'DELETE',
+    'api/member',
+  );
+
+  const data = get(response, 'data');
+  return { data };
 };
