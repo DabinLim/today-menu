@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Context as AuthContext } from '../../../context/auth/authContext';
 import { Context as PopUpContext } from '../../../context/popup/popUpContext';
 import Button from '../../../components/Button';
+import Input from '../../../components/Input';
+import { screens } from '../../../constants/screens';
 
 const UserInfoScreen = ({ navigation }) => {
   const {
@@ -10,19 +12,28 @@ const UserInfoScreen = ({ navigation }) => {
       user,
     },
     deleteAccount,
+    modifyUserName,
   } = useContext(AuthContext);
   const {
     showAlert,
     dismissAlert,
   } = useContext(PopUpContext);
 
+  const [nameInputVisible, setNameInputVisible] = useState(false);
+  const [nameText, setNameText] = useState(user?.name);
+
   const handleUserAction = (action) => {
     switch (action) {
       case 'modify_name':
-        console.log(action);
+        if (nameInputVisible) {
+          handleModifyUserName();
+          setNameInputVisible(false);
+        } else {
+          setNameInputVisible(true);
+        }
         break;
       case 'modify_password':
-        console.log(action);
+        navigation.navigate(screens.MODIFY_USER_PASSWORD_SCREEN.name);
         break;
       case 'delete_account':
         showAlert({
@@ -56,6 +67,18 @@ const UserInfoScreen = ({ navigation }) => {
     });
   };
 
+  const handleModifyUserName = () => {
+    modifyUserName(nameText, (error) => {
+      if (error) {
+        showAlert({
+          message: error.message,
+          onConfirm: dismissAlert,
+        });
+      }
+    });
+  };
+  console.log(nameText);
+
   return (
     <View style={styles.container}>
       <View style={styles.userInfo}>
@@ -67,19 +90,44 @@ const UserInfoScreen = ({ navigation }) => {
           </Text>
         </View>
         <View style={styles.item}>
-          <View>
-            <Text style={styles.text}>
-              이름:
-              {' '}
-              {user?.name}
-            </Text>
-          </View>
+          <Text style={styles.text}>
+            이름:
+            {' '}
+          </Text>
+          {nameInputVisible ? (
+            <View style={{ flex: 1 }}>
+              <Input
+                onChangeText={setNameText}
+                value={nameText}
+                inputStyle={{
+                  flex: 1,
+                  paddingVertical: 0,
+                  marginBottom: 10,
+                  fontSize: 16,
+                }}
+              />
+            </View>
+          ) : (
+            <View>
+              <Text style={styles.text}>
+                {user?.name}
+              </Text>
+            </View>
+          )}
           <Button
             onPress={() => handleUserAction('modify_name')}
             title="수정"
             type="dark"
             containerStyle={styles.modifyBtn}
           />
+          {nameInputVisible && (
+            <Button
+              onPress={() => setNameInputVisible(false)}
+              title="취소"
+              type="gray"
+              containerStyle={styles.modifyBtn}
+            />
+          )}
         </View>
       </View>
       <View style={styles.btnWrap}>
@@ -111,6 +159,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
+    lineHeight: 20,
   },
   modifyBtn: {
     width: 60,

@@ -9,6 +9,7 @@ import SortByCravingScreen from '../screens/Home/SortByCravingScreen';
 import FoodMapScreen from '../components/FoodMapScreen';
 import UserInfoScreen from '../screens/Mypage/components/UserInfoScreen';
 import BookmarkedListScreen from '../screens/Mypage/components/BookmarkedListScreen';
+import ModifyUserPasswordScreen from '../screens/Mypage/components/ModifyUserPasswordScreen';
 
 export const screens = {
   SIGN_IN: {
@@ -75,6 +76,12 @@ export const screens = {
     name: 'BookmarkedList',
     component: BookmarkedListScreen,
     options: BookmarkedListScreen.navigationOptions,
+    flow: ['MAIN'],
+  },
+  MODIFY_USER_PASSWORD_SCREEN: {
+    name: 'ModifyUserPassword',
+    component: ModifyUserPasswordScreen,
+    options: ModifyUserPasswordScreen.navigationOptions,
     flow: ['MAIN'],
   },
 };

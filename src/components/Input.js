@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, ViewPropTypes } from 'react-native';
 import PropTypes from 'prop-types';
 
 const Input = ({
-  onChangeText, placeholder, textContentType, inputStyle, keyboardType,
+  onChangeText, placeholder, textContentType, inputStyle, keyboardType, value, ...rest
 }) => (
   <>
     <TextInput
@@ -14,7 +14,9 @@ const Input = ({
       onChangeText={onChangeText}
       secureTextEntry={textContentType === 'password'}
       keyboardType={keyboardType}
-      autoCapitalize={'none'}
+      autoCapitalize="none"
+      value={value}
+      {...rest}
     />
   </>
 );
@@ -22,11 +24,12 @@ const Input = ({
 Input.defaultProps = {
   inputStyle: {},
   textContentType: 'none',
+  placeholder: undefined,
 };
 
 Input.propTypes = {
   onChangeText: PropTypes.func.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   textContentType: PropTypes.string,
   inputStyle: ViewPropTypes.style,
 };
