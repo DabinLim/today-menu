@@ -8,19 +8,42 @@ import { Context as AuthContext } from '../../context/auth/authContext';
 import { myPageList } from './utils';
 import Button from '../../components/Button';
 import MyPageList from './components/MyPageList';
+import { Context as PopUpContext } from '../../context/popup/popUpContext';
 
 const MyPageScreen = ({ navigation: { navigate } }) => {
   const {
     state: {
       user,
     },
+    signOutAction,
   } = useContext(AuthContext);
+
+  const {
+    showAlert,
+    dismissAlert,
+  } = useContext(PopUpContext);
 
   const userName = get(user, 'name');
   const userEmail = get(user, 'email');
 
-  const handleSignOut = () => {
+  const confirmSignOut = () => {
+    showAlert({
+      message: '로그아웃 하시겠습니까?',
+      onConfirm: handleSignOut,
+      onCancel: dismissAlert,
+    });
+  };
 
+  const handleSignOut = () => {
+    signOutAction((error) => {
+      if (error) {
+        showAlert({
+          message: error.message,
+          onConfirm: dismissAlert,
+        });
+      }
+    });
+    dismissAlert();
   };
 
   return (
@@ -38,7 +61,7 @@ const MyPageScreen = ({ navigation: { navigate } }) => {
       </View>
       <View style={styles.btnWrap}>
         <Button
-          onPress={handleSignOut}
+          onPress={confirmSignOut}
           title="로그아웃"
           type="dark"
         />

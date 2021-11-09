@@ -32,6 +32,10 @@ export default (state, action) => {
         user: action.payload.user === undefined ? user : action.payload.user,
         deleteAccountLoading: action.payload.loading,
       });
+    case 'sign_out':
+      return myImmer(state, {
+        user: action.payload.user,
+      });
     default:
       return state;
   }

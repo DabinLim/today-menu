@@ -245,4 +245,18 @@ export default {
       callback(error);
     }
   },
+  signOutAction: (dispatch) => async (callback) => {
+    try {
+      await AsyncStorage.removeItem('eat_what_token');
+      dispatch({
+        type: 'sign_out',
+        payload: {
+          user: null,
+        },
+      });
+    } catch (e) {
+      const error = handleError(e);
+      callback(error);
+    }
+  },
 };
