@@ -90,7 +90,6 @@ export default {
         type: 'sign_in',
         payload: {
           user,
-          token,
           loading: false,
         },
       });
@@ -106,15 +105,29 @@ export default {
       if (token) {
         const { user } = await requestCheckSession();
         dispatch({
-          type: 'sign_in',
+          type: 'check_session',
           payload: {
             user,
-            token,
-            loading: false,
+            isChecked: true,
+          },
+        });
+      } else {
+        dispatch({
+          type: 'check_session',
+          payload: {
+            user: null,
+            isChecked: true,
           },
         });
       }
     } catch (e) {
+      dispatch({
+        type: 'check_session',
+        payload: {
+          user: null,
+          isChecked: true,
+        },
+      });
       const error = handleError(e);
       callback(error);
     }
@@ -219,8 +232,6 @@ export default {
       });
 
       const { data } = await requestDeleteAccount();
-
-      console.log(data);
 
       await AsyncStorage.removeItem('eat_what_token');
       axios.defaults.headers.common.Authorization = undefined;

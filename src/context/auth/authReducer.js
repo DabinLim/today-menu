@@ -5,12 +5,17 @@ export default (state, action) => {
   switch (action.type) {
     case 'sign_up':
       return myImmer(state, {
-        loading: action.payload.loading,
+        signUpLoading: action.payload.loading,
       });
     case 'sign_in':
       return myImmer(state, {
         user: action.payload.user,
-        loading: action.payload.loading,
+        signInLoading: action.payload.loading,
+      });
+    case 'check_session':
+      return myImmer(state, {
+        user: action.payload.user,
+        isChecked: action.payload.isChecked,
       });
     case 'skip_sign_in':
       return myImmer(state, {
@@ -24,7 +29,7 @@ export default (state, action) => {
       });
     case 'modify_user_password':
       return myImmer(state, {
-        modifyUserPassword: action.payload.loading,
+        modifyUserPasswordLoading: action.payload.loading,
       });
     case 'delete_account':
       console.log(action.payload.user);

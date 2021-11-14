@@ -26,18 +26,20 @@ const App: () => Node = () => {
     state: {
       skipSignIn,
       user,
+      isChecked,
     },
-    setSkipSignIn,
     checkSession,
   } = useContext(AuthContext);
 
   useEffect(() => {
-    setSkipSignIn();
     checkSession();
-    setTimeout(() => {
-      SplashScreen.hide();
-    }, 100);
   }, []);
+
+  useEffect(() => {
+    if (isChecked) {
+      SplashScreen.hide();
+    }
+  }, [isChecked]);
 
   return (
     <NavigationContainer theme={themes.navContainer}>

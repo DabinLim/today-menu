@@ -15,7 +15,7 @@ public class MainActivity extends ReactFragmentActivity {
     return "what_should_we_eat";
   }
   protected void onCreate(Bundle savedInstanceState) {
-    SplashScreen.show(this);
+    SplashScreen.show(this, R.style.SplashScreenTheme);
     super.onCreate(null);
   }
 }

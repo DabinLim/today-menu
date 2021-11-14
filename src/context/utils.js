@@ -51,8 +51,7 @@ export const myImmer = (state, payload) => {
 
 export const handleError = (e) => {
   const status = get(e, 'response.status');
-  const rows = get(e, 'response.data.rows');
-  const errorMessage = rows?.length > 0 ? rows[0].msg : e.message;
+  const errorMessage = get(e, 'response.data.message') ? get(e, 'response.data.message') : e.message;
 
   return {
     message: errorMessage,

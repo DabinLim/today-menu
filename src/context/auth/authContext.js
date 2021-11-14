@@ -8,6 +8,7 @@ export const { Context, Provider } = createDataContext(
     ...authActions,
   }, {
     user: null,
+    isChecked: false,
     skipSignIn: false,
     signUpLoading: false,
     signInLoading: false,
