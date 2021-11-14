@@ -18,14 +18,14 @@ const MapView = ({ keyword, location }) => {
   const [listSize, setListSize] = useState(0.5);
   const [icon, setIcon] = useState('up');
   const [loading, setLoading] = useState(true);
+  const [selectedPlace, setSelectedPlace] = useState(null);
   let webviewRef = useRef();
 
-  console.log(JSON.stringify(placeData));
+  // console.log(JSON.stringify(placeData));
 
   useEffect(() => {
     const latitude = get(location, 'latitude');
     const longitude = get(location, 'longitude');
-    const locateName = get(location, 'keyword');
     webviewRef.postMessage(JSON.stringify({
       type: 'Location',
       data: {
@@ -36,7 +36,7 @@ const MapView = ({ keyword, location }) => {
     webviewRef.postMessage(JSON.stringify({
       type: 'Keyword',
       data: {
-        keyword: locateName ? `${locateName}` : '맛집',
+        keyword: '',
       },
     }));
   }, [location]);
@@ -47,6 +47,11 @@ const MapView = ({ keyword, location }) => {
 
   const handleEndLoading = async () => {
     const { latitude, longitude } = await fetchCurrentLocation();
+    // memo : 앱에서 겸색결과가 없는 경우 서대문구로 표시되는 이유
+    // 첫 렌더시 디폴트 위경도인 서대문구로 지도 렌더
+    // -> Location 메세지를 보내지만 Keyword가 없어 지도 재렌더링 x
+    // -> 검색결과 없어 재렌더링 x
+    // 해결 방법 = 검색결과 없어도 위치기반 재렌더링
     webviewRef.postMessage(JSON.stringify({
       type: 'Location',
       // 영통구
@@ -58,7 +63,7 @@ const MapView = ({ keyword, location }) => {
     webviewRef.postMessage(JSON.stringify({
       type: 'Keyword',
       data: {
-        keyword: keyword ? `${keyword} 맛집` : '맛집',
+        keyword: keyword ? `${keyword} 맛집` : '',
       },
     }));
   };
@@ -70,8 +75,15 @@ const MapView = ({ keyword, location }) => {
         setPlaceData(dataFromWebView.message);
         setLoading(false);
       }
+    } else if (dataFromWebView.type === 'selectedPlace') {
+      if (dataFromWebView.message) {
+        setSelectedPlace(dataFromWebView.message + 1);
+      } else {
+        setSelectedPlace(null);
+      }
     }
   };
+  // console.log(selectedPlace)
 
   const handleMapSize = () => {
     if (mapSize === 0.5) {

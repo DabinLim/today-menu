@@ -1,9 +1,10 @@
 package com.what_should_we_eat;
 
-import com.facebook.react.ReactActivity;
+import com.facebook.react.ReactFragmentActivity;
 import android.os.Bundle;
+import org.devio.rn.splashscreen.SplashScreen;
 
-public class MainActivity extends ReactActivity {
+public class MainActivity extends ReactFragmentActivity {
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
@@ -14,6 +15,7 @@ public class MainActivity extends ReactActivity {
     return "what_should_we_eat";
   }
   protected void onCreate(Bundle savedInstanceState) {
+    SplashScreen.show(this);
     super.onCreate(null);
   }
 }

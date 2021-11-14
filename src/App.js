@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import SplashScreen from 'react-native-splash-screen';
 import { themes } from './constants/theme';
 import { Provider as AuthProvider, Context as AuthContext } from './context/auth/authContext';
 import { Provider as FoodProvider } from './context/food/foodContext';
@@ -33,6 +34,9 @@ const App: () => Node = () => {
   useEffect(() => {
     setSkipSignIn();
     checkSession();
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 100);
   }, []);
 
   return (
