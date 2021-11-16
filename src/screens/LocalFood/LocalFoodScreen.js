@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useRef, useState,
+} from 'react';
 import { SafeAreaView } from 'react-native';
 import axios from 'axios';
 import Config from 'react-native-config';
-import { get } from 'lodash';
 import MapView from '../../components/MapView';
 import FilterModal from './component/FilterModal';
 import { cityData, getCountiesByCity, getCountyData } from '../../context/addressData';
 import DropDown from '../../components/DropDown';
-import { fetchCurrentLocation } from '../../utils/location';
 
 axios.defaults.headers.common.Authorization = `KakaoAK ${Config.REACT_APP_KAKAO_LOCAL_KEY}`;
 
@@ -19,11 +19,8 @@ const LocalFoodScreen = () => {
   const [countyOpen, setCountyOpen] = useState(false);
   const [countyValue, setCountyValue] = useState(0);
   const [countyItems, setCountyItems] = useState();
-  const [location, setLocation] = useState(null);
 
-  useEffect(() => {
-    initializeLocation();
-  }, []);
+  const listRef = useRef();
 
   useEffect(() => {
     const getCounty = getCountiesByCity(cityValue);
@@ -43,43 +40,11 @@ const LocalFoodScreen = () => {
     setCityOpen(false);
   }, []);
 
-  const initializeLocation = async () => {
-    try {
-      const { latitude, longitude } = await fetchCurrentLocation();
-      const response = await axios.get('https://dapi.kakao.com/v2/local/geo/coord2address.json', {
-        params: {
-          x: longitude,
-          y: latitude,
-        },
-      });
-      const { region_1depth_name, region_2depth_name } = get(response, 'data.documents[0].address');
-      console.log(region_1depth_name);
-      console.log(region_2depth_name);
-      setCityValue(region_1depth_name);
-      setCountyValue(region_2depth_name);
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
-
-  const getGeocodeByKeyword = async (keyword) => {
-    if (keyword) {
-      try {
-        const response = await axios.get('https://dapi.kakao.com/v2/local/search/address.json', {
-          params: {
-            query: keyword,
-          },
-        });
-        const { x, y } = get(response, 'data.documents[0]');
-        setLocation({
-          latitude: y,
-          longitude: x,
-          keyword,
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    }
+  const scrollUp = () => {
+    listRef?.current?.scrollToOffset({
+      animated: false,
+      offset: 0,
+    });
   };
 
   return (
@@ -108,10 +73,13 @@ const LocalFoodScreen = () => {
         style={{ borderRadius: 0, borderTopWidth: 0 }}
         zIndex={1000}
         zIndexInverse={3000}
-        onChangeValue={getGeocodeByKeyword}
+        onChangeValue={scrollUp}
       />
       <MapView
-        location={location}
+        listRef={listRef}
+        countyValue={countyValue}
+        setCityValue={setCityValue}
+        setCountyValue={setCountyValue}
       />
       <FilterModal
         onClose={() => setFilterVisible(false)}
