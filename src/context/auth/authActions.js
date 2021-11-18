@@ -2,9 +2,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { get } from 'lodash';
 import axios from 'axios';
 import {
-  requestAddRestaurant,
+  requestAddBookmarkedRestaurant,
   requestCheckSession,
-  requestDeleteAccount,
+  requestDeleteAccount, requestGetBookmarkedRestaurant,
   requestModifyPassword,
   requestModifyUserName,
   requestSignIn,
@@ -132,6 +132,38 @@ export default {
       callback(error);
     }
   },
+  getBookMarkList: (dispatch) => async (callback) => {
+    try {
+      dispatch({
+        type: 'get_bookmark',
+        payload: {
+          loading: true,
+        },
+      });
+
+      const { bookmarkedRestaurant } = await requestGetBookmarkedRestaurant();
+
+      const bookmarkedIdList = bookmarkedRestaurant.map((v) => v.name);
+
+      dispatch({
+        type: 'get_bookmark',
+        payload: {
+          loading: false,
+          bookmarkedRestaurant,
+          bookmarkedIdList,
+        },
+      });
+    } catch (e) {
+      dispatch({
+        type: 'get_bookmark',
+        payload: {
+          loading: false,
+        },
+      });
+      const error = handleError(e);
+      callback(error);
+    }
+  },
   addBookMark: (dispatch) => async (restaurant, callback) => {
     try {
       dispatch({
@@ -141,7 +173,7 @@ export default {
         },
       });
 
-      const { bookmarkedRestaurant } = await requestAddRestaurant();
+      const { bookmarkedRestaurant } = await requestAddBookmarkedRestaurant();
 
       dispatch({
         type: 'add_bookmark',

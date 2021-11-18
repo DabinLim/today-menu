@@ -41,7 +41,17 @@ export const requestCheckSession = async () => {
   return { user: data };
 };
 
-export const requestAddRestaurant = async (restaurant) => {
+export const requestGetBookmarkedRestaurant = async () => {
+  const response = await myAxios(
+    'GET',
+    'api/bookMark',
+  );
+
+  const data = get(response, 'data');
+  return { bookmarkedRestaurant: data };
+};
+
+export const requestAddBookmarkedRestaurant = async (restaurant) => {
   const response = await myAxios(
     'POST',
     '/api/bookMark',

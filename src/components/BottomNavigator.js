@@ -4,13 +4,12 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { screens } from '../constants/screens';
 import { images } from '../constants/assets';
 import { Context as AuthContext } from '../context/auth/authContext';
 import { Context as PopUpContext } from '../context/popup/popUpContext';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const BottomNavigator = ({ navigation: { navigate } }) => {
   const {
@@ -24,7 +23,6 @@ const BottomNavigator = ({ navigation: { navigate } }) => {
     dismissAlert,
   } = useContext(PopUpContext);
   const [selectedMenu, setSelectedMenu] = useState('Home');
-  console.log(skipSignIn);
 
   const handleNavigate = (screen) => {
     switch (screen) {

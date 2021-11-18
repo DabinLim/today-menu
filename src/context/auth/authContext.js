@@ -15,5 +15,8 @@ export const { Context, Provider } = createDataContext(
     modifyUserNameLoading: false,
     modifyUserPasswordLoading: false,
     deleteAccountLoading: false,
+    bookmarkedRestaurant: [],
+    bookmarkedIdList: [],
+    bookmarkedRestaurantLoading: false,
   },
 );

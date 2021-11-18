@@ -1,24 +1,27 @@
 import React, {
-  useContext, useEffect, useRef, useState,
+  useContext, useEffect, useLayoutEffect, useRef, useState,
 } from 'react';
 import WebView from 'react-native-webview';
 import {
   ActivityIndicator,
-  FlatList, Linking, StyleSheet, Text, TouchableOpacity, View,
+  FlatList, Text, TouchableOpacity, View,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { get } from 'lodash';
 import axios from 'axios';
 import Config from 'react-native-config';
 import { fetchCurrentLocation } from '../utils/location';
-import { Context as FoodContext } from '../context/food/foodContext';
 import { Context as PopUpContext } from '../context/popup/popUpContext';
 import { handleError } from '../context/utils';
+import RestaurantItem from './RestaurantItem';
+import { Context as AuthContext } from '../context/auth/authContext';
 
 const MapView = ({
   keyword, cityValue, countyValue, setCountyValue, setCityValue, listRef,
 }) => {
-  const { addBookmark } = useContext(FoodContext);
+  const {
+    getBookMarkList,
+  } = useContext(AuthContext);
   const { showAlert, dismissAlert } = useContext(PopUpContext);
 
   const [placeData, setPlaceData] = useState([]);
@@ -37,7 +40,16 @@ const MapView = ({
   const lat = get(location, 'latitude');
   const lng = get(location, 'longitude');
 
-  // console.log(JSON.stringify(placeData));
+  useLayoutEffect(() => {
+    getBookMarkList((error) => {
+      if (error) {
+        showAlert({
+          message: error.message,
+          onConfirm: dismissAlert,
+        });
+      }
+    });
+  }, []);
 
   useEffect(async () => {
     if (countyValue && isWebViewLoaded) {
@@ -114,7 +126,9 @@ const MapView = ({
 
   const handleEndLoading = async () => {
     try {
+      console.log('webview loaded');
       const { latitude, longitude } = await fetchCurrentLocation();
+      console.log('location ready');
       // memo : 앱에서 겸색결과가 없는 경우 서대문구로 표시되는 이유
       // 첫 렌더시 디폴트 위경도인 서대문구로 지도 렌더
       // -> Location 메세지를 보내지만 Keyword가 없어 지도 재렌더링 x
@@ -206,39 +220,30 @@ const MapView = ({
 
   const renderRestaurantList = ({
     item: {
-      place_name, address_name, phone, distance, place_url,
+      place_name,
+      address_name,
+      road_address_name,
+      phone,
+      distance,
+      place_url,
+      id,
+      category_group_name,
+      x,
+      y,
     },
   }) => (
-
-    <TouchableOpacity
-      style={styles.restaurantCard}
-      onPress={async () => { await Linking.openURL(place_url); }}
-    >
-      <View>
-        <Text style={styles.title}>
-          {place_name}
-        </Text>
-        <Text style={styles.address}>
-          {address_name}
-        </Text>
-        <View style={{ flexDirection: 'row' }}>
-          <Text style={styles.info}>
-            {'tel : '}
-            <Text>
-              {phone || '-'}
-            </Text>
-          </Text>
-          <Text style={styles.info}>
-            {'거리 : '}
-            <Text>
-              {Math.round(distance / 10) / 100}
-              {' '}
-              km
-            </Text>
-          </Text>
-        </View>
-      </View>
-    </TouchableOpacity>
+    <RestaurantItem
+      place_name={place_name}
+      place_url={place_url}
+      address_name={address_name}
+      phone={phone}
+      distance={distance}
+      id={id}
+      road_address_name={road_address_name}
+      category_group_name={category_group_name}
+      longitude={x}
+      latitude={y}
+    />
   );
 
   const renderSpinner = () => !lastPage && <ActivityIndicator size="large" />;
@@ -285,37 +290,5 @@ const MapView = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  restaurantCard: {
-    marginTop: 12,
-    marginHorizontal: 20,
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.20,
-    shadowRadius: 1.41,
-    elevation: 2,
-    backgroundColor: '#ffffff',
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  address: {
-    fontSize: 14,
-    marginTop: 8,
-  },
-  info: {
-    marginTop: 8,
-    fontSize: 12,
-    color: '#646464',
-    marginRight: 20,
-  },
-});
 
 export default MapView;

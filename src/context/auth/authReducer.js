@@ -41,6 +41,12 @@ export default (state, action) => {
       return myImmer(state, {
         user: action.payload.user,
       });
+    case 'get_bookmark':
+      return myImmer(state, {
+        bookmarkedRestaurant: action.payload.bookmarkedRestaurant,
+        bookmarkedRestaurantLoading: action.payload.loading,
+        bookmarkedIdList: action.payload.bookmarkedIdList,
+      });
     default:
       return state;
   }
