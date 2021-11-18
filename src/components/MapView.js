@@ -9,13 +9,14 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { get } from 'lodash';
 import axios from 'axios';
+import Config from 'react-native-config';
 import { fetchCurrentLocation } from '../utils/location';
 import { Context as FoodContext } from '../context/food/foodContext';
 import { Context as PopUpContext } from '../context/popup/popUpContext';
 import { handleError } from '../context/utils';
 
 const MapView = ({
-  keyword, countyValue, setCountyValue, setCityValue, listRef,
+  keyword, cityValue, countyValue, setCountyValue, setCityValue, listRef,
 }) => {
   const { addBookmark } = useContext(FoodContext);
   const { showAlert, dismissAlert } = useContext(PopUpContext);
@@ -39,7 +40,7 @@ const MapView = ({
   // console.log(JSON.stringify(placeData));
 
   useEffect(async () => {
-    if (countyValue) {
+    if (countyValue && isWebViewLoaded) {
       await getGeocodeByCountyValue(countyValue);
     }
   }, [countyValue]);
@@ -83,6 +84,11 @@ const MapView = ({
     if (value) {
       try {
         const response = await axios.get('https://dapi.kakao.com/v2/local/search/address.json', {
+          headers: {
+            common: {
+              Authorization: `KakaoAK ${Config.REACT_APP_KAKAO_LOCAL_KEY}`,
+            },
+          },
           params: {
             query: value,
           },
@@ -129,8 +135,13 @@ const MapView = ({
           keyword: keyword ? `${keyword}` : '',
         },
       }));
-      if (countyValue) {
+      if (countyValue || cityValue) {
         const response = await axios.get('https://dapi.kakao.com/v2/local/geo/coord2address.json', {
+          headers: {
+            common: {
+              Authorization: `KakaoAK ${Config.REACT_APP_KAKAO_LOCAL_KEY}`,
+            },
+          },
           params: {
             x: longitude,
             y: latitude,

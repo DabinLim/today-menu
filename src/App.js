@@ -17,7 +17,7 @@ import SplashScreen from 'react-native-splash-screen';
 import { themes } from './constants/theme';
 import { Provider as AuthProvider, Context as AuthContext } from './context/auth/authContext';
 import { Provider as FoodProvider } from './context/food/foodContext';
-import { Provider as PopUpProvider } from './context/popup/popUpContext';
+import { Provider as PopUpProvider, Context as PopUpContext } from './context/popup/popUpContext';
 import Alert from './components/Alert';
 import { AuthNavigation, MainNavigation } from './components/StackNavigation';
 
@@ -30,9 +30,20 @@ const App: () => Node = () => {
     },
     checkSession,
   } = useContext(AuthContext);
+  const {
+    showAlert,
+    dismissAlert,
+  } = useContext(PopUpContext);
 
   useEffect(() => {
-    checkSession();
+    checkSession((error) => {
+      if (error) {
+        showAlert({
+          message: error.message,
+          onConfirm: dismissAlert,
+        });
+      }
+    });
   }, []);
 
   useEffect(() => {

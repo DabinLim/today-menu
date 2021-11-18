@@ -2,14 +2,10 @@ import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react';
 import { SafeAreaView } from 'react-native';
-import axios from 'axios';
-import Config from 'react-native-config';
 import MapView from '../../components/MapView';
 import FilterModal from './component/FilterModal';
 import { cityData, getCountiesByCity, getCountyData } from '../../context/addressData';
 import DropDown from '../../components/DropDown';
-
-axios.defaults.headers.common.Authorization = `KakaoAK ${Config.REACT_APP_KAKAO_LOCAL_KEY}`;
 
 const LocalFoodScreen = () => {
   const [filterVisible, setFilterVisible] = useState(false);
@@ -77,6 +73,7 @@ const LocalFoodScreen = () => {
       />
       <MapView
         listRef={listRef}
+        cityValue={cityValue}
         countyValue={countyValue}
         setCityValue={setCityValue}
         setCountyValue={setCountyValue}
