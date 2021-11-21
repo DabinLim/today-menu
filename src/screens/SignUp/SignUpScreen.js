@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, StyleSheet, Text, Image,
+  View, StyleSheet, Text, Image, TouchableWithoutFeedback, Keyboard, SafeAreaView,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { images } from '../../constants/assets';
@@ -9,23 +9,27 @@ import Button from '../../components/Button';
 import { screens } from '../../constants/screens';
 
 const SignUpScreen = ({ navigation: { navigate } }) => (
-  <View style={styles.container}>
-    <View style={styles.imageBox}>
-      <Image source={images.LOGO_IMAGE} style={{ width: 200, height: 150 }} />
-    </View>
-    <SignUpForm navigate={navigate} />
-    <View style={styles.noAccount}>
-      <Text style={{ fontSize: 13, color: '#839191' }}>
-        이미 아이디가 있다면?
-      </Text>
-      <Button
-        type="underline"
-        onPress={() => { navigate(screens.SIGN_IN.name); }}
-        title="로그인"
-        containerStyle={{ marginLeft: 8 }}
-      />
-    </View>
-  </View>
+  <SafeAreaView style={{ flex: 1 }}>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        <View style={styles.imageBox}>
+          <Image source={images.LOGO_IMAGE} resizeMode="contain" style={{ height: 100 }} />
+        </View>
+        <SignUpForm navigate={navigate} />
+        <View style={styles.noAccount}>
+          <Text style={{ fontSize: 13, color: '#839191' }}>
+            이미 아이디가 있다면?
+          </Text>
+          <Button
+            type="underline"
+            onPress={() => { navigate(screens.SIGN_IN.name); }}
+            title="로그인"
+            containerStyle={{ marginLeft: 8 }}
+          />
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
+  </SafeAreaView>
 );
 
 SignUpScreen.propTypes = {
@@ -44,7 +48,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   imageBox: {
-    marginTop: 50,
+    marginVertical: 30,
     justifyContent: 'center',
     alignItems: 'center',
   },

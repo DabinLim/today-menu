@@ -1,14 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import PropTypes from 'prop-types';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 import { validateEmail, validateName, validatePwd } from '../../../utils/validate';
 import { Context as AuthContext } from '../../../context/auth/authContext';
 import { Context as PopUpContext } from '../../../context/popup/popUpContext';
-import { screens } from '../../../constants/screens';
 
-const SignUpForm = ({ navigate }) => {
+const SignUpForm = () => {
   const {
     signUpAction,
     signInAction,
@@ -19,10 +17,13 @@ const SignUpForm = ({ navigate }) => {
   const [nickname, setNickname] = useState();
   const [pwd, setPwd] = useState();
   const [pwdCheck, setPwdCheck] = useState();
-  const validate = !validateEmail(email)
-    || !validateName(nickname)
-    || !validatePwd(pwd)
-    || pwd !== pwdCheck;
+  const validate = validateEmail(email)
+    && validateName(nickname)
+    && validatePwd(pwd)
+    && pwd === pwdCheck;
+  const nickNameRef = useRef();
+  const pwdRef = useRef();
+  const pwdCheckRef = useRef();
 
   const onSubmit = async () => {
     signUpAction(email, pwd, nickname, (user, error) => {
@@ -55,11 +56,13 @@ const SignUpForm = ({ navigate }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <Input
         onChangeText={(e) => { setEmail(e); }}
         placeholder="Email"
         keyboardType="email-address"
+        returnKeyType="next"
+        onSubmitEditing={() => nickNameRef?.current.focus()}
       />
       {/* todo 비밀번호 찾기에 사용되므로 정확한 이메일을 입력해주세요. 이메일은 분실시 찾을 수 없습니다. */}
       {email && !validateEmail(email) ? (
@@ -69,6 +72,9 @@ const SignUpForm = ({ navigate }) => {
         onChangeText={(e) => { setNickname(e); }}
         placeholder="Nickname"
         inputStyle={styles.input}
+        returnKeyType="next"
+        ref={nickNameRef}
+        onSubmitEditing={() => pwdRef?.current.focus()}
       />
       {nickname && !validateName(nickname) ? (
         <Text style={styles.warn}>닉네임은 2~8글자의 한글 또는 영문자로 설정해주세요.</Text>
@@ -78,6 +84,9 @@ const SignUpForm = ({ navigate }) => {
         placeholder="Password"
         textContentType="password"
         inputStyle={styles.input}
+        returnKeyType="next"
+        ref={pwdRef}
+        onSubmitEditing={() => pwdCheckRef?.current?.focus()}
       />
       {pwd && !validatePwd(pwd) ? (
         <Text style={styles.warn}>비밀번호는 8~16글자의 영문, 숫자, 특수문자를 포함하여 설정해주세요.</Text>
@@ -87,6 +96,9 @@ const SignUpForm = ({ navigate }) => {
         placeholder="PasswordCheck"
         textContentType="password"
         inputStyle={styles.input}
+        returnKeyType="done"
+        ref={pwdCheckRef}
+        onSubmitEditing={validate ? onSubmit : () => {}}
       />
       {pwdCheck && pwd !== pwdCheck ? (
         <Text style={styles.warn}>비밀번호가 일치하지 않습니다.</Text>
@@ -96,20 +108,13 @@ const SignUpForm = ({ navigate }) => {
         onPress={onSubmit}
         title="회원가입"
         containerStyle={{ marginTop: 36 }}
-        disabled={validate}
+        disabled={!validate}
       />
     </View>
   );
 };
 
-SignUpForm.propTypes = {
-  navigate: PropTypes.func.isRequired,
-};
-
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 30,
-  },
   findUserInfoButton: {
     marginTop: 14,
     flexDirection: 'row',

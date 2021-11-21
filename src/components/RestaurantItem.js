@@ -27,6 +27,15 @@ const RestaurantItem = ({
   } = useContext(AuthContext);
 
   const isBookmarked = includes(bookmarkedIdList, place_name);
+
+  const modifyBookmark = () => {
+    if (isBookmarked) {
+
+    } else {
+      addBookmark();
+    }
+  };
+
   return (
     <TouchableOpacity
       style={styles.restaurantCard}
@@ -38,7 +47,7 @@ const RestaurantItem = ({
             {place_name}
           </Text>
           <TouchableOpacity
-            onPress={}
+            onPress={modifyBookmark}
           >
             <FontAwesome name={isBookmarked ? 'bookmark' : 'bookmark-o'} size={24} />
           </TouchableOpacity>

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import {
-  View, StyleSheet, Image, Text, SafeAreaView,
+  View, StyleSheet, Image, Text, SafeAreaView, TouchableWithoutFeedback, Keyboard,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -25,40 +25,42 @@ const SignInScreen = ({ navigation: { navigate } }) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <View style={styles.imageBox}>
-          <Image source={images.LOGO_IMAGE} style={{ width: 200, height: 150 }} />
-        </View>
-        <SignInForm />
-        <Button
-          type="gray"
-          onPress={onHandleSkipSignIn}
-          title="로그인 생략하기"
-          containerStyle={{ marginTop: 32 }}
-        />
-        <View style={styles.noAccount}>
-          <Text style={{ fontSize: 13, color: '#839191' }}>
-            아직 아이디가 없다면?
-          </Text>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <View style={styles.imageBox}>
+            <Image source={images.LOGO_IMAGE} resizeMode="contain" style={{ height: 100 }} />
+          </View>
+          <SignInForm />
           <Button
-            type="underline"
-            onPress={() => { navigate(screens.SIGN_UP.name); }}
-            title="회원가입"
-            containerStyle={{ marginLeft: 8 }}
+            type="gray"
+            onPress={onHandleSkipSignIn}
+            title="로그인 생략하기"
+            containerStyle={{ marginTop: 32 }}
           />
+          <View style={styles.noAccount}>
+            <Text style={{ fontSize: 13, color: '#839191' }}>
+              아직 아이디가 없다면?
+            </Text>
+            <Button
+              type="underline"
+              onPress={() => { navigate(screens.SIGN_UP.name); }}
+              title="회원가입"
+              containerStyle={{ marginLeft: 8 }}
+            />
+          </View>
+          <View style={styles.findPassword}>
+            <Text style={{ fontSize: 13, color: '#839191' }}>
+              또는
+            </Text>
+            <Button
+              type="underline"
+              onPress={onHandleFindPassword}
+              title="비밀번호 찾기"
+              containerStyle={{ marginLeft: 8 }}
+            />
+          </View>
         </View>
-        <View style={styles.findPassword}>
-          <Text style={{ fontSize: 13, color: '#839191' }}>
-            또는
-          </Text>
-          <Button
-            type="underline"
-            onPress={onHandleFindPassword}
-            title="비밀번호 찾기"
-            containerStyle={{ marginLeft: 8 }}
-          />
-        </View>
-      </View>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 };
@@ -79,7 +81,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   imageBox: {
-    marginTop: 50,
+    marginVertical: 30,
     justifyContent: 'center',
     alignItems: 'center',
   },

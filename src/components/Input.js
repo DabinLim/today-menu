@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { StyleSheet, TextInput, ViewPropTypes } from 'react-native';
 import PropTypes from 'prop-types';
 
-const Input = ({
+const Input = forwardRef(({
   onChangeText, placeholder, textContentType, inputStyle, keyboardType, value, ...rest
-}) => (
+}, ref) => (
   <>
     <TextInput
       lab
@@ -15,11 +15,14 @@ const Input = ({
       secureTextEntry={textContentType === 'password'}
       keyboardType={keyboardType}
       autoCapitalize="none"
+      autoCorrect={false}
+      autoCompleteType="off"
       value={value}
+      ref={ref}
       {...rest}
     />
   </>
-);
+));
 
 Input.defaultProps = {
   inputStyle: {},

@@ -1,4 +1,4 @@
-import LOGO_IMAGE from '../assets/image/temp_logo.png';
+import LOGO_IMAGE from '../assets/image/logo_image_dark.png';
 import ARROW_LEFT from '../assets/image/arrow-left.png';
 import WORLD_CUP from '../assets/image/worldcup.png';
 import WORLD_CUP_OUTLINED from '../assets/image/worldcup-outline.png';
