@@ -40,7 +40,7 @@ const Alert = () => {
             onPress={onConfirm}
             title="확인"
             type="dark"
-            containerStyle={{ flex: 1 }}
+            containerStyle={{ flex: 1, borderRadius: 24 }}
           />
         </View>
       </View>
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     padding: 20,
     justifyContent: 'space-between',
-    borderRadius: 8,
+    borderRadius: 24,
   },
   textContainer: {
     flex: 1,

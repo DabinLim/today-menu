@@ -125,28 +125,29 @@ const RandomFoodScreen = ({ navigation: { navigate } }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        <SelectedFoodView
-          selectedFood={selectedFood}
-          isSelected={isSelected}
-          goToFindRestaurant={goToFindRestaurant}
-        />
-        <View style={{ width: '100%' }}>
+        <View style={{ width: '100%', flex: 1 }}>
           {isSelected
           && (
-            <View style={{ flexDirection: 'row' }}>
-              <Button
-                onPress={resetFood}
-                title="이전으로"
-                type="gray"
-                containerStyle={styles.button}
+            <>
+              <SelectedFoodView
+                selectedFood={selectedFood}
+                isSelected={isSelected}
               />
-              <Button
-                onPress={selectFood}
-                title="다시뽑기"
-                type="dark"
-                containerStyle={[styles.button, { marginLeft: 20 }]}
-              />
-            </View>
+              <View style={{ flexDirection: 'row' }}>
+                <Button
+                  onPress={resetFood}
+                  title="이전으로"
+                  type="gray"
+                  containerStyle={styles.buttonLeft}
+                />
+                <Button
+                  onPress={goToFindRestaurant}
+                  title="맛집찾기"
+                  type="dark"
+                  containerStyle={styles.buttonRight}
+                />
+              </View>
+            </>
           )}
           {!isSelected && (
             <View>
@@ -182,8 +183,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
   },
-  button: {
-    flex: 0.5,
+  buttonLeft: {
+    flex: 0.3,
+  },
+  buttonRight: {
+    flex: 0.7,
+    marginLeft: 20,
   },
 });
 

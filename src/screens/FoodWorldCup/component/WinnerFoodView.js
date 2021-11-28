@@ -13,7 +13,6 @@ const WinnerFoodView = ({ navigate, food, resetWorldCup }) => {
   const goToFindRestaurant = () => {
     navigate(screens.FOOD_MAP_SCREEN.name, { keyword: name });
   };
-  console.log(`food: ${JSON.stringify(food)}`);
 
   return (
     <View style={styles.container}>
@@ -22,12 +21,20 @@ const WinnerFoodView = ({ navigate, food, resetWorldCup }) => {
         isSelected
         goToFindRestaurant={goToFindRestaurant}
       />
-      <Button
-        onPress={resetWorldCup}
-        title="월드컵 다시 하기"
-        type="gray"
-        containerStyle={{ marginTop: 20 }}
-      />
+      <View style={{ flexDirection: 'row' }}>
+        <Button
+          onPress={resetWorldCup}
+          title="다시하기"
+          type="gray"
+          containerStyle={styles.buttonLeft}
+        />
+        <Button
+          onPress={goToFindRestaurant}
+          title="맛집찾기"
+          type="dark"
+          containerStyle={styles.buttonRight}
+        />
+      </View>
     </View>
   );
 };
@@ -48,6 +55,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginTop: 24,
     textAlign: 'center',
+  },
+  buttonLeft: {
+    flex: 0.3,
+  },
+  buttonRight: {
+    flex: 0.7,
+    marginLeft: 20,
   },
 });
 
