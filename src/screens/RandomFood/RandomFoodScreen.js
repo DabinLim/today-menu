@@ -52,10 +52,14 @@ const RandomFoodScreen = ({ navigation: { navigate } }) => {
     const id = get(selectedFoodByType, 'id');
     const name = get(selectedFoodByType, 'name');
     const imageUrl = get(selectedFoodByType, 'imageUrl');
+    const type = get(selectedFoodByType, 'type');
+    const country = get(selectedFoodByType, 'country');
     setSelectedFood({
       id,
       name,
       imageUrl,
+      type,
+      country,
     });
   }, [selectedFoodByType]);
 
@@ -63,10 +67,14 @@ const RandomFoodScreen = ({ navigation: { navigate } }) => {
     const id = get(randomFood, 'id');
     const name = get(randomFood, 'name');
     const imageUrl = get(randomFood, 'imageUrl');
+    const type = get(randomFood, 'type');
+    const country = get(randomFood, 'country');
     setSelectedFood({
       id,
       name,
       imageUrl,
+      type,
+      country,
     });
   }, [randomFood]);
 
@@ -120,32 +128,28 @@ const RandomFoodScreen = ({ navigation: { navigate } }) => {
         <SelectedFoodView
           selectedFood={selectedFood}
           isSelected={isSelected}
+          goToFindRestaurant={goToFindRestaurant}
         />
         <View style={{ width: '100%' }}>
           {isSelected
           && (
-            <>
+            <View style={{ flexDirection: 'row' }}>
               <Button
-                onPress={goToFindRestaurant}
-                title={`${selectedFoodName} 맛집 찾기`}
-                type="dark"
+                onPress={resetFood}
+                title="이전으로"
+                type="gray"
+                containerStyle={styles.button}
               />
               <Button
                 onPress={selectFood}
-                title="다시 뽑기"
-                type="gray"
-                containerStyle={{ marginTop: 20 }}
+                title="다시뽑기"
+                type="dark"
+                containerStyle={[styles.button, { marginLeft: 20 }]}
               />
-              <Button
-                onPress={resetFood}
-                title="타입 다시 고르기"
-                type="gray"
-                containerStyle={{ marginTop: 20 }}
-              />
-            </>
+            </View>
           )}
           {!isSelected && (
-            <>
+            <View>
               <DropDown
                 open={open}
                 setOpen={setOpen}
@@ -161,7 +165,7 @@ const RandomFoodScreen = ({ navigation: { navigate } }) => {
                 type="dark"
                 containerStyle={{ marginTop: 20 }}
               />
-            </>
+            </View>
           )}
         </View>
       </View>
@@ -175,7 +179,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 24,
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  button: {
+    flex: 0.5,
   },
 });
 

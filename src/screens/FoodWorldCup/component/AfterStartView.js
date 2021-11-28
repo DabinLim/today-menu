@@ -2,16 +2,15 @@ import React, {
   useCallback, useContext, useEffect, useState,
 } from 'react';
 import {
-  Dimensions,
   ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import PropTypes from 'prop-types';
 import { Context as FoodContext } from '../../../context/food/foodContext';
-import WorldCupItem from './WorldCupItem';
-import Button from '../../../components/Button';
+import FoodCard from '../../../components/FoodCard';
 
-const AfterStartView = ({ setIsSelectedDone, startWorldCup, setSelectedItem, defaultGrade }) => {
+const AfterStartView = ({
+  setIsSelectedDone, startWorldCup, setSelectedItem, defaultGrade,
+}) => {
   const {
     state: {
       foodWorldCupList,
@@ -22,7 +21,6 @@ const AfterStartView = ({ setIsSelectedDone, startWorldCup, setSelectedItem, def
   const [bottomItem, setBottomItem] = useState();
   const [nextList, setNextList] = useState([]);
   const [grade, setGrade] = useState(defaultGrade);
-  console.log(defaultGrade);
 
   // nextList 초기화
   useFocusEffect(useCallback(() => {
@@ -78,69 +76,54 @@ const AfterStartView = ({ setIsSelectedDone, startWorldCup, setSelectedItem, def
       setIsSelectedDone(true);
     }
   };
+  console.log(topItem);
 
   return (
     <ScrollView contentContainerStyle={styles.container} style={{ width: '100%' }}>
-      <Text style={{ fontSize: 16 }}>
+      <Text style={{ fontSize: 18 }}>
         {grade === 2
-          ? '결승전 !!'
+          ? '결승'
           : `${(nextList.length + 1) * 2} / ${grade}강`}
       </Text>
       <View style={styles.item}>
-        <WorldCupItem item={topItem} />
-        <Button
-          onPress={() => {
-            selectItem('top');
-          }}
-          title="선택하기"
-          type="dark"
+        <FoodCard
+          item={topItem}
+          selectItem={() => selectItem('top')}
+          worldCup
         />
       </View>
       <Text style={{
         fontSize: 32,
         fontWeight: 'bold',
         textAlignVertical: 'center',
-        marginVertical: 20,
       }}
       >
         VS
       </Text>
       <View style={styles.item}>
-        <WorldCupItem item={bottomItem} />
-        <Button
-          onPress={() => {
+        <FoodCard
+          item={bottomItem}
+          selectItem={() => {
             selectItem('bottom');
           }}
-          title="선택하기"
-          type="dark"
+          worldCup
         />
       </View>
     </ScrollView>
   );
 };
 
-AfterStartView.propTypes = {
-  setIsSelectedDone: PropTypes.func,
-  setSelectedItem: PropTypes.func,
-  startWorldCup: PropTypes.bool.isRequired,
-};
-
-AfterStartView.defaultProps = {
-  setIsSelectedDone: () => {
-  },
-  setSelectedItem: () => {
-  },
-};
-
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
+    paddingHorizontal: 20,
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   item: {
     width: '100%',
     alignItems: 'center',
+    minHeight: 225,
   },
 });
 

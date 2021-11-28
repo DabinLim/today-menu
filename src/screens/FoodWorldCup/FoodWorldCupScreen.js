@@ -59,7 +59,6 @@ const FoodWorldCupScreen = ({ navigation: { navigate } }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 20,
     paddingVertical: 24,
     alignItems: 'center',
     justifyContent: 'space-between',

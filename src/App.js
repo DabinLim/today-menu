@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import type { Node } from 'react';
 import {
   StatusBar,
@@ -29,6 +29,7 @@ const App: () => Node = () => {
       isChecked,
     },
     checkSession,
+    getBookMarkList,
   } = useContext(AuthContext);
   const {
     showAlert,
@@ -37,6 +38,17 @@ const App: () => Node = () => {
 
   useEffect(() => {
     checkSession((error) => {
+      if (error) {
+        showAlert({
+          message: error.message,
+          onConfirm: dismissAlert,
+        });
+      }
+    });
+  }, []);
+
+  useLayoutEffect(() => {
+    getBookMarkList((error) => {
       if (error) {
         showAlert({
           message: error.message,

@@ -1,21 +1,20 @@
 import React from 'react';
 import {
+  Dimensions,
   Image, StyleSheet, Text, View,
 } from 'react-native';
 import { get } from 'lodash';
+import FoodCard from './FoodCard';
 
-const SelectedFoodView = ({ selectedFood, isSelected }) => {
+const SelectedFoodView = ({ selectedFood, isSelected, goToFindRestaurant }) => {
   const image = get(selectedFood, 'imageUrl');
-  const name = get(selectedFood, 'name');
   return (
     <View style={styles.container}>
       {isSelected ? (
-        <>
-          <Image source={{ uri: image }} resizeMode="cover" style={styles.image} />
-          <Text style={styles.text}>
-            {`${name} 당첨 !!\n\n오늘은 ${name} 어때요?`}
-          </Text>
-        </>
+        <FoodCard
+          item={selectedFood}
+          goToFindRestaurant={goToFindRestaurant}
+        />
       ) : (
         <>
           <Image source={image} resizeMode="cover" style={styles.image} />
@@ -33,10 +32,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
   },
   image: {
-    width: 300,
-    height: 200,
+    borderRadius: 100,
+    width: 150,
+    height: 150,
   },
   text: {
     fontSize: 24,

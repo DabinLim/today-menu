@@ -1,5 +1,5 @@
 import React, {
-  useContext, useEffect, useLayoutEffect, useRef, useState,
+  useContext, useEffect, useRef, useState,
 } from 'react';
 import WebView from 'react-native-webview';
 import {
@@ -14,14 +14,10 @@ import { fetchCurrentLocation } from '../utils/location';
 import { Context as PopUpContext } from '../context/popup/popUpContext';
 import { handleError } from '../context/utils';
 import RestaurantItem from './RestaurantItem';
-import { Context as AuthContext } from '../context/auth/authContext';
 
 const MapView = ({
   keyword, cityValue, countyValue, setCountyValue, setCityValue, listRef,
 }) => {
-  const {
-    getBookMarkList,
-  } = useContext(AuthContext);
   const { showAlert, dismissAlert } = useContext(PopUpContext);
 
   const [placeData, setPlaceData] = useState([]);
@@ -39,17 +35,6 @@ const MapView = ({
 
   const lat = get(location, 'latitude');
   const lng = get(location, 'longitude');
-
-  useLayoutEffect(() => {
-    getBookMarkList((error) => {
-      if (error) {
-        showAlert({
-          message: error.message,
-          onConfirm: dismissAlert,
-        });
-      }
-    });
-  }, []);
 
   useEffect(async () => {
     if (countyValue && isWebViewLoaded) {
