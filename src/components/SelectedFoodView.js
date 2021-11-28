@@ -1,11 +1,12 @@
 import React from 'react';
 import {
   Dimensions,
-  Image, StyleSheet, Text, View,
+  Image, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import { get } from 'lodash';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const SelectedFoodView = ({ selectedFood, isSelected }) => {
+const SelectedFoodView = ({ selectFood, selectedFood, isSelected }) => {
   const image = get(selectedFood, 'imageUrl');
   const name = get(selectedFood, 'name');
   const type = get(selectedFood, 'type');
@@ -14,6 +15,14 @@ const SelectedFoodView = ({ selectedFood, isSelected }) => {
     <View style={styles.container}>
       {isSelected ? (
         <View style={styles.foodWrap}>
+          {selectFood && (
+            <TouchableOpacity
+              onPress={selectFood}
+              style={styles.refresh}
+            >
+              <Ionicons name="refresh" size={30} />
+            </TouchableOpacity>
+          )}
           <Image
             source={{ uri: image }}
             style={styles.image}
@@ -75,6 +84,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     borderRadius: 24,
     position: 'relative',
+  },
+  refresh: {
+    position: 'absolute',
+    top: 12,
+    right: 12,
+    borderRadius: 30,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 14,
   },
   image: {
     borderRadius: Dimensions.get('window').width / 3,

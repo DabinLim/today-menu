@@ -130,6 +130,7 @@ const RandomFoodScreen = ({ navigation: { navigate } }) => {
           && (
             <>
               <SelectedFoodView
+                selectFood={selectFood}
                 selectedFood={selectedFood}
                 isSelected={isSelected}
               />
