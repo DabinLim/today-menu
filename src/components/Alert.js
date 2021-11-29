@@ -33,7 +33,7 @@ const Alert = () => {
             onPress={onCancel}
             title="취소"
             type="gray"
-            containerStyle={{ flex: 1, marginRight: 20 }}
+            containerStyle={{ flex: 1, marginRight: 20, borderRadius: 24 }}
           />
           )}
           <Button

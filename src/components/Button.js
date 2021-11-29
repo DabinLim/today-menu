@@ -10,6 +10,14 @@ const setContainerStyleByType = (type, disabled) => {
       return {
         backgroundColor: disabled ? '#F5F5F5' : '#ffa033',
       };
+    case 'white':
+      return {
+        backgroundColor: disabled ? '#F5F5F5' : '#ffffff',
+      };
+    case 'darkGray':
+      return {
+        backgroundColor: '#e9e9e9',
+      };
     case 'gray':
       return {
         backgroundColor: '#F5F5F5',
@@ -36,6 +44,14 @@ const setTextStyleByType = (type, disabled) => {
     case 'dark':
       return {
         color: disabled ? '#B0B0C3' : '#ffffff',
+      };
+    case 'darkGray':
+      return {
+        color: '#000',
+      };
+    case 'white':
+      return {
+        color: disabled ? '#B0B0C3' : '#000000',
       };
     case 'gray':
       return {
@@ -90,7 +106,7 @@ Button.propTypes = {
   title: PropTypes.string.isRequired,
   containerStyle: ViewPropTypes.style,
   textStyle: ViewPropTypes.style,
-  type: PropTypes.oneOf(['dark', 'gray', 'underline', 'text']).isRequired,
+  type: PropTypes.oneOf(['dark', 'gray', 'darkGray', 'underline', 'text', 'white']).isRequired,
   clickable: PropTypes.bool,
   disabled: PropTypes.bool,
 };
