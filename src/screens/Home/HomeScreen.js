@@ -1,69 +1,85 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
-  View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity, TextInput,
+  View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity, TextInput, FlatList, Image,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { screens } from '../../constants/screens';
 import Button from '../../components/Button';
 import { images } from '../../constants/assets';
-import Input from '../../components/Input';
+import { foodCategoryList } from './utils';
+import { Context as PopUpContext } from '../../context/popup/popUpContext';
 
 const HomeScreen = ({ navigation: { navigate } }) => {
-  const [keyword, setKeyword] = useState('');
+  const { showAlert, dismissAlert } = useContext(PopUpContext);
+  const [searchKeyword, setSearchKeyword] = useState('');
 
   const goToQuestion = () => {
     navigate(screens.SORT_BY_CRAVING.name);
   };
 
+  const goToMap = (keyword) => {
+    navigate(screens.FOOD_MAP_SCREEN.name, { keyword });
+  };
+
+  const searchByKeyword = () => {
+    navigate(screens.FOOD_MAP_SCREEN.name, { keyword: searchKeyword });
+    setSearchKeyword('');
+  };
+
+  const goToCommunity = () => {
+    showAlert({
+      message: '아직 준비중입니다.',
+      onConfirm: dismissAlert,
+    });
+  };
+
+  const goToBookmarkedList = () => {
+    navigate(screens.BOOKMARKED_LIST_SCREEN.name);
+  };
+
+  const renderFoodCategoryItem = ({ item: { value, image } }) => (
+    <TouchableOpacity
+      onPress={() => goToMap(value)}
+      style={styles.smallMenuCard}
+    >
+      <Image style={styles.smallMenuImage} source={{ uri: image }} />
+      <View>
+        <Text style={styles.menuText}>
+          {value}
+          맛집
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
       >
         <View style={styles.container}>
-          <ScrollView
+          <FlatList
+            keyExtractor={({ value }) => value}
             contentContainerStyle={styles.menuWrap}
+            data={foodCategoryList}
+            renderItem={renderFoodCategoryItem}
             horizontal
             showsHorizontalScrollIndicator={false}
-          >
-            <TouchableOpacity style={styles.smallMenuCard}>
-              <View>
-                <Text style={styles.menuText}>
-                  치킨 맛집
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.smallMenuCard}>
-              <View>
-                <Text style={styles.menuText}>
-                  한식 맛집
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.smallMenuCard}>
-              <View>
-                <Text style={styles.menuText}>
-                  중식 맛집
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.smallMenuCard}>
-              <View>
-                <Text style={styles.menuText}>
-                  파스타 맛집
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </ScrollView>
+          />
           <View style={styles.menuWrap}>
-            <TouchableOpacity style={styles.halfMenuCard}>
+            <TouchableOpacity
+              onPress={goToCommunity}
+              style={styles.halfMenuCard}
+            >
               <View>
                 <Text style={styles.menuText}>
                   커뮤니티
                 </Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.halfMenuCard}>
+            <TouchableOpacity
+              onPress={goToBookmarkedList}
+              style={styles.halfMenuCard}
+            >
               <View>
                 <Text style={styles.menuText}>
                   즐겨찾는 맛집
@@ -86,7 +102,9 @@ const HomeScreen = ({ navigation: { navigate } }) => {
           </Text>
         </View>
         <TextInput
-          onChangeText={setKeyword}
+          onChangeText={setSearchKeyword}
+          value={searchKeyword}
+          onSubmitEditing={searchByKeyword}
           style={styles.input}
           placeholder="맛집을 검색해보세요!"
           autoCapitalize="none"
@@ -151,7 +169,8 @@ const styles = StyleSheet.create({
     marginLeft: 2,
   },
   smallMenuCard: {
-    backgroundColor: '#f5f5f5',
+    position: 'relative',
+    backgroundColor: '#000',
     width: Dimensions.get('window').width / 4,
     height: Dimensions.get('window').width / 4,
     justifyContent: 'center',
@@ -167,6 +186,13 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginRight: 8,
     marginLeft: 2,
+  },
+  smallMenuImage: {
+    position: 'absolute',
+    width: Dimensions.get('window').width / 4,
+    height: Dimensions.get('window').width / 4,
+    borderRadius: 16,
+    opacity: 0.8,
   },
   longMenuCard: {
     justifyContent: 'center',
@@ -202,6 +228,8 @@ const styles = StyleSheet.create({
   menuText: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#fff',
+    zIndex: 20,
   },
   input: {
     backgroundColor: '#f5f5f5',

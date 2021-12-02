@@ -130,3 +130,26 @@ export const getFirstQuestion = questionList.map((v, idx) => ({
   value: idx,
   key: v.depth1.question.key,
 }));
+
+export const foodCategoryList = [
+  {
+    value: '한식',
+    image: 'https://eatwhatoodimage.s3.ap-northeast-2.amazonaws.com/0033boodae.jpg',
+  },
+  {
+    value: '양식',
+    image: 'https://eatwhatoodimage.s3.ap-northeast-2.amazonaws.com/0065pasta.jpg',
+  },
+  {
+    value: '중식',
+    image: 'https://eatwhatoodimage.s3.ap-northeast-2.amazonaws.com/0062maratang.jpg',
+  },
+  {
+    value: '일식',
+    image: 'https://eatwhatoodimage.s3.ap-northeast-2.amazonaws.com/0056sushi.jpg',
+  },
+  {
+    value: '치킨',
+    image: 'https://eatwhatoodimage.s3.ap-northeast-2.amazonaws.com/0016chicken.jpg',
+  },
+];
