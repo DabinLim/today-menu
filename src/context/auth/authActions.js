@@ -113,6 +113,12 @@ export default {
         });
       } else {
         dispatch({
+          type: 'skip_sign_in',
+          payload: {
+            skipSignIn: true,
+          },
+        });
+        dispatch({
           type: 'check_session',
           payload: {
             user: null,
@@ -129,6 +135,7 @@ export default {
         },
       });
       const error = handleError(e);
+      console.error('checkSessionError: ', e);
       callback(error);
     }
   },
@@ -140,19 +147,21 @@ export default {
           loading: true,
         },
       });
+      const token = await AsyncStorage.getItem('eat_what_token');
+      if (token) {
+        const { bookmarkedRestaurant } = await requestGetBookmarkedRestaurant();
 
-      const { bookmarkedRestaurant } = await requestGetBookmarkedRestaurant();
+        const bookmarkedIdList = bookmarkedRestaurant.map((v) => v.name);
 
-      const bookmarkedIdList = bookmarkedRestaurant.map((v) => v.name);
-
-      dispatch({
-        type: 'get_bookmark',
-        payload: {
-          loading: false,
-          bookmarkedRestaurant,
-          bookmarkedIdList,
-        },
-      });
+        dispatch({
+          type: 'get_bookmark',
+          payload: {
+            loading: false,
+            bookmarkedRestaurant,
+            bookmarkedIdList,
+          },
+        });
+      }
     } catch (e) {
       dispatch({
         type: 'get_bookmark',

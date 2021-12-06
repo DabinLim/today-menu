@@ -255,12 +255,14 @@ const MapView = ({
         />
       </View>
       <View style={{ flex: listSize, marginTop: 12 }}>
-        <TouchableOpacity
-          style={{ alignItems: 'center' }}
-          onPress={handleMapSize}
-        >
-          <AntDesign name={icon} size={20} />
-        </TouchableOpacity>
+        {!loading && (
+          <TouchableOpacity
+            style={{ alignItems: 'center' }}
+            onPress={handleMapSize}
+          >
+            <AntDesign name={icon} size={20} />
+          </TouchableOpacity>
+        )}
         <FlatList
           ref={listRef}
           data={placeData}

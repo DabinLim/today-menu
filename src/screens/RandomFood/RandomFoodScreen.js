@@ -2,6 +2,7 @@ import React, {
   useContext, useEffect, useState, useCallback,
 } from 'react';
 import {
+  Dimensions, Image,
   SafeAreaView, StyleSheet, View,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
@@ -122,6 +123,9 @@ const RandomFoodScreen = ({ navigation: { navigate } }) => {
     setValue(null);
   };
 
+  const width = Dimensions.get('window').width / 1.1;
+  const height = width;
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -151,7 +155,13 @@ const RandomFoodScreen = ({ navigation: { navigate } }) => {
             </>
           )}
           {!isSelected && (
-            <View>
+            <View style={{ flex: 1 }}>
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Image
+                  source={images.RANDOM_FOOD}
+                  style={{ width, height }}
+                />
+              </View>
               <DropDown
                 open={open}
                 setOpen={setOpen}
@@ -159,6 +169,7 @@ const RandomFoodScreen = ({ navigation: { navigate } }) => {
                 setValue={setValue}
                 items={items}
                 setItems={setItems}
+                showArrowIcon={false}
                 placeholder="음식 타입을 골라주세요"
               />
               <Button

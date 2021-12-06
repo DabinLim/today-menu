@@ -33,14 +33,14 @@ const Alert = () => {
             onPress={onCancel}
             title="취소"
             type="gray"
-            containerStyle={{ flex: 1, marginRight: 20, borderRadius: 24 }}
+            containerStyle={{ flex: 1, borderRadius: 0 }}
           />
           )}
           <Button
             onPress={onConfirm}
             title="확인"
             type="dark"
-            containerStyle={{ flex: 1, borderRadius: 24 }}
+            containerStyle={{ flex: 1, borderRadius: 0 }}
           />
         </View>
       </View>
@@ -52,11 +52,11 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: 'auto',
-    minHeight: 160,
+    minHeight: 140,
     backgroundColor: '#ffffff',
-    padding: 20,
     justifyContent: 'space-between',
     borderRadius: 24,
+    overflow: 'hidden',
   },
   textContainer: {
     flex: 1,
@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   btnContainer: {
-    marginTop: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },

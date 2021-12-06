@@ -69,11 +69,11 @@ const BottomNavigator = ({ navigation: { navigate } }) => {
           }}
         >
           {selectedMenu === 'Home' ? (
-            <Ionicons name="restaurant" size={30} />
+            <Ionicons name="home" size={30} />
           ) : (
-            <Ionicons name="restaurant-outline" size={30} />
+            <Ionicons name="home-outline" size={30} />
           )}
-          <Text style={styles.naviText}>선택장애</Text>
+          <Text style={styles.naviText}>메인</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.bottomNavi}

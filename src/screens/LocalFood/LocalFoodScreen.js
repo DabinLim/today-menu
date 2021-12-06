@@ -44,7 +44,7 @@ const LocalFoodScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, position: 'relative' }}>
       <DropDown
         open={cityOpen}
         onOpen={onCityOpen}
@@ -53,7 +53,13 @@ const LocalFoodScreen = () => {
         setOpen={setCityOpen}
         setValue={setCityValue}
         setItems={setCityItems}
-        style={{ borderRadius: 0 }}
+        style={{
+          borderRadius: 0,
+          borderWidth: 0,
+          borderBottomWidth: 1,
+          borderTopWidth: 1,
+          borderColor: 'lightgray',
+        }}
         zIndex={3000}
         zIndexInverse={1000}
       />
@@ -66,7 +72,6 @@ const LocalFoodScreen = () => {
         setValue={setCountyValue}
         setItems={setCountyItems}
         placeholder="시, 군, 구를 선택해주세요."
-        style={{ borderRadius: 0, borderTopWidth: 0 }}
         zIndex={1000}
         zIndexInverse={3000}
         onChangeValue={scrollUp}

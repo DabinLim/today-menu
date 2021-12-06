@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import {
+  Dimensions, Image, StyleSheet, View,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import { Context as FoodContext } from '../../../context/food/foodContext';
 import { Context as PopUpContext } from '../../../context/popup/popUpContext';
@@ -19,7 +21,6 @@ const BeforeStartView = ({ setStartWorldCup, setGrade }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(0);
   const [items, setItems] = useState([
-    { label: '라운드를 선택하세요.', value: 0 },
     { label: '8강', value: 8 },
     { label: '16강', value: 16 },
     { label: '32강', value: 32 },
@@ -37,13 +38,15 @@ const BeforeStartView = ({ setStartWorldCup, setGrade }) => {
     getWorldCupFoodList(value);
     setStartWorldCup(true);
   };
+
+  const width = Dimensions.get('window').width / 1.1;
+  const height = width;
   return (
-    <>
-      <View style={styles.imageContainer}>
+    <View style={styles.container}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Image
-          source={images.LOGO_IMAGE}
-          resizeMode="cover"
-          style={{ width: 300, height: 200 }}
+          source={images.FOOD_VERSUS}
+          style={{ width, height }}
         />
       </View>
       <DropDown
@@ -56,6 +59,8 @@ const BeforeStartView = ({ setStartWorldCup, setGrade }) => {
         onChangeValue={() => {
           setGrade(value);
         }}
+        showArrowIcon={false}
+        placeholder="라운드를 선택하세요."
       />
       <Button
         onPress={startFoodWorldCup}
@@ -63,7 +68,7 @@ const BeforeStartView = ({ setStartWorldCup, setGrade }) => {
         type="dark"
         containerStyle={{ marginTop: 20 }}
       />
-    </>
+    </View>
   );
 };
 
@@ -72,9 +77,10 @@ BeforeStartView.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  imageContainer: {
+  container: {
     flex: 1,
-    justifyContent: 'center',
+    width: '100%',
+    paddingHorizontal: 20,
   },
 });
 
