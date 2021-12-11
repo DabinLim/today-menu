@@ -10,6 +10,7 @@ import FoodMapScreen from '../components/FoodMapScreen';
 import UserInfoScreen from '../screens/Mypage/components/UserInfoScreen';
 import BookmarkedListScreen from '../screens/Mypage/components/BookmarkedListScreen';
 import ModifyUserPasswordScreen from '../screens/Mypage/components/ModifyUserPasswordScreen';
+import LicenseScreen from '../screens/Mypage/components/LicenseScreen';
 
 export const screens = {
   SIGN_IN: {
@@ -82,6 +83,12 @@ export const screens = {
     name: 'ModifyUserPassword',
     component: ModifyUserPasswordScreen,
     options: ModifyUserPasswordScreen.navigationOptions,
+    flow: ['MAIN'],
+  },
+  LICENSE_SCREEN: {
+    name: 'License',
+    component: LicenseScreen,
+    option: LicenseScreen.navigationOptions,
     flow: ['MAIN'],
   },
 };

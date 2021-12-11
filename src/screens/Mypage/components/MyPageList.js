@@ -38,6 +38,9 @@ const MyPageList = ({ navigate }) => {
           onConfirm: dismissAlert,
         });
         break;
+      case '제작 정보':
+        navigate(screens.LICENSE_SCREEN.name);
+        break;
       default:
         break;
     }

@@ -22,6 +22,13 @@ const HomeScreen = ({ navigation: { navigate } }) => {
   };
 
   const searchByKeyword = () => {
+    if (searchKeyword === '') {
+      showAlert({
+        message: '검색어를 입력해주세요.',
+        onConfirm: dismissAlert,
+      });
+      return;
+    }
     navigate(screens.FOOD_MAP_SCREEN.name, { keyword: searchKeyword });
     setSearchKeyword('');
   };
@@ -70,8 +77,9 @@ const HomeScreen = ({ navigation: { navigate } }) => {
               onPress={goToCommunity}
               style={styles.halfMenuCard}
             >
+              <Image source={images.COMMUNITY} style={styles.halfMenuImage} />
               <View>
-                <Text style={styles.menuText}>
+                <Text style={styles.halfMenuText}>
                   커뮤니티
                 </Text>
               </View>
@@ -80,8 +88,9 @@ const HomeScreen = ({ navigation: { navigate } }) => {
               onPress={goToBookmarkedList}
               style={styles.halfMenuCard}
             >
+              <Image source={images.LIKE} style={styles.halfMenuImage} />
               <View>
-                <Text style={styles.menuText}>
+                <Text style={styles.halfMenuText}>
                   즐겨찾는 맛집
                 </Text>
               </View>
@@ -152,7 +161,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   halfMenuCard: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'darkgray',
     width: Dimensions.get('window').width / 2.4,
     height: Dimensions.get('window').width / 2.4,
     justifyContent: 'center',
@@ -167,6 +176,13 @@ const styles = StyleSheet.create({
     elevation: 2,
     borderRadius: 16,
     marginLeft: 2,
+  },
+  halfMenuImage: {
+    position: 'absolute',
+    width: Dimensions.get('window').width / 2.4,
+    height: Dimensions.get('window').width / 2.4,
+    borderRadius: 16,
+    opacity: 0.8,
   },
   smallMenuCard: {
     position: 'relative',
@@ -229,6 +245,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#fff',
+    zIndex: 20,
+  },
+  halfMenuText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#000',
     zIndex: 20,
   },
   input: {

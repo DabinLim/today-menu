@@ -74,25 +74,25 @@ const AfterStartQuestView = ({
   return (
     <View style={styles.container}>
       <View style={styles.questionCard}>
-        <View>
-          <Text styles={styles.question}>
+        <View style={styles.questionWrap}>
+          <Text style={styles.question}>
             {question.text}
           </Text>
         </View>
-      </View>
-      <View style={styles.btnBox}>
-        <Button
-          onPress={() => submitAnswer(false)}
-          title="별로..."
-          type="gray"
-          containerStyle={{ flex: 0.5, marginRight: 10 }}
-        />
-        <Button
-          onPress={() => submitAnswer(true)}
-          title="좋아요"
-          type="dark"
-          containerStyle={{ flex: 0.5 }}
-        />
+        <View style={styles.btnBox}>
+          <Button
+            onPress={() => submitAnswer(false)}
+            title="별로..."
+            type="gray"
+            containerStyle={{ flex: 0.4, height: 40 }}
+          />
+          <Button
+            onPress={() => submitAnswer(true)}
+            title="좋아요"
+            type="dark"
+            containerStyle={{ flex: 0.4, height: 40 }}
+          />
+        </View>
       </View>
     </View>
   );
@@ -109,23 +109,32 @@ const styles = StyleSheet.create({
   questionCard: {
     width: 300,
     height: 200,
+    padding: 20,
     alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#000',
+    justifyContent: 'space-between',
+    borderRadius: 16,
+    shadowColor: '#7d7d7d',
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 0,
     },
-    shadowOpacity: 0.20,
-    shadowRadius: 1.41,
-    elevation: 2,
+    shadowOpacity: 0.34,
+    shadowRadius: 6,
+    elevation: 14,
     backgroundColor: '#ffffff',
   },
+  questionWrap: {
+    justifyContent: 'center',
+    flex: 1,
+  },
   question: {
+    fontSize: 16,
   },
   btnBox: {
     flexDirection: 'row',
-    marginTop: 40,
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: 20,
   },
 });
 

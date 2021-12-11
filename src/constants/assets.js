@@ -5,6 +5,9 @@ import WORLD_CUP_OUTLINED from '../assets/image/worldcup-outline.png';
 import MAIN_IMAGE from '../assets/image/mainImage.png';
 import FOOD_VERSUS from '../assets/image/foodversus.png';
 import RANDOM_FOOD from '../assets/image/randomFood.png';
+import WHAT_EAT from '../assets/image/what_eat.png';
+import COMMUNITY from '../assets/image/community.png';
+import LIKE from '../assets/image/like.png';
 
 export const images = {
   LOGO_IMAGE,
@@ -14,4 +17,7 @@ export const images = {
   MAIN_IMAGE,
   FOOD_VERSUS,
   RANDOM_FOOD,
+  WHAT_EAT,
+  COMMUNITY,
+  LIKE,
 };
