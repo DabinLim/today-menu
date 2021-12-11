@@ -14,7 +14,6 @@ const RestaurantItem = ({
   phone,
   distance,
   place_url,
-  id,
   x,
   y,
 }) => {
@@ -87,14 +86,16 @@ const RestaurantItem = ({
               {phone || '-'}
             </Text>
           </Text>
-          <Text style={styles.info}>
-            {'거리 : '}
-            <Text>
-              {Math.round(distance / 10) / 100}
-              {' '}
-              km
+          {distance && (
+            <Text style={styles.info}>
+              {'거리 : '}
+              <Text>
+                {Math.round(distance / 10) / 100}
+                {' '}
+                km
+              </Text>
             </Text>
-          </Text>
+          )}
         </View>
       </View>
     </TouchableOpacity>

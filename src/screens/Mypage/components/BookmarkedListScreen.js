@@ -1,18 +1,46 @@
 import React, { useContext } from 'react';
-import { Text, View } from 'react-native';
-import { Context as FoodContext } from '../../../context/food/foodContext';
+import { FlatList, View } from 'react-native';
+import { Context as AuthContext } from '../../../context/auth/authContext';
+import RestaurantItem from '../../../components/RestaurantItem';
 
 const BookmarkedListScreen = () => {
   const {
     state: {
-      bookmarkedRestaurantList,
+      bookmarkedRestaurant,
     },
-  } = useContext(FoodContext);
+  } = useContext(AuthContext);
+  console.log(bookmarkedRestaurant);
+
+  const renderRestaurantList = ({
+    item: {
+      name,
+      address,
+      roadAddress,
+      phoneNumber,
+      url,
+      category,
+      x,
+      y,
+    },
+  }) => (
+    <RestaurantItem
+      place_name={name}
+      place_url={url}
+      address_name={address}
+      phone={phoneNumber}
+      road_address_name={roadAddress}
+      category_group_name={category}
+      longitude={x}
+      latitude={y}
+    />
+  );
   return (
-    <View>
-      <Text>
-        준비중입니다.
-      </Text>
+    <View style={{ flex: 1 }}>
+      <FlatList
+        keyExtractor={({ restaurantId }) => restaurantId}
+        data={bookmarkedRestaurant}
+        renderItem={renderRestaurantList}
+      />
     </View>
   );
 };

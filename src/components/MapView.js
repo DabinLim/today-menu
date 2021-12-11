@@ -223,7 +223,6 @@ const MapView = ({
       address_name={address_name}
       phone={phone}
       distance={distance}
-      id={id}
       road_address_name={road_address_name}
       category_group_name={category_group_name}
       longitude={x}
