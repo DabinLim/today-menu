@@ -2,6 +2,7 @@ import { myImmer } from '../utils';
 
 export default (state, action) => {
   const { user } = state;
+  const { bookmarkedRestaurant, bookmarkedIdList } = state;
   switch (action.type) {
     case 'sign_up':
       return myImmer(state, {
@@ -46,6 +47,26 @@ export default (state, action) => {
         bookmarkedRestaurant: action.payload.bookmarkedRestaurant,
         bookmarkedRestaurantLoading: action.payload.loading,
         bookmarkedIdList: action.payload.bookmarkedIdList,
+      });
+    case 'add_bookmark':
+      if (action.payload.bookmarkedRestaurant) {
+        bookmarkedRestaurant.push(action.payload.bookmarkedRestaurant);
+        bookmarkedIdList.push(action.payload.bookmarkedRestaurant.name);
+      }
+      return myImmer(state, {
+        bookmarkedRestaurant,
+        bookmarkedIdList,
+      });
+    case 'remove_bookmark':
+      bookmarkedRestaurant.forEach((v, idx) => {
+        if (v.restaurantId === action.payload.restaurantId) {
+          bookmarkedRestaurant.splice(idx, 1);
+          bookmarkedIdList.splice(idx, 1);
+        }
+      });
+      return myImmer(state, {
+        bookmarkedRestaurant,
+        bookmarkedIdList,
       });
     default:
       return state;

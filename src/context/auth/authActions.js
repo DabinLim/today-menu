@@ -6,7 +6,7 @@ import {
   requestCheckSession,
   requestDeleteAccount, requestGetBookmarkedRestaurant,
   requestModifyPassword,
-  requestModifyUserName,
+  requestModifyUserName, requestRemoveBookmarkedRestaurant,
   requestSignIn,
   requestSignUp,
 } from './authApis';
@@ -173,7 +173,17 @@ export default {
       callback(error);
     }
   },
-  addBookMark: (dispatch) => async (restaurant, callback) => {
+  addBookMark: (dispatch) => async (
+    place_name,
+    category_group_name,
+    address_name,
+    road_address_name,
+    phone,
+    place_url,
+    x,
+    y,
+    callback,
+  ) => {
     try {
       dispatch({
         type: 'add_bookmark',
@@ -182,13 +192,34 @@ export default {
         },
       });
 
-      const { bookmarkedRestaurant } = await requestAddBookmarkedRestaurant();
+      const { bookmarkedRestaurant } = await requestAddBookmarkedRestaurant(
+        place_name,
+        category_group_name,
+        address_name,
+        road_address_name,
+        phone,
+        place_url,
+        x,
+        y,
+      );
+
+      const restaurantItem = {
+        address: address_name,
+        category: category_group_name,
+        name: place_name,
+        phoneNumber: phone,
+        restaurantId: bookmarkedRestaurant?.restaurantId,
+        roadAddress: road_address_name,
+        url: place_url,
+        x,
+        y,
+      };
 
       dispatch({
         type: 'add_bookmark',
         payload: {
           loading: false,
-          bookmarkedRestaurant,
+          bookmarkedRestaurant: restaurantItem,
         },
       });
     } catch (e) {
@@ -200,6 +231,33 @@ export default {
       });
       const error = handleError(e);
       callback(null, error);
+    }
+  },
+  removeBookmark: (dispatch) => async (restaurantId, callback) => {
+    try {
+      dispatch({
+        type: 'remove_bookmark',
+        payload: {
+          loading: true,
+        },
+      });
+      await requestRemoveBookmarkedRestaurant(restaurantId);
+      dispatch({
+        type: 'remove_bookmark',
+        payload: {
+          loading: true,
+          restaurantId,
+        },
+      });
+    } catch (e) {
+      dispatch({
+        type: 'remove_bookmark',
+        payload: {
+          loading: false,
+        },
+      });
+      callback(null, error);
+      console.error('removeBookmark Error: ', e);
     }
   },
   modifyUserName: (dispatch) => async (userName, callback) => {

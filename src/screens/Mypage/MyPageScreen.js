@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity, SafeAreaView, FlatList,
+  View, Text, StyleSheet, SafeAreaView,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { Context as AuthContext } from '../../context/auth/authContext';
-import { myPageList } from './utils';
 import Button from '../../components/Button';
 import MyPageList from './components/MyPageList';
 import { Context as PopUpContext } from '../../context/popup/popUpContext';
@@ -24,7 +23,6 @@ const MyPageScreen = ({ navigation: { navigate } }) => {
   } = useContext(PopUpContext);
 
   const userName = get(user, 'name');
-  const userEmail = get(user, 'email');
 
   const confirmSignOut = () => {
     showAlert({
@@ -53,8 +51,12 @@ const MyPageScreen = ({ navigation: { navigate } }) => {
           <Text style={styles.userName}>
             {userName}
             <Text style={styles.title}>
-              님 안녕하세요
+              {' '}
+              님
             </Text>
+          </Text>
+          <Text style={styles.title}>
+            오늘의 메뉴를 골라보세요
           </Text>
         </View>
         <MyPageList navigate={navigate} />
@@ -63,7 +65,7 @@ const MyPageScreen = ({ navigation: { navigate } }) => {
         <Button
           onPress={confirmSignOut}
           title="로그아웃"
-          type="dark"
+          type="darkGray"
         />
       </View>
     </SafeAreaView>
@@ -79,17 +81,21 @@ MyPageScreen.propTypes = {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingTop: 60,
+    paddingBottom: 20,
     flex: 1,
+    alignItems: 'center',
   },
   userName: {
-    fontSize: 36,
+    fontSize: 24,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   title: {
     fontSize: 24,
     fontWeight: 'normal',
     marginTop: 20,
+    textAlign: 'center',
   },
   btnWrap: {
     marginBottom: 20,

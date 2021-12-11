@@ -51,14 +51,40 @@ export const requestGetBookmarkedRestaurant = async () => {
   return { bookmarkedRestaurant: data };
 };
 
-export const requestAddBookmarkedRestaurant = async (restaurant) => {
+export const requestAddBookmarkedRestaurant = async (
+  place_name,
+  category_group_name,
+  address_name,
+  road_address_name,
+  phone,
+  place_url,
+  x,
+  y,
+) => {
   const response = await myAxios(
     'POST',
     '/api/bookMark',
+    {
+      name: place_name,
+      category: category_group_name,
+      address: address_name,
+      roadAddress: road_address_name,
+      phoneNumber: phone,
+      url: place_url,
+      x,
+      y,
+    },
   );
 
   const data = get(response, 'data');
   return { bookmarkedRestaurant: data };
+};
+
+export const requestRemoveBookmarkedRestaurant = async (restaurantId) => {
+  await myAxios(
+    'DELETE',
+    `/api/bookMark/${restaurantId}`,
+  );
 };
 
 export const requestModifyUserName = async (userName) => {

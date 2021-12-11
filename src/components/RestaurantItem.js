@@ -8,31 +8,56 @@ import { Context as AuthContext } from '../context/auth/authContext';
 
 const RestaurantItem = ({
   place_name,
+  category_group_name,
   address_name,
   road_address_name,
   phone,
   distance,
   place_url,
   id,
-  category_group_name,
   x,
   y,
-
 }) => {
   const {
     state: {
       bookmarkedIdList,
+      bookmarkedRestaurant,
     },
-    addBookmark,
+    addBookMark,
+    removeBookmark,
   } = useContext(AuthContext);
+
+  // console.log(bookmarkedIdList);
+  // console.log(bookmarkedRestaurant);
 
   const isBookmarked = includes(bookmarkedIdList, place_name);
 
   const modifyBookmark = () => {
     if (isBookmarked) {
-
+      const restaurant = bookmarkedRestaurant.find((v) => v.name === place_name);
+      if (restaurant) {
+        removeBookmark(restaurant.restaurantId, (_result, error) => {
+          if (error) {
+            console.error(error);
+          }
+        });
+      }
     } else {
-      addBookmark();
+      addBookMark(
+        place_name,
+        category_group_name,
+        address_name,
+        road_address_name,
+        phone,
+        place_url,
+        x,
+        y,
+        (_result, error) => {
+          if (error) {
+            console.error(error);
+          }
+        },
+      );
     }
   };
 

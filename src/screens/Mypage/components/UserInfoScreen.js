@@ -1,5 +1,7 @@
-import React, { useContext, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useContext, useRef, useState } from 'react';
+import {
+  StyleSheet, Text, TextInput, View,
+} from 'react-native';
 import { Context as AuthContext } from '../../../context/auth/authContext';
 import { Context as PopUpContext } from '../../../context/popup/popUpContext';
 import Button from '../../../components/Button';
@@ -21,6 +23,7 @@ const UserInfoScreen = ({ navigation }) => {
 
   const [nameInputVisible, setNameInputVisible] = useState(false);
   const [nameText, setNameText] = useState(user?.name);
+  const inputRef = useRef();
 
   const handleUserAction = (action) => {
     switch (action) {
@@ -30,6 +33,9 @@ const UserInfoScreen = ({ navigation }) => {
           setNameInputVisible(false);
         } else {
           setNameInputVisible(true);
+          if (inputRef) {
+            setTimeout(() => { inputRef.current.focus(); }, 10);
+          }
         }
         break;
       case 'modify_password':
@@ -77,7 +83,6 @@ const UserInfoScreen = ({ navigation }) => {
       }
     });
   };
-  console.log(nameText);
 
   return (
     <View style={styles.container}>
@@ -96,15 +101,15 @@ const UserInfoScreen = ({ navigation }) => {
           </Text>
           {nameInputVisible ? (
             <View style={{ flex: 1 }}>
-              <Input
+              <TextInput
+                ref={inputRef}
+                onSubmitEditing={() => handleUserAction('modify_name')}
                 onChangeText={setNameText}
                 value={nameText}
-                inputStyle={{
-                  flex: 1,
-                  paddingVertical: 0,
-                  marginBottom: 10,
-                  fontSize: 16,
-                }}
+                style={{ fontSize: 16 }}
+                autoCapitalize="none"
+                autoCompleteType="off"
+                autoCorrect={false}
               />
             </View>
           ) : (
@@ -163,7 +168,7 @@ const styles = StyleSheet.create({
   },
   modifyBtn: {
     width: 60,
-    height: 40,
+    height: 35,
     marginLeft: 20,
   },
   userInfo: {
