@@ -36,6 +36,20 @@ const MapView = ({
   const lat = get(location, 'latitude');
   const lng = get(location, 'longitude');
 
+  // useEffect(() => {
+  //   if (webviewRef) {
+  //     const handlePostMessage = () => {
+  //       webviewRef.postMessage(JSON.stringify({
+  //         type: 'Click',
+  //       }));
+  //     };
+  //     webviewRef.addListener('click', handlePostMessage);
+  //     return () => {
+  //       webviewRef.removeListeners('click', handlePostMessage);
+  //     };
+  //   }
+  // }, [webviewRef]);
+
   useEffect(async () => {
     if (countyValue && isWebViewLoaded) {
       await getGeocodeByCountyValue(countyValue);
@@ -46,6 +60,7 @@ const MapView = ({
     if (isWebViewLoaded) {
       setLoading(true);
       setLastPage(false);
+      setPage(1);
       webviewRef.postMessage(JSON.stringify({
         type: 'Location',
         data: {
@@ -218,6 +233,8 @@ const MapView = ({
     },
   }) => (
     <RestaurantItem
+      map
+      onPress={() => handleCustomOverlay(id)}
       place_name={place_name}
       place_url={place_url}
       address_name={address_name}
@@ -239,6 +256,15 @@ const MapView = ({
       </Text>
     </View>
   );
+
+  const handleCustomOverlay = (id) => {
+    webviewRef.postMessage(JSON.stringify({
+      type: 'CardClick',
+      data: {
+        id,
+      },
+    }));
+  };
 
   return (
     <View style={{ flex: 1 }}>

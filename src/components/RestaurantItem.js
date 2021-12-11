@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { includes } from 'lodash';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Context as AuthContext } from '../context/auth/authContext';
 
 const RestaurantItem = ({
@@ -16,6 +17,8 @@ const RestaurantItem = ({
   place_url,
   x,
   y,
+  onPress,
+  map,
 }) => {
   const {
     state: {
@@ -60,21 +63,35 @@ const RestaurantItem = ({
     }
   };
 
+  const handleOpenLink = async () => {
+    await Linking.openURL(place_url);
+  };
+
   return (
     <TouchableOpacity
       style={styles.restaurantCard}
-      onPress={async () => { await Linking.openURL(place_url); }}
+      onPress={map ? onPress : handleOpenLink}
     >
       <View>
         <View style={styles.titleRow}>
           <Text style={styles.title}>
             {place_name}
           </Text>
-          <TouchableOpacity
-            onPress={modifyBookmark}
-          >
-            <FontAwesome name={isBookmarked ? 'bookmark' : 'bookmark-o'} size={24} />
-          </TouchableOpacity>
+          <View style={{ flexDirection: 'row' }}>
+            {map && (
+              <TouchableOpacity
+                style={{ marginRight: 20 }}
+                onPress={handleOpenLink}
+              >
+                <AntDesign name="link" size={24} />
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity
+              onPress={modifyBookmark}
+            >
+              <FontAwesome name={isBookmarked ? 'bookmark' : 'bookmark-o'} size={24} />
+            </TouchableOpacity>
+          </View>
         </View>
         <Text style={styles.address}>
           {address_name}

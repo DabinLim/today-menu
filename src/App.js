@@ -49,15 +49,17 @@ const App: () => Node = () => {
   }, []);
 
   useLayoutEffect(() => {
-    getBookMarkList((error) => {
-      if (error) {
-        showAlert({
-          message: error.message,
-          onConfirm: dismissAlert,
-        });
-      }
-    });
-  }, []);
+    if (user) {
+      getBookMarkList((error) => {
+        if (error) {
+          showAlert({
+            message: error.message,
+            onConfirm: dismissAlert,
+          });
+        }
+      });
+    }
+  }, [user]);
 
   useEffect(() => {
     if (isChecked) {

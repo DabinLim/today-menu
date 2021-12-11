@@ -128,6 +128,12 @@ export default {
       }
     } catch (e) {
       dispatch({
+        type: 'skip_sign_in',
+        payload: {
+          skipSignIn: true,
+        },
+      });
+      dispatch({
         type: 'check_session',
         payload: {
           user: null,
@@ -135,8 +141,10 @@ export default {
         },
       });
       const error = handleError(e);
-      console.error('checkSessionError: ', e);
-      callback(error);
+      if (error.status !== 500) {
+        console.error('checkSessionError: ', e);
+        callback(error);
+      }
     }
   },
   getBookMarkList: (dispatch) => async (callback) => {
