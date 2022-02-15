@@ -127,7 +127,9 @@ const MapView = ({
   const handleEndLoading = async () => {
     try {
       console.log('webview loaded');
-      const { latitude, longitude } = await fetchCurrentLocation();
+      const latitude = 37.56076511299618;
+      const longitude = 126.92748328492733;
+      // const { latitude, longitude } = await fetchCurrentLocation();
       console.log('location ready');
       // memo : 앱에서 겸색결과가 없는 경우 서대문구로 표시되는 이유
       // 첫 렌더시 디폴트 위경도인 서대문구로 지도 렌더
@@ -187,7 +189,6 @@ const MapView = ({
       if (dataFromWebView?.message) {
         setPlaceData(dataFromWebView.message);
         setLoading(false);
-        console.log(dataFromWebView.message.length);
       }
     } else if (dataFromWebView.type === 'selectedPlace') {
       if (dataFromWebView.message) {

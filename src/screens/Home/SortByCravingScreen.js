@@ -82,9 +82,13 @@ const SortByCravingScreen = ({ navigation: { navigate } }) => {
           <SelectedFoodView
             selectedFood={selectedFoodByType}
             isSelected
-            goToFindRestaurant={goToFindRestaurant}
           />
           <View style={{ width: '100%' }}>
+            <Button
+              onPress={goToFindRestaurant}
+              title={`${selectedFoodName} 맛집 찾기`}
+              type="dark"
+            />
             <Button
               onPress={resetQuestion}
               title="처음으로"
@@ -117,7 +121,7 @@ const SortByCravingScreen = ({ navigation: { navigate } }) => {
 };
 
 SortByCravingScreen.navigationOptions = {
-  title: '오늘 뭐 먹지?',
+  title: '메뉴 찾기',
 };
 
 const styles = StyleSheet.create({

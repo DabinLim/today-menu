@@ -7,8 +7,8 @@ const Input = forwardRef(({
 }, ref) => (
   <>
     <TextInput
-      lab
       placeholder={placeholder}
+      placeholderTextColor="#B0B0C3"
       textContentType={textContentType}
       style={[styles.input, inputStyle]}
       onChangeText={onChangeText}
@@ -39,10 +39,13 @@ Input.propTypes = {
 
 const styles = StyleSheet.create({
   input: {
-    borderBottomWidth: 1,
+    backgroundColor: '#F5F5F5',
     paddingVertical: 12,
+    paddingHorizontal: 12,
+    borderRadius: 8,
     fontSize: 18,
     marginTop: 14,
+    color: '#000000',
   },
 });
 

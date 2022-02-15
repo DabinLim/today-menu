@@ -11,4 +11,7 @@ export const myPageList = [
   {
     title: '제작 정보',
   },
+  {
+    title: 'Buy me a coffee',
+  },
 ];

@@ -147,7 +147,7 @@ const RandomFoodScreen = ({ navigation: { navigate } }) => {
                 />
                 <Button
                   onPress={goToFindRestaurant}
-                  title="맛집찾기"
+                  title="맛집 찾기"
                   type="dark"
                   containerStyle={styles.buttonRight}
                 />

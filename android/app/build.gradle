@@ -133,7 +133,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.what_should_we_eat"
+        applicationId "com.todaymenu"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

@@ -20,6 +20,7 @@ const Alert = () => {
       onBackdropPress={() => {}}
       animationInTiming={0.1}
       animationOutTiming={0.1}
+      style={{ justifyContent: 'center', alignItems: 'center' }}
     >
       <View style={styles.container}>
         <View style={styles.textContainer}>
@@ -32,15 +33,17 @@ const Alert = () => {
           <Button
             onPress={onCancel}
             title="취소"
-            type="gray"
-            containerStyle={{ flex: 1, borderRadius: 0 }}
+            type="white"
+            containerStyle={{ flex: 1, borderRadius: 0, height: 50 }}
+            textStyle={{ fontSize: 14 }}
           />
           )}
           <Button
             onPress={onConfirm}
             title="확인"
             type="dark"
-            containerStyle={{ flex: 1, borderRadius: 0 }}
+            containerStyle={{ flex: 1, borderRadius: 0, height: 50 }}
+            textStyle={{ fontSize: 14 }}
           />
         </View>
       </View>
@@ -50,9 +53,9 @@ const Alert = () => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: '75%',
     height: 'auto',
-    minHeight: 140,
+    minHeight: 100,
     backgroundColor: '#ffffff',
     justifyContent: 'space-between',
     borderRadius: 24,
@@ -68,6 +71,8 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     flexDirection: 'row',
+    borderTopWidth: 1,
+    borderTopColor: 'lightgray',
     justifyContent: 'space-between',
   },
 });

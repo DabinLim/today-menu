@@ -35,7 +35,7 @@ const SignInForm = () => {
     <View>
       <Input
         onChangeText={(e) => { setEmail(e); }}
-        placeholder="Email"
+        placeholder="이메일"
         onSubmitEditing={() => { pwdRef?.current.focus(); }}
       />
       {email && !validateEmail(email) ? (
@@ -43,7 +43,7 @@ const SignInForm = () => {
       ) : <View style={styles.empty} />}
       <Input
         onChangeText={(e) => { setPwd(e); }}
-        placeholder="Password"
+        placeholder="비밀번호"
         textContentType="password"
         ref={pwdRef}
         onSubmitEditing={validate ? onSubmit : () => {}}
@@ -62,12 +62,12 @@ const SignInForm = () => {
 const styles = StyleSheet.create({
   warn: {
     fontSize: 10,
-    lineHeight: 10,
+    lineHeight: 14,
     marginTop: 8,
     color: '#eb1e1e',
   },
   empty: {
-    height: 10,
+    height: 14,
     marginTop: 8,
   },
 });

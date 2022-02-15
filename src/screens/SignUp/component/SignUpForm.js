@@ -59,18 +59,17 @@ const SignUpForm = () => {
     <View>
       <Input
         onChangeText={(e) => { setEmail(e); }}
-        placeholder="Email"
+        placeholder="이메일"
         keyboardType="email-address"
         returnKeyType="next"
         onSubmitEditing={() => nickNameRef?.current.focus()}
       />
-      {/* todo 비밀번호 찾기에 사용되므로 정확한 이메일을 입력해주세요. 이메일은 분실시 찾을 수 없습니다. */}
       {email && !validateEmail(email) ? (
-        <Text style={styles.warn}>이메일 형식이 올바르지 않습니다.</Text>
+        <Text style={styles.warn}>비밀번호 찾기에 사용되므로 정확한 이메일을 입력해주세요.</Text>
       ) : <View style={styles.empty} />}
       <Input
         onChangeText={(e) => { setNickname(e); }}
-        placeholder="Nickname"
+        placeholder="닉네임"
         inputStyle={styles.input}
         returnKeyType="next"
         ref={nickNameRef}
@@ -81,7 +80,7 @@ const SignUpForm = () => {
       ) : <View style={styles.empty} />}
       <Input
         onChangeText={(e) => { setPwd(e); }}
-        placeholder="Password"
+        placeholder="비밀번호"
         textContentType="password"
         inputStyle={styles.input}
         returnKeyType="next"
@@ -93,7 +92,7 @@ const SignUpForm = () => {
       ) : <View style={styles.empty} />}
       <Input
         onChangeText={(e) => { setPwdCheck(e); }}
-        placeholder="PasswordCheck"
+        placeholder="비밀번호 확인"
         textContentType="password"
         inputStyle={styles.input}
         returnKeyType="done"
@@ -125,12 +124,12 @@ const styles = StyleSheet.create({
   },
   warn: {
     fontSize: 10,
-    lineHeight: 10,
+    lineHeight: 14,
     marginTop: 8,
     color: '#eb1e1e',
   },
   empty: {
-    height: 10,
+    height: 14,
     marginTop: 8,
   },
   emailNotice: {

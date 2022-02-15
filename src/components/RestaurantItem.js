@@ -6,6 +6,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { includes } from 'lodash';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Context as AuthContext } from '../context/auth/authContext';
+import { Context as PopUpContext } from '../context/popup/popUpContext';
 
 const RestaurantItem = ({
   place_name,
@@ -24,10 +25,16 @@ const RestaurantItem = ({
     state: {
       bookmarkedIdList,
       bookmarkedRestaurant,
+      skipSignIn,
     },
     addBookMark,
     removeBookmark,
+    setSkipSignIn,
   } = useContext(AuthContext);
+
+  const {
+    showAlert, dismissAlert,
+  } = useContext(PopUpContext);
 
   // console.log(bookmarkedIdList);
   // console.log(bookmarkedRestaurant);
@@ -35,6 +42,17 @@ const RestaurantItem = ({
   const isBookmarked = includes(bookmarkedIdList, place_name);
 
   const modifyBookmark = () => {
+    if (skipSignIn) {
+      showAlert({
+        message: '로그인이 필요합니다',
+        onConfirm: () => setSkipSignIn(false),
+        onCancel: dismissAlert,
+      });
+      return;
+      // if (alert.alert('dffdf')) {
+      //   setSkipSignIn(false);
+      // }
+    }
     if (isBookmarked) {
       const restaurant = bookmarkedRestaurant.find((v) => v.name === place_name);
       if (restaurant) {

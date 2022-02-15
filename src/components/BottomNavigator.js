@@ -75,20 +75,20 @@ const BottomNavigator = ({ navigation: { navigate } }) => {
           )}
           <Text style={styles.naviText}>메인</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.bottomNavi}
-          onPress={() => {
-            handleNavigate('LocalFood');
-            setSelectedMenu('LocalFood');
-          }}
-        >
-          {selectedMenu === 'LocalFood' ? (
-            <Ionicons name="location" size={30} />
-          ) : (
-            <Ionicons name="location-outline" size={30} />
-          )}
-          <Text style={styles.naviText}>지역맛집</Text>
-        </TouchableOpacity>
+        {/*<TouchableOpacity*/}
+        {/*  style={styles.bottomNavi}*/}
+        {/*  onPress={() => {*/}
+        {/*    handleNavigate('LocalFood');*/}
+        {/*    setSelectedMenu('LocalFood');*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  {selectedMenu === 'LocalFood' ? (*/}
+        {/*    <Ionicons name="location" size={30} />*/}
+        {/*  ) : (*/}
+        {/*    <Ionicons name="location-outline" size={30} />*/}
+        {/*  )}*/}
+        {/*  <Text style={styles.naviText}>지역맛집</Text>*/}
+        {/*</TouchableOpacity>*/}
         <TouchableOpacity
           style={styles.bottomNavi}
           onPress={() => {

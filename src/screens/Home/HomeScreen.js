@@ -8,9 +8,17 @@ import Button from '../../components/Button';
 import { images } from '../../constants/assets';
 import { foodCategoryList } from './utils';
 import { Context as PopUpContext } from '../../context/popup/popUpContext';
+import { Context as AuthContext } from '../../context/auth/authContext';
+import Input from '../../components/Input';
 
 const HomeScreen = ({ navigation: { navigate } }) => {
   const { showAlert, dismissAlert } = useContext(PopUpContext);
+  const {
+    state: {
+      skipSignIn,
+    },
+    setSkipSignIn,
+  } = useContext(AuthContext);
   const [searchKeyword, setSearchKeyword] = useState('');
 
   const goToQuestion = () => {
@@ -41,6 +49,14 @@ const HomeScreen = ({ navigation: { navigate } }) => {
   };
 
   const goToBookmarkedList = () => {
+    if (skipSignIn) {
+      showAlert({
+        message: '로그인이 필요합니다.',
+        onConfirm: () => setSkipSignIn(false),
+        onCancel: dismissAlert,
+      });
+      return;
+    }
     navigate(screens.BOOKMARKED_LIST_SCREEN.name);
   };
 
@@ -110,16 +126,13 @@ const HomeScreen = ({ navigation: { navigate } }) => {
             오늘의 메뉴
           </Text>
         </View>
-        <TextInput
+        <Input
           onChangeText={setSearchKeyword}
           value={searchKeyword}
           onSubmitEditing={searchByKeyword}
           style={styles.input}
           placeholder="맛집을 검색해보세요!"
-          autoCapitalize="none"
-          autoCorrect={false}
-          autoCompleteType="off"
-          returnKeyType="search"
+          returnKeyType="done"
         />
       </View>
     </View>
@@ -269,6 +282,7 @@ const styles = StyleSheet.create({
     padding: 8,
     fontSize: 16,
     marginBottom: 24,
+    color: '#000000',
   },
   image: {
     width: '100%',

@@ -33,7 +33,7 @@ const FoodCard = ({
           </View>
           <Button
             onPress={worldCup ? selectItem : goToFindRestaurant}
-            title={worldCup ? '선택하기' : '맛집찾기'}
+            title={worldCup ? '선택하기' : '맛집 찾기'}
             type="dark"
             containerStyle={styles.selectBtn}
           />

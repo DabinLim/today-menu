@@ -8,7 +8,7 @@ const setContainerStyleByType = (type, disabled) => {
   switch (type) {
     case 'dark':
       return {
-        backgroundColor: disabled ? '#F5F5F5' : '#ffa033',
+        backgroundColor: disabled ? '#e9e9e9' : '#ffa033',
       };
     case 'white':
       return {
@@ -99,16 +99,6 @@ Button.defaultProps = {
   textStyle: {},
   clickable: false,
   disabled: false,
-};
-
-Button.propTypes = {
-  onPress: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
-  containerStyle: ViewPropTypes.style,
-  textStyle: ViewPropTypes.style,
-  type: PropTypes.oneOf(['dark', 'gray', 'darkGray', 'underline', 'text', 'white']).isRequired,
-  clickable: PropTypes.bool,
-  disabled: PropTypes.bool,
 };
 
 const styles = StyleSheet.create({
