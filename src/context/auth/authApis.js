@@ -4,7 +4,7 @@ import { myAxios } from '../utils';
 export const requestSignUp = async (email, password, name) => {
   const response = await myAxios(
     'POST',
-    '/api/member/signup',
+    '/api/members/signup',
     {
       email,
       password,
@@ -21,7 +21,7 @@ export const requestSignUp = async (email, password, name) => {
 export const requestSignIn = async (email, password) => {
   const response = await myAxios(
     'POST',
-    '/api/member/login',
+    '/api/members/login',
     {
       email,
       password,
@@ -34,7 +34,7 @@ export const requestSignIn = async (email, password) => {
 export const requestCheckSession = async () => {
   const response = await myAxios(
     'GET',
-    '/api/member/me',
+    '/api/members/me',
   );
 
   const data = get(response, 'data');
@@ -44,7 +44,7 @@ export const requestCheckSession = async () => {
 export const requestGetBookmarkedRestaurant = async () => {
   const response = await myAxios(
     'GET',
-    'api/bookMark',
+    'api/book-marks',
   );
 
   const data = get(response, 'data');
@@ -63,7 +63,7 @@ export const requestAddBookmarkedRestaurant = async (
 ) => {
   const response = await myAxios(
     'POST',
-    '/api/bookMark',
+    '/api/book-marks',
     {
       name: place_name,
       category: category_group_name,
@@ -83,14 +83,14 @@ export const requestAddBookmarkedRestaurant = async (
 export const requestRemoveBookmarkedRestaurant = async (restaurantId) => {
   await myAxios(
     'DELETE',
-    `/api/bookMark/${restaurantId}`,
+    `/api/book-marks/${restaurantId}`,
   );
 };
 
 export const requestModifyUserName = async (userName) => {
   const response = await myAxios(
     'PATCH',
-    '/api/member/name',
+    '/api/members/name',
     {
       name: userName,
     },
@@ -103,7 +103,7 @@ export const requestModifyUserName = async (userName) => {
 export const requestModifyPassword = async (pwd) => {
   const response = await myAxios(
     'PATCH',
-    '/api/member/password',
+    '/api/members/password',
     {
       password: pwd,
     },
@@ -116,7 +116,7 @@ export const requestModifyPassword = async (pwd) => {
 export const requestDeleteAccount = async () => {
   const response = await myAxios(
     'DELETE',
-    'api/member',
+    'api/members',
   );
 
   const data = get(response, 'data');
