@@ -122,3 +122,20 @@ export const requestDeleteAccount = async () => {
   const data = get(response, 'data');
   return { data };
 };
+
+export const requestFindPassword = async (email, name) => {
+  try {
+    const response = await myAxios(
+      'GET',
+      '/api/members/password-reset',
+      {},
+      {
+        email,
+        name,
+      },
+    );
+    console.log(response.data);
+  } catch (e) {
+    console.error(e);
+  }
+};

@@ -11,6 +11,7 @@ import UserInfoScreen from '../screens/Mypage/components/UserInfoScreen';
 import BookmarkedListScreen from '../screens/Mypage/components/BookmarkedListScreen';
 import ModifyUserPasswordScreen from '../screens/Mypage/components/ModifyUserPasswordScreen';
 import LicenseScreen from '../screens/Mypage/components/LicenseScreen';
+import FindPasswordScreen from '../screens/SignIn/FindPasswordScreen';
 
 export const screens = {
   SIGN_IN: {
@@ -90,5 +91,11 @@ export const screens = {
     component: LicenseScreen,
     option: LicenseScreen.navigationOptions,
     flow: ['MAIN'],
+  },
+  FIND_PASSWORD_SCREEN: {
+    name: 'FindPassword',
+    component: FindPasswordScreen,
+    options: FindPasswordScreen.navigationOptions,
+    flow: ['AUTH'],
   },
 };

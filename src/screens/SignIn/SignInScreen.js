@@ -20,7 +20,7 @@ const SignInScreen = ({ navigation: { navigate } }) => {
   };
 
   const onHandleFindPassword = () => {
-
+    navigate(screens.FIND_PASSWORD_SCREEN.name);
   };
 
   return (

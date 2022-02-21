@@ -1,8 +1,9 @@
 import { get } from 'lodash';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Config from 'react-native-config';
 
-axios.defaults.baseURL = 'http://13.124.219.165:8080';
+axios.defaults.baseURL = Config.REACT_APP_ROOT_URL;
 
 export const myAxios = async (method, url, requestBody, queryParams, headers) => {
   const token = await AsyncStorage.getItem('eat_what_token');
