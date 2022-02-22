@@ -54,17 +54,15 @@ const Alert = () => {
 const styles = StyleSheet.create({
   container: {
     width: '75%',
-    height: 'auto',
-    minHeight: 100,
     backgroundColor: '#ffffff',
     justifyContent: 'space-between',
     borderRadius: 24,
     overflow: 'hidden',
   },
   textContainer: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 24,
   },
   message: {
     fontSize: 16,
