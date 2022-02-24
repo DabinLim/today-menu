@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   bottomNavi: {
-    width: 40,
+    width: 60,
     height: 40,
     borderColor: '#000000',
     justifyContent: 'center',
