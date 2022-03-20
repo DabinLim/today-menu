@@ -55,7 +55,7 @@ const FindPasswordScreen = () => {
       <Button
         type="dark"
         onPress={onSubmit}
-        title="로그인"
+        title="비밀번호 찾기"
         containerStyle={{ marginTop: 50 }}
         disabled={!validate}
       />
