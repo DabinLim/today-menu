@@ -127,8 +127,8 @@ const MapView = ({
   const handleEndLoading = async () => {
     try {
       console.log('webview loaded');
-      // const latitude = 37.56076511299618;
-      // const longitude = 126.92748328492733;
+      // const latitude = 37.322214523741145;
+      // const longitude = -122.0635577203627;
       const { latitude, longitude } = await fetchCurrentLocation();
       console.log('location ready');
       // memo : 앱에서 겸색결과가 없는 경우 서대문구로 표시되는 이유

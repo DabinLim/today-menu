@@ -96,14 +96,14 @@ const RestaurantItem = ({
             {place_name}
           </Text>
           <View style={{ flexDirection: 'row' }}>
-            {map && (
+            {map ? (
               <TouchableOpacity
                 style={{ marginRight: 20 }}
                 onPress={handleOpenLink}
               >
                 <AntDesign name="link" size={24} />
               </TouchableOpacity>
-            )}
+            ) : <></>}
             <TouchableOpacity
               onPress={modifyBookmark}
             >
@@ -121,7 +121,7 @@ const RestaurantItem = ({
               {phone || '-'}
             </Text>
           </Text>
-          {distance && (
+          {distance ? (
             <Text style={styles.info}>
               {'거리 : '}
               <Text>
@@ -130,7 +130,7 @@ const RestaurantItem = ({
                 km
               </Text>
             </Text>
-          )}
+          ) : <></>}
         </View>
       </View>
     </TouchableOpacity>
